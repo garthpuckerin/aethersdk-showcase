@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CAPTURE_SPECS, assertCaptureResult, redactSensitive } from './capture-reveal.mjs';
-import { REQUIRED_ROUTES, REQUIRED_VIEWPORTS, assertLiveSweepResult } from './live-sweep.mjs';
+import { REQUIRED_ROUTES, REQUIRED_VIEWPORTS, assertLiveSweepResult, headersForDirectFetch } from './live-sweep.mjs';
 import { assertAllowedDirtyPaths, assertRevealManifest } from './write-reveal-manifest.mjs';
 
 const releaseSha = 'a'.repeat(40);
@@ -70,6 +70,14 @@ describe('reveal tooling contracts', () => {
     expect(redacted).not.toContain('C:\\Users');
     expect(redacted).not.toContain('/home/person');
     expect(redacted).toContain('[REDACTED]');
+  });
+
+  it('does not request a bypass cookie for direct crawler fetches', () => {
+    const headers = headersForDirectFetch({
+      'x-vercel-protection-bypass': 'opaque-value',
+      'x-vercel-set-bypass-cookie': 'true',
+    });
+    expect(headers).toEqual({ 'x-vercel-protection-bypass': 'opaque-value' });
   });
 
   it('requires immutable release/deployment identity and protected evidence', () => {

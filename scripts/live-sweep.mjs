@@ -59,6 +59,10 @@ function automationHeaders(url) {
   return { 'x-vercel-protection-bypass': secret, 'x-vercel-set-bypass-cookie': 'true' };
 }
 
+export function headersForDirectFetch(headers) {
+  return Object.fromEntries(Object.entries(headers).filter(([name]) => name.toLowerCase() !== 'x-vercel-set-bypass-cookie'));
+}
+
 function requireEmpty(page, field, label) {
   if (page[field]?.length) throw new Error(`${label} detected for ${page.route} at ${page.viewport}`);
 }
@@ -182,9 +186,10 @@ async function inspectPage(browser, baseUrl, route, viewport, headers, assetMap)
 }
 
 async function inspectCrawler(baseUrl, headers) {
-  const root = await fetch(baseUrl, { headers, redirect: 'follow' });
+  const directHeaders = headersForDirectFetch(headers);
+  const root = await fetch(baseUrl, { headers: directHeaders, redirect: 'follow' });
   const html = await root.text();
-  const sitemap = await fetch(new URL('/sitemap.xml', baseUrl), { headers, redirect: 'follow' });
+  const sitemap = await fetch(new URL('/sitemap.xml', baseUrl), { headers: directHeaders, redirect: 'follow' });
   const sitemapText = await sitemap.text();
   const header = root.headers.get('x-robots-tag') ?? '';
   return {
