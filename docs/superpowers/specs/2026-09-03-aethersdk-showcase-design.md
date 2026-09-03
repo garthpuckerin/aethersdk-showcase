@@ -1,7 +1,7 @@
 # AetherSDK Showcase Design
 
 **Date:** 2026-09-03  
-**Status:** Proposed for owner review  
+**Status:** Revised after architecture review; proposed for owner review
 **Reveal:** 2026-09-10  
 **Repository:** `garthpuckerin/aethersdk-showcase`  
 **Source systems:** `AetherSDK` engine repository and the exported Claude Design console
@@ -37,6 +37,56 @@ The product story is:
    effects produced by that run.
 4. Recover a failed downstream delivery through the same governed path.
 
+### Competitive benchmark
+
+The showcase should meet the interaction expectations set by four adjacent
+platforms without imitating their breadth or visual design:
+
+| Benchmark | Relevant table stakes | Aether showcase response |
+| --- | --- | --- |
+| Workato | governed integrations, connector SDK, shared operational visibility, retries, and role controls | connector inventory, validation, governed sync trace, recovery, and persona-scoped actions |
+| Boomi | process execution history, API observability, audit, roles, and webhook operations | linked run history, health, audit, delivery attempts, DLQ, and replay |
+| Merge | unified/common models, linked accounts, sync status, writes, and webhooks | canonical entities, provider identity links, connector instances, typed syncs, and delivery projections |
+| Tray.ai | connector workflows, authentication/configuration, run logs, failure diagnosis, and reruns | configuration drawer, staged trace, sanitized failure context, and idempotent target retry |
+
+These are table stakes, not claims of feature parity. Aether's distinguishing
+story is the cohesion among typed multi-domain entities, tenant/actor/request
+context, provider identity links, idempotency, audit, delivery, metering, and
+health across the same runtime—not the number of connectors or a generic
+workflow canvas.
+
+Primary benchmark references:
+
+- <https://docs.workato.com/getting-started/what-is-workato>
+- <https://www.workato.com/developers>
+- <https://developer.boomi.com/docs/APIs/GettingStarted/find_right_api>
+- <https://boomi.com/platform/api-management/>
+- <https://docs.merge.dev/merge-unified/concepts>
+- <https://docs.merge.dev/merge-unified/architecture-reference>
+- <https://tray.ai/documentation/platform/introduction/getting-started/key-concepts>
+- <https://tray.ai/documentation/platform/enterprise-core/logs-debugging/log-streaming>
+
+### Source reconciliation and signature inventory
+
+Before visual implementation, the implementation plan must create a deliberate
+source-of-truth inventory rather than treating the exported design as the
+product specification. It must compare:
+
+1. the canonical AetherSDK graph, tests, and public-safe documentation;
+2. the exported Claude Design console in
+   `Custom frontend design system.zip`;
+3. any available Connex dashboard or architecture-map artifacts, used only to
+   mine interaction and presentation ideas; and
+4. the existing portfolio reveal conventions.
+
+The inventory must map each signature Aether capability to a showcase surface
+and fixture contract: shared execution context, connector resolution,
+typed-entity codecs, canonical/provider identity links, per-target push
+outcomes, idempotent recovery, audit/webhook/DLQ/metering projections,
+readiness dependencies, and transport-neutral operation. Any artifact that
+conflicts with the canonical Aether model is adapted or rejected. Connex may
+inform presentation but must never redefine the product story.
+
 ## Public/Private Boundary
 
 The repository contains only:
@@ -70,6 +120,13 @@ transition and explain the production boundary in context.
 - SPA deep links with a Vercel rewrite.
 - `noindex` until the reveal ritual removes it.
 
+This is an independent Git repository, not a package, subtree, or copied build
+inside the portfolio monorepo. Its canonical remote is
+`github.com/garthpuckerin/aethersdk-showcase`; its canonical local checkout is
+`D:\Garth P\aethersdk-showcase`. The temporary authoring checkout may live
+elsewhere until the repository is created, but the reveal build must originate
+from the standalone remote.
+
 The repository is the canonical development home for the public Aether cockpit.
 The production `AetherSDK/admin-ui` remains the authenticated operational
 client for real services. Discoveries from the showcase become dated
@@ -84,6 +141,20 @@ The landing page explains the product in one sentence, names the cockpit/engine
 boundary, previews the two signature workflows, and offers `Launch demo`. It
 uses the same visual tokens as the cockpit and is the source for the initial OG
 and case-study composition.
+
+`Launch demo` sets a session-scoped entry flag so a fresh browser session sees
+the landing again. The first launch also opens a once-per-browser onboarding
+sequence persisted in local storage:
+
+1. boundary — what is real, illustrative, and safe to try;
+2. persona — choose Platform Admin, Operator, Auditor, or Developer;
+3. guided task — trace one seam from connector through delivery; and
+4. completion — enter the cockpit with the selected persona.
+
+Skip marks onboarding complete. `Replay onboarding` clears only the onboarding
+flag and reopens it. `Sign out / reset demo` clears the session entry flag,
+onboarding completion, selected persona, and all simulated mutations, returning
+the visitor to a pristine landing state.
 
 ### Global shell
 
@@ -217,6 +288,13 @@ The mobile landing identifies this as the companion and links to the desktop
 view. Administrative forms, raw payloads, and dense catalog tables remain
 desktop surfaces with honest labels.
 
+At widths of 767 px or less, initial boot routes to the full-bleed companion;
+there is no decorative phone bezel. `?view=desktop` is a persistent escape hatch
+for evaluators who deliberately request the workstation. The companion provides
+working routes to its landing/home and a `More` surface, and it must not render
+chevrons, cards, or rows that look actionable without navigation or a local
+state transition.
+
 ## Visual System
 
 Retain the Claude Design identity:
@@ -246,6 +324,12 @@ strong non-ambiguous state. Motion is short, purposeful, and disabled under
 - Status is never communicated through color alone.
 - Text and controls meet WCAG 2.1 AA contrast in every theme.
 - Reduced-motion users receive no pulsing or sliding dependency.
+- The app produces no cumulative layout shift during font, route, chart, or
+  loading-state transitions and no body-level horizontal overflow at supported
+  viewports.
+- All charts use the same interactive chart primitives, keyboard-accessible
+  data points, and consistent hover/focus detail. Percentage charts expose both
+  the percentage and its underlying numerator/denominator.
 
 ## Production-State Completeness
 
@@ -292,13 +376,42 @@ can reach these states without corrupting the canonical fixture graph.
 - Public-safety scan for secrets, private engine paths, internal identities,
   unrevealed sibling names, and misleading production claims.
 
+Every sweep emits a dated text or JSON summary under
+`artifacts/reveal/2026-09-10/`, including viewport, route, result, console
+status, network status, and capture paths. Artifacts must contain no secrets or
+machine-specific private paths.
+
 ### Reveal artifacts
 
 - Standalone private GitHub repository before T-2.
-- Vercel project serving the repository with `noindex` until reveal.
+- Git-integrated Vercel project whose production deployment originates only
+  from the standalone repository, serving `noindex, nofollow` until reveal.
 - Full-width desktop source captures downscaled to preview, OG, and teaser.
 - README and architecture document explaining real versus illustrative behavior.
 - Reveal metadata and case-study copy aligned with the landing and cockpit.
+
+Public timeline and engineering claims in the README, landing, case study, and
+reveal copy must be derived from dated Git history or explicitly labeled as
+illustrative. They may not be reconstructed from memory.
+
+### Reveal ritual
+
+- **T-2:** create the private standalone remote and Git-integrated Vercel
+  project; verify preview and production-domain ownership while preserving
+  `noindex, nofollow` and excluding the project from the public portfolio.
+- **T-1:** run a fresh-session live rehearsal from the production URL; perform
+  desktop/mobile/viewport, crawler-spoiler, metadata, sitemap, asset-byte,
+  console, network, and public-safety sweeps; record all results and regenerate
+  captures from that exact deployment.
+- **T-0 morning:** deploy the release commit, repeat the live sweeps and byte
+  verification, and confirm the portfolio contains no premature nav, card,
+  sitemap, feed, structured-data, or chat-knowledge references.
+- **T-0 reveal:** intentionally make the repository/site public as approved,
+  remove `noindex, nofollow`, add the portfolio case-study/nav/metadata/sitemap
+  surfaces, update any public chat knowledge base, deploy both repositories,
+  and repeat the post-deploy live sweeps before publishing social links.
+- **After reveal:** keep the release commit and sweep artifact manifest pinned
+  in the README so later deployments cannot silently rewrite the evidence.
 
 ## Explicit Non-Goals for the Reveal
 
@@ -338,6 +451,11 @@ The showcase is reveal-ready only when:
 - loading, empty, error, and denied states are reachable and designed;
 - desktop and mobile experiences pass their respective sweeps;
 - accessibility and console checks are clean;
+- supported routes have no cumulative layout shift or body horizontal overflow;
+- chart interactions and underlying values are consistent across surfaces;
 - the repository contains no production engine code, secrets, or misleading
   claims; and
-- the standalone build passes independently of the portfolio monorepo.
+- the standalone build passes independently of the portfolio monorepo;
+- the deployed release originates from the standalone repository and passes
+  the recorded fresh-session reveal ritual; and
+- every public historical claim is traceable to Git evidence.
