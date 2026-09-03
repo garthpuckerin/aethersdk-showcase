@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("/fonts/HankenGrotesk-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --color-canvas: #f4f4ef;
+  --color-surface: #ffffff;
+  --color-surface-muted: #eceee7;
+  --color-panel: #151713;
+  --color-ink: #131512;
+  --color-ink-muted: #687064;
+  --color-ink-inverse: #f7f8f2;
+  --color-accent: #c7f43d;
+  --color-accent-strong: #a8d91f;
+  --color-positive: #16794f;
+  --color-positive-soft: #e1f5eb;
+  --color-warning: #9a6700;
+  --color-warning-soft: #fff1c2;
+  --color-danger: #b42318;
+  --color-danger-soft: #fee4e2;
+  --color-info: #2563a9;
+  --color-info-soft: #e4effd;
+  --color-border: #dfe2da;
+  --color-overlay: rgba(10, 12, 9, 0.48);
+  --font-sans: "Hanken Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --radius-sm: 0.45rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.1rem;
+  --shadow-float: 0 1.5rem 4rem rgba(17, 20, 15, 0.18);
+  --duration-fast: 140ms;
+  --shell-sidebar: 15rem;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-canvas: #0e100d;
+  --color-surface: #171a15;
+  --color-surface-muted: #20251d;
+  --color-panel: #080a07;
+  --color-ink: #f3f5ed;
+  --color-ink-muted: #aab1a5;
+  --color-border: #343a31;
+  --color-overlay: rgba(0, 0, 0, 0.72);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
