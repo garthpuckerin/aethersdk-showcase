@@ -534,7 +534,7 @@ git commit -m "feat: add coherent Aether fixture graph"
 - Test: `src/demo/reducer.test.js`
 - Test: `src/demo/DemoProvider.test.jsx`
 
-- [ ] **Step 1: Write one failing identity-continuous workflow test**
+- [x] **Step 1: Write one failing identity-continuous workflow test**
 
 Cover connector validation, run creation, staged progression, one failed target,
 failed-target-only retry, stable idempotency key, no duplicate provider link,
@@ -548,13 +548,13 @@ requestId → runId → eventId → deliveryId → deadLetterId
 eventId + subscriptionId → stable payloadId across every attempt and replay
 ```
 
-- [ ] **Step 2: Write focused permission and idempotency edge-case tests**
+- [x] **Step 2: Write focused permission and idempotency edge-case tests**
 
 Cover unauthorized retry/replay, duplicate reducer dispatches, reset during a
 timer, and replay of an already-resolved dead letter. No reducer action may
 fork a second copy of the signature chain.
 
-- [ ] **Step 3: Run and confirm failures**
+- [x] **Step 3: Run and confirm failures**
 
 ```powershell
 npm run test:run -- src/demo/reducer.test.js src/demo/DemoProvider.test.jsx
@@ -562,7 +562,7 @@ npm run test:run -- src/demo/reducer.test.js src/demo/DemoProvider.test.jsx
 
 Expected: FAIL because actions/provider do not exist.
 
-- [ ] **Step 4: Implement deterministic reducer actions**
+- [x] **Step 4: Implement deterministic reducer actions**
 
 Supported actions:
 
@@ -587,7 +587,7 @@ linked delivery for that exact run/audit event; attempt exhaustion creates its
 DLQ record. Timer-driven progression belongs in a provider effect that
 dispatches explicit reducer actions and cleans up on route/reset.
 
-- [ ] **Step 5: Pass reducer/provider tests and re-run integrity after mutations**
+- [x] **Step 5: Pass reducer/provider tests and re-run integrity after mutations**
 
 ```powershell
 npm run test:run -- src/demo/reducer.test.js src/demo/DemoProvider.test.jsx src/demo/integrity.test.js src/demo/selectors.test.js
@@ -595,7 +595,7 @@ npm run test:run -- src/demo/reducer.test.js src/demo/DemoProvider.test.jsx src/
 
 Expected: PASS before and after both workflows.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```powershell
 git add src/demo

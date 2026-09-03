@@ -62,7 +62,7 @@ export function createSeedState() {
     { id: 'provider_jira_ticket', name: 'Jira', domain: 'corporate', entityType: 'corporate.ticket' },
     { id: 'provider_canvas_enrollment', name: 'Canvas', domain: 'learning', entityType: 'learning.enrollment' },
     { id: 'provider_notion_page', name: 'Notion', domain: 'media', entityType: 'media.document' },
-    { id: 'provider_stripe_customer', name: 'Stripe', domain: 'crm', entityType: 'crm.organization' },
+    { id: 'provider_pipedrive_contact', name: 'Pipedrive', domain: 'crm', entityType: 'crm.contact' },
   ];
   const connectors = [
     { id: 'con_salesforce', tenantId: NORTHSTAR, providerDefinitionId: 'provider_salesforce_contact', name: 'Salesforce CRM', status: 'healthy', direction: 'bidirectional', credentialState: 'reference_valid', validatedAt: minutesBeforeAnchor(18) },
@@ -72,7 +72,7 @@ export function createSeedState() {
     { id: 'con_jira', tenantId: NORTHSTAR, providerDefinitionId: 'provider_jira_ticket', name: 'Jira Service', status: 'running', direction: 'bidirectional', credentialState: 'reference_valid', validatedAt: minutesBeforeAnchor(34) },
     { id: 'con_canvas', tenantId: NORTHSTAR, providerDefinitionId: 'provider_canvas_enrollment', name: 'Canvas Learning', status: 'healthy', direction: 'bidirectional', credentialState: 'reference_valid', validatedAt: minutesBeforeAnchor(80) },
     { id: 'con_notion', tenantId: NORTHSTAR, providerDefinitionId: 'provider_notion_page', name: 'Notion Knowledge', status: 'healthy', direction: 'outbound', credentialState: 'reference_valid', validatedAt: minutesBeforeAnchor(160) },
-    { id: 'con_stripe', tenantId: NORTHSTAR, providerDefinitionId: 'provider_stripe_customer', name: 'Stripe Accounts', status: 'inactive', direction: 'inbound', credentialState: 'reference_expired', validatedAt: minutesBeforeAnchor(1_400) },
+    { id: 'con_pipedrive', tenantId: NORTHSTAR, providerDefinitionId: 'provider_pipedrive_contact', name: 'Pipedrive CRM', status: 'inactive', direction: 'outbound', credentialState: 'reference_expired', validatedAt: minutesBeforeAnchor(1_400) },
     { id: 'con_other', tenantId: 'tenant_other', providerDefinitionId: 'provider_hubspot_contact', name: 'Other Tenant CRM', status: 'healthy', direction: 'inbound', credentialState: 'reference_valid', validatedAt: minutesBeforeAnchor(12) },
   ];
   const canonicalEntities = [
