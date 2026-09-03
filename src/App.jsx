@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './app/routes';
 import { DemoProvider } from './demo/DemoProvider';
 import { useDemo } from './demo/context';
 import { ACTIONS } from './demo/reducer';
+import { createSeedState } from './demo/seed';
 import {
   completeOnboarding,
   hasEnteredDemo,
@@ -66,24 +67,15 @@ function Experience() {
 }
 
 export default function App() {
-  const preferences = loadPreferences();
-  const initialState = undefined;
+  const [initialState] = useState(() => {
+    const preferences = loadPreferences();
+    return { ...createSeedState(), activePersonaId: preferences.persona, theme: preferences.theme, density: preferences.density };
+  });
   return (
     <DemoProvider initialState={initialState}>
       <BrowserRouter>
-        <PreferenceBridge preferences={preferences} />
         <Experience />
       </BrowserRouter>
     </DemoProvider>
   );
-}
-
-function PreferenceBridge({ preferences }) {
-  const { state, dispatch } = useDemo();
-  useEffect(() => {
-    if (state.activePersonaId !== preferences.persona) dispatch({ type: ACTIONS.SET_PERSONA, personaId: preferences.persona });
-    if (state.theme !== preferences.theme) dispatch({ type: ACTIONS.SET_THEME, theme: preferences.theme });
-    if (state.density !== preferences.density) dispatch({ type: ACTIONS.SET_DENSITY, density: preferences.density });
-  }, [dispatch, preferences, state.activePersonaId, state.density, state.theme]);
-  return null;
 }

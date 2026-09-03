@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { IconButton } from './ui';
 
 const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -44,7 +45,7 @@ export default function Dialog({ open, onClose, title, children, returnFocusRef,
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <div className="overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
       <section
         ref={panelRef}
@@ -59,6 +60,7 @@ export default function Dialog({ open, onClose, title, children, returnFocusRef,
         </header>
         <div className="dialog__body">{children}</div>
       </section>
-    </div>
+    </div>,
+    document.body,
   );
 }

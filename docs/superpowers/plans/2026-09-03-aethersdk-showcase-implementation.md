@@ -908,7 +908,7 @@ git commit -m "feat: add Aether mobile operations companion"
 - Create: `src/quality-contracts.test.js`
 - Modify: `package.json`
 
-- [ ] **Step 1: Write failing Playwright journeys**
+- [x] **Step 1: Write failing Playwright journeys**
 
 Cover fresh landing/onboarding, role switch/denied links, command palette, SPA
 deep link reload, theme/density persistence, mobile auto-routing/desktop escape,
@@ -923,13 +923,13 @@ The journey asserts the displayed `requestId`, `runId`, `eventId`, `deliveryId`,
 and payload/subscription identities at every hop, proving the two signature
 workflows are one chain rather than two seeded demos.
 
-- [ ] **Step 2: Add a no-runtime-network assertion**
+- [x] **Step 2: Add a no-runtime-network assertion**
 
 Fail if the app requests any origin other than its own document and static
 assets, including font CDNs, analytics, telemetry, APIs, and image hosts. Fail
 on console errors, warnings, page errors, failed responses, and missing assets.
 
-- [ ] **Step 3: Add executable quality-contract gates**
+- [x] **Step 3: Add executable quality-contract gates**
 
 `verify-derived-data.mjs` must import the built fixture/integrity contract and
 fail on referential or cross-foot errors. `quality-contracts.test.js` must fail
@@ -938,7 +938,7 @@ feature-level colors outside token files, absent font licenses, broken
 focus-return/Escape behavior, missing mock-boundary routes, or an invalid dated
 sweep-output schema.
 
-- [ ] **Step 4: Add tiered public-safety scanning**
+- [x] **Step 4: Add tiered public-safety scanning**
 
 The private repository may retain authoring-only plan/spec paths and source
 names because the repository remains private. Scan **all tracked files** for
@@ -949,7 +949,7 @@ unrevealed sibling names, and misleading production claims. Authoring docs are
 never copied into `dist`; repository publication remains a separately
 authorized operation requiring a fresh history/public-safety decision.
 
-- [ ] **Step 5: Run the suites and fix behavior, not tests**
+- [x] **Step 5: Run the suites and fix behavior, not tests**
 
 ```powershell
 npx playwright install chromium
@@ -961,7 +961,7 @@ npm run safety
 
 Expected: all projects pass; zero console/network failures; safety scan exits 0.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```powershell
 git add e2e scripts src/quality-contracts.test.js package.json package-lock.json

@@ -1,4 +1,4 @@
-import { DEMO_ANCHOR_ISO, minutesBeforeAnchor } from './clock';
+import { DEMO_ANCHOR_ISO, minutesBeforeAnchor } from './clock.js';
 
 const NORTHSTAR = 'tenant_northstar';
 

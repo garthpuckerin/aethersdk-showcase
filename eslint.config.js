@@ -7,7 +7,7 @@ export default [
   { ignores: ['dist', 'coverage', 'playwright-report', 'test-results', 'artifacts'] },
   js.configs.recommended,
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx,mjs}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
