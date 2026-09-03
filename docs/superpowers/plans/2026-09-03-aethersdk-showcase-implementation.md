@@ -978,15 +978,15 @@ git commit -m "test: prove cohesive showcase journeys"
 - Create: `docs/REVEAL_RUNBOOK.md`
 - Test: `src/docs.test.js`
 
-- [ ] **Step 1: Write failing documentation contract tests**
+- [x] **Step 1: Write failing documentation contract tests**
 
 Assert README contains mock boundary, local commands, private-phase status, signature workflows, architecture link, and no unverified production claims. Assert architecture maps every screen to fixture selectors/actions.
 
-- [ ] **Step 2: Write the real-versus-illustrative architecture**
+- [x] **Step 2: Write the real-versus-illustrative architecture**
 
 Document canonical Aether concepts supported by code evidence, showcase-only fixture behavior, state/projection flow, persona scoping, mobile split, and public-safety model.
 
-- [ ] **Step 3: Write demo-driven production deltas**
+- [x] **Step 3: Write demo-driven production deltas**
 
 Use four sections:
 
@@ -999,11 +999,11 @@ Use four sections:
 
 Do not edit production AetherSDK from this task.
 
-- [ ] **Step 4: Verify Git-grounded claims**
+- [x] **Step 4: Verify Git-grounded claims**
 
 For every public timeline/engineering claim, add a Git commit/tag/date citation or label it illustrative. Remove claims that cannot be proven.
 
-- [ ] **Step 5: Write reveal copy and the authorization-gated runbook**
+- [x] **Step 5: Write reveal copy and the authorization-gated runbook**
 
 `REVEAL_COPY.md` contains aligned title, description, case-study summary, OG
 alt text, teaser, and portfolio card copy. `REVEAL_RUNBOOK.md` contains exact
@@ -1014,7 +1014,7 @@ state that only the site becomes public; the GitHub repository remains private.
 Removing robots protections or modifying the portfolio requires explicit owner
 authorization at execution time.
 
-- [ ] **Step 6: Run docs test and commit**
+- [x] **Step 6: Run docs test and commit**
 
 ```powershell
 npm run test:run -- src/docs.test.js
