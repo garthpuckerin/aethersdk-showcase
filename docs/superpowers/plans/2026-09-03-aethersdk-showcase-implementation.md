@@ -469,7 +469,7 @@ git commit -m "feat: add showcase design system primitives"
 - Test: `src/demo/integrity.test.js`
 - Test: `src/demo/selectors.test.js`
 
-- [ ] **Step 1: Write failing fixture integrity tests**
+- [x] **Step 1: Write failing fixture integrity tests**
 
 Assert unique IDs, valid foreign keys, tenant isolation, run-to-connector links, entity/provider links, audit resources, delivery/event/subscription links, DLQ/delivery agreement, metering sources, and readiness dependencies.
 
@@ -480,11 +480,11 @@ const result = validateFixtureGraph(seedState);
 expect(result).toEqual({ valid: true, errors: [] });
 ```
 
-- [ ] **Step 2: Write failing cross-foot selector tests**
+- [x] **Step 2: Write failing cross-foot selector tests**
 
 Assert that overview totals equal filtered records, failed outcomes equal displayed failures, usage equals metering events, role-scoped counts use the permission policy, and every KPI drill-down returns its contributing IDs.
 
-- [ ] **Step 3: Run and confirm failures**
+- [x] **Step 3: Run and confirm failures**
 
 ```powershell
 npm run test:run -- src/demo/integrity.test.js src/demo/selectors.test.js
@@ -492,13 +492,13 @@ npm run test:run -- src/demo/integrity.test.js src/demo/selectors.test.js
 
 Expected: FAIL because the fixture graph and selectors do not exist.
 
-- [ ] **Step 4: Implement normalized seed state**
+- [x] **Step 4: Implement normalized seed state**
 
 Use keyed maps plus stable ordered ID lists. Include at least two tenants internally, but expose only fictional `Northstar Labs` in normal demo flows. Include four personas, six provider definitions, eight connector instances, typed CRM/learning/media/corporate entities, linked provider identities, 20–30 historical runs, audit events, subscriptions, attempts, one historical DLQ item, metering events, and dependencies. Reserve deterministic IDs for the live signature chain; do not pre-seed its run, audit event, delivery, or DLQ record.
 
 Do not store precomputed dashboard totals in fixtures.
 
-- [ ] **Step 5: Implement the anchor-relative clock and selectors**
+- [x] **Step 5: Implement the anchor-relative clock and selectors**
 
 All relative time derives from one fixed demo anchor and all metrics return both value and record IDs:
 
@@ -511,7 +511,7 @@ export function selectFailedRunMetric(state, scope) {
 }
 ```
 
-- [ ] **Step 6: Pass integrity and selector tests**
+- [x] **Step 6: Pass integrity and selector tests**
 
 ```powershell
 npm run test:run -- src/demo/integrity.test.js src/demo/selectors.test.js
@@ -519,7 +519,7 @@ npm run test:run -- src/demo/integrity.test.js src/demo/selectors.test.js
 
 Expected: PASS with no orphan or cross-foot errors.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```powershell
 git add src/demo src/test/fixture-builders.js
