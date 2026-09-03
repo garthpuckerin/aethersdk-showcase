@@ -1,8 +1,10 @@
 import PlaceholderPage from './PlaceholderPage';
+import IntegrationsPage from '../features/integrations/IntegrationsPage';
+import OverviewPage from '../features/overview/OverviewPage';
 
 export const ROUTES = [
-  { path: '/app/overview', routePath: 'overview', label: 'Overview', group: 'Observe', icon: '⌁', permission: 'overview:view', component: PlaceholderPage },
-  { path: '/app/integrations', routePath: 'integrations', label: 'Integrations', group: 'Operate', icon: '◫', permission: 'integration:view', component: PlaceholderPage },
+  { path: '/app/overview', routePath: 'overview', label: 'Overview', group: 'Observe', icon: '⌁', permission: 'overview:view', component: OverviewPage },
+  { path: '/app/integrations', routePath: 'integrations', label: 'Integrations', group: 'Operate', icon: '◫', permission: 'integration:view', component: IntegrationsPage },
   { path: '/app/runs', routePath: 'runs', label: 'Sync runs', group: 'Operate', icon: '↯', permission: 'sync:view', component: PlaceholderPage },
   { path: '/app/runs/:runId', routePath: 'runs/:runId', label: 'Run detail', group: 'Operate', icon: '↯', permission: 'sync:view', component: PlaceholderPage, nav: false },
   { path: '/app/webhooks', routePath: 'webhooks', label: 'Webhooks', group: 'Operate', icon: '⌁', permission: 'webhook:view', component: PlaceholderPage },

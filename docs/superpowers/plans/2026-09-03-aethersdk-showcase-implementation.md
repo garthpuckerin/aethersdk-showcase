@@ -701,23 +701,23 @@ git commit -m "feat: add role-aware showcase shell"
 - Test: `src/features/overview/OverviewPage.test.jsx`
 - Test: `src/features/integrations/IntegrationsPage.test.jsx`
 
-- [ ] **Step 1: Write failing projection and chart tests**
+- [x] **Step 1: Write failing projection and chart tests**
 
 Assert KPI values/record IDs, chart keyboard navigation, percentage numerator/denominator, filter results, connector health/last-run consistency, and KPI drill-down to contributing records.
 
-- [ ] **Step 2: Write failing connector-validation test**
+- [x] **Step 2: Write failing connector-validation test**
 
 Opening a connector must show provider, type, credential-reference state, supported entity types, direction, validation, and recent runs. Validation must dispatch the shared reducer action and update Overview through selectors.
 
-- [ ] **Step 3: Implement Overview with one narrative**
+- [x] **Step 3: Implement Overview with one narrative**
 
 Use a primary operational-health story, a throughput/history chart, actionable connector/run exceptions, usage, and recent shared activity. Avoid a grid of unrelated decorative KPIs.
 
-- [ ] **Step 4: Implement Integrations and connector drawer**
+- [x] **Step 4: Implement Integrations and connector drawer**
 
 Use the shared `DataTable`, `Drawer`, `StatusBadge`, and selector drill-down contract. No provider card is a dead affordance.
 
-- [ ] **Step 5: Run tests**
+- [x] **Step 5: Run tests**
 
 ```powershell
 npm run test:run -- src/components/charts.test.jsx src/features/overview/OverviewPage.test.jsx src/features/integrations/IntegrationsPage.test.jsx
@@ -725,7 +725,7 @@ npm run test:run -- src/components/charts.test.jsx src/features/overview/Overvie
 
 Expected: PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```powershell
 git add src/components/DataTable.jsx src/components/charts.jsx src/features/overview src/features/integrations
