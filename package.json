@@ -20,7 +20,8 @@
     "capture": "node scripts/capture-reveal.mjs",
     "sweep:live": "node scripts/live-sweep.mjs",
     "manifest": "node scripts/write-reveal-manifest.mjs",
-    "verify": "npm run lint && npm run test:run && npm run verify:data && npm run build && npm run safety"
+    "verify": "npm run lint && npm run test:run && npm run verify:data && npm run build && npm run safety",
+    "verify:release": "npm run verify && npm run test:e2e && npm audit --audit-level=high && git diff --check"
   },
   "dependencies": {
     "react": "18.3.1",
