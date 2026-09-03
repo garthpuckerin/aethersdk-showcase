@@ -31,6 +31,19 @@ owner voided that the same day. What applies:
 - **Captures:** LIGHT theme (owner prefers the Claude Design canvas language);
   full-width 1968px source → preview/OG/teaser via a clone of
   `garthpuckerin.dev/scripts/capture-ops-preview.mjs`, from the live deploy.
+- **Featured integrations (owner, 2026-09-03):** rewrite the fixture graph to
+  the credit-union use case that led to this build — **UKG, Xperience, Docebo,
+  LinkedIn Learning, Axonify** (+ Tableau, + 2–3 secondary connectors for
+  breadth), fictional credit-union tenant. Two honest entity flows, matching
+  the engine's same-entity fan-out design (`SyncService.sync_many`,
+  `corporate.employee.v1` / `learning.course.v1`): (1) people out — UKG →
+  canonical employee → Docebo + LinkedIn Learning + Axonify provisioning, one
+  target fails, retry only it; plus a seeded termination/deactivation run;
+  (2) learning in — LMS completion → canonical course entry → audit →
+  webhook → DLQ → replay. Developer persona scoped to Docebo + LinkedIn
+  Learning. Confirm the "Xperience" spelling with the owner before it appears
+  in public text (the Connex-era docs say "Experience"). Full detail: the §9
+  brief.
 - **Depth:** T-5 depth pass using the Claude Design canvas as the breadth
   source (catalog, hour drill-down, dense layout, typed audit, Roles/SCIM,
   create/invite/add modals) while preserving the reducer/selector contract.
