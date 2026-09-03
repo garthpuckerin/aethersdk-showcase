@@ -826,19 +826,19 @@ git commit -m "feat: connect audit delivery and dead-letter recovery"
 - Test: `src/features/settings/SettingsPage.test.jsx`
 - Test: `src/app/scenarios.test.jsx`
 
-- [ ] **Step 1: Write failing supporting-screen tests**
+- [x] **Step 1: Write failing supporting-screen tests**
 
 Assert role/member/service-actor/SCIM presentation, runtime identity and actual simulated dependency set, usage/plan derivation, and explicit simulation messages for billing/destructive controls.
 
-- [ ] **Step 2: Write failing scenario matrix tests**
+- [x] **Step 2: Write failing scenario matrix tests**
 
 For each data surface, exercise loading, empty, sanitized error/retry, and permission denied where applicable. Assert controls remain keyboard reachable and scenarios reset cleanly.
 
-- [ ] **Step 3: Implement supporting screens as projections**
+- [x] **Step 3: Implement supporting screens as projections**
 
 These screens may be shallower than the two signature workflows, but every visible affordance must navigate, mutate local state, or explain its mock boundary. Do not create a second data model for members, dependencies, or usage.
 
-- [ ] **Step 4: Run tests**
+- [x] **Step 4: Run tests**
 
 ```powershell
 npm run test:run -- src/features/access src/features/health src/features/settings src/app/scenarios.test.jsx
@@ -846,7 +846,7 @@ npm run test:run -- src/features/access src/features/health src/features/setting
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```powershell
 git add src/features/access src/features/health src/features/settings src/app/scenarios.test.jsx

@@ -1,9 +1,11 @@
-import PlaceholderPage from './PlaceholderPage';
+import AccessPage from '../features/access/AccessPage';
 import AuditPage from '../features/audit/AuditPage';
+import HealthPage from '../features/health/HealthPage';
 import IntegrationsPage from '../features/integrations/IntegrationsPage';
 import OverviewPage from '../features/overview/OverviewPage';
 import RunDetailPage from '../features/runs/RunDetailPage';
 import RunsPage from '../features/runs/RunsPage';
+import SettingsPage from '../features/settings/SettingsPage';
 import WebhooksPage from '../features/webhooks/WebhooksPage';
 
 export const ROUTES = [
@@ -13,7 +15,7 @@ export const ROUTES = [
   { path: '/app/runs/:runId', routePath: 'runs/:runId', label: 'Run detail', group: 'Operate', icon: '↯', permission: 'sync:view', component: RunDetailPage, nav: false },
   { path: '/app/webhooks', routePath: 'webhooks', label: 'Webhooks', group: 'Operate', icon: '⌁', permission: 'webhook:view', component: WebhooksPage },
   { path: '/app/audit', routePath: 'audit', label: 'Audit', group: 'Govern', icon: '◎', permission: 'audit:view', component: AuditPage },
-  { path: '/app/access', routePath: 'access', label: 'Access', group: 'Govern', icon: '◇', permission: 'access:view', component: PlaceholderPage },
-  { path: '/app/health', routePath: 'health', label: 'Health', group: 'System', icon: '＋', permission: 'health:view', component: PlaceholderPage },
-  { path: '/app/settings', routePath: 'settings', label: 'Settings', group: 'System', icon: '∙', permission: 'settings:view', component: PlaceholderPage },
+  { path: '/app/access', routePath: 'access', label: 'Access', group: 'Govern', icon: '◇', permission: 'access:view', component: AccessPage },
+  { path: '/app/health', routePath: 'health', label: 'Health', group: 'System', icon: '＋', permission: 'health:view', component: HealthPage },
+  { path: '/app/settings', routePath: 'settings', label: 'Settings', group: 'System', icon: '∙', permission: 'settings:view', component: SettingsPage },
 ];
