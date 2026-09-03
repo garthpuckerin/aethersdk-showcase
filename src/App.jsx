@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Button } from './components/ui';
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from './app/routes';
 import { DemoProvider } from './demo/DemoProvider';
 import { useDemo } from './demo/context';
 import { ACTIONS } from './demo/reducer';
@@ -17,7 +18,7 @@ import LandingPage from './features/landing/LandingPage';
 import OnboardingDialog from './features/onboarding/OnboardingDialog';
 
 function Experience() {
-  const { state, dispatch } = useDemo();
+  const { dispatch } = useDemo();
   const [entered, setEntered] = useState(() => hasEnteredDemo());
   const [onboardingOpen, setOnboardingOpen] = useState(false);
 
@@ -53,12 +54,7 @@ function Experience() {
 
   return (
     <>
-      <main className="cockpit-placeholder">
-        <p>Portfolio demo · mock data</p>
-        <h1>AetherSDK cockpit</h1>
-        <p>Signed in as {state.activePersonaId}. The operational shell is the next implementation slice.</p>
-        <div><Button onClick={replay}>Replay onboarding</Button> <Button variant="ghost" onClick={reset}>Sign out / reset demo</Button></div>
-      </main>
+      <AppRoutes onReplayOnboarding={replay} onReset={reset} />
       <OnboardingDialog
         open={onboardingOpen}
         onComplete={finishOnboarding}
@@ -74,8 +70,10 @@ export default function App() {
   const initialState = undefined;
   return (
     <DemoProvider initialState={initialState}>
-      <PreferenceBridge preferences={preferences} />
-      <Experience />
+      <BrowserRouter>
+        <PreferenceBridge preferences={preferences} />
+        <Experience />
+      </BrowserRouter>
     </DemoProvider>
   );
 }

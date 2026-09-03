@@ -654,25 +654,27 @@ git commit -m "feat: add honest landing and guided onboarding"
 
 **Files:**
 - Create: `src/app/routes.jsx`
+- Create: `src/app/routeRegistry.js`
+- Create: `src/app/PlaceholderPage.jsx`
 - Create: `src/app/AppShell.jsx`
 - Create: `src/app/CommandPalette.jsx`
 - Create: `src/app/DemoControl.jsx`
 - Modify: `src/App.jsx`
 - Test: `src/app/AppShell.test.jsx`
 
-- [ ] **Step 1: Write failing shell/navigation and denied-route tests**
+- [x] **Step 1: Write failing shell/navigation and denied-route tests**
 
 Assert active navigation, grouped navigation, tenant/environment/mock labels, theme/density/persona controls, command search, unknown-route handling, and a designed permission notice naming the missing permission.
 
-- [ ] **Step 2: Implement route metadata over the existing access policy**
+- [x] **Step 2: Implement route metadata over the existing access policy**
 
 Every route declares label, group, icon key, permission, desktop component, and optional mobile component. Sidebar and command palette consume the same metadata.
 
-- [ ] **Step 3: Implement shell and controls**
+- [x] **Step 3: Implement shell and controls**
 
 Persona changes navigation, visible records, KPIs, and actions. Demo scenarios set deterministic loading/empty/error/denied fixture overlays without forking the canonical graph.
 
-- [ ] **Step 4: Run focused and existing tests**
+- [x] **Step 4: Run focused and existing tests**
 
 ```powershell
 npm run test:run -- src/access/policy.test.js src/app/AppShell.test.jsx
@@ -680,7 +682,7 @@ npm run test:run -- src/access/policy.test.js src/app/AppShell.test.jsx
 
 Expected: PASS with no duplicated route registry.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```powershell
 git add src/app src/App.jsx
