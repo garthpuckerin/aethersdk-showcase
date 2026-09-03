@@ -782,11 +782,11 @@ git commit -m "feat: add governed sync trace and recovery"
 - Test: `src/features/audit/AuditPage.test.jsx`
 - Test: `src/features/webhooks/WebhooksPage.test.jsx`
 
-- [ ] **Step 1: Write failing linked-audit tests**
+- [x] **Step 1: Write failing linked-audit tests**
 
 Test actor/action/resource/request filters, stable resource deep links, read-only semantics, and shared run/connector/delivery identifiers.
 
-- [ ] **Step 2: Write failing recovery-workflow test**
+- [x] **Step 2: Write failing recovery-workflow test**
 
 Start from the run created by the governed-sync workflow, navigate its generated
 audit event → generated delivery attempts → generated DLQ item, then replay as
@@ -796,11 +796,11 @@ and metering/overview/health updates. Assert Auditor cannot replay and receives
 the designed permission message. A seeded historical DLQ item is insufficient
 for this test.
 
-- [ ] **Step 3: Implement Audit and Webhooks**
+- [x] **Step 3: Implement Audit and Webhooks**
 
 Show write-only-secret explanation without any usable secret, signed-delivery metadata without signature material, sanitized retry history, and clear simulation feedback.
 
-- [ ] **Step 4: Run tests**
+- [x] **Step 4: Run tests**
 
 ```powershell
 npm run test:run -- src/features/audit/AuditPage.test.jsx src/features/webhooks/WebhooksPage.test.jsx src/demo/reducer.test.js
@@ -808,7 +808,7 @@ npm run test:run -- src/features/audit/AuditPage.test.jsx src/features/webhooks/
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```powershell
 git add src/features/audit src/features/webhooks

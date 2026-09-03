@@ -60,7 +60,7 @@ describe('AppShell', () => {
     await user.click(screen.getByRole('button', { name: /search and commands/i }));
     await user.type(screen.getByRole('searchbox'), 'webhooks');
     await user.click(screen.getByRole('option', { name: /webhooks/i }));
-    expect(screen.getByRole('heading', { name: 'Webhooks' })).toBeVisible();
+    expect(screen.getByRole('heading', { name: 'Webhooks & recovery' })).toBeVisible();
   });
 
   it('changes persona, theme, and density through demo controls', async () => {
