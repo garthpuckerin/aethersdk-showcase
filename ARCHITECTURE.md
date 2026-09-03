@@ -92,7 +92,7 @@ warnings, failed responses, or missing assets. A repository-wide scan checks
 secrets and production endpoints. A second public-surface scan rejects personal
 paths, unrevealed sibling names, and misleading claims in deployable content.
 
-Private authoring evidence may retain local source paths because it is excluded
-from `dist` and the repository remains private. Public release still requires a
-protected live sweep, immutable release/deployment identity match, crawler
-checks, owner authorization, and a new sweep of the public deployment.
+Authoring evidence may reference local source paths only until the T-2
+history-level review, because the repository flips public on reveal day (house
+SOP). Reveal still requires the live sweeps against the production URL, crawler
+checks, and a post-reveal sweep of the public deployment.

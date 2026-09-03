@@ -9,9 +9,10 @@ payload is fictional and local. The app performs no runtime API, analytics,
 telemetry, font-CDN, or image-host requests. It is an illustrative interface,
 not a production control plane and not the production AetherSDK repository.
 
-The source repository and candidate deployment are in a private, crawler-blocked
-phase. Publishing the site or changing the repository visibility is a separate
-owner-authorized release action.
+Reveal-season status: the repository is private until the reveal (Thu Sep 10
+2026, noon ET), when it flips public and becomes the canonical development home
+for this cockpit, per the house showcase SOP (see `HANDOFF.md`). The live demo
+serves behind a permanent `noindex` at `garthpuckerin-aethersdk.vercel.app`.
 
 ## Signature workflows
 
@@ -73,13 +74,12 @@ SPA reloads, persistence, same-origin behavior, and a clean browser console.
 - `scripts`: fixture, safety, capture, live-sweep, and reveal-manifest gates.
 - `docs/SOURCE_RECONCILIATION.md`: private authoring evidence behind terminology
   and scope decisions.
-- `docs/REVEAL_RUNBOOK.md`: authorization-gated private rehearsal and release
-  procedure.
+- `docs/REVEAL_RUNBOOK.md`: the repo-local rehearsal/verification tooling; the
+  reveal ritual itself is the house one (`HANDOFF.md`).
 
 ## Publication boundary
 
 The build contains only static assets and fictional fixtures. Authoring specs,
 plans, and source-reconciliation notes are not copied into `dist`. The GitHub
-repository remains private during and after a site reveal unless the owner
-separately authorizes repository publication and a fresh history-level safety
-review passes.
+repository is private until reveal day and public afterwards (house SOP); the
+public-safety scan plus a history-level review run at T-2 so that flip is safe.

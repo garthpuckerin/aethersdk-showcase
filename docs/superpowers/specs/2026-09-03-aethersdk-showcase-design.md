@@ -123,9 +123,10 @@ transition and explain the production boundary in context.
 
 This is an independent Git repository, not a package, subtree, or copied build
 inside the portfolio monorepo. Its canonical remote is
-`github.com/garthpuckerin/aethersdk-showcase`; the remote remains private before,
-during, and after the reveal unless the owner separately authorizes publishing
-the source repository. Its canonical local checkout is
+`github.com/garthpuckerin/aethersdk-showcase`; the remote is private before the
+reveal and flips public at T-0 per the house showcase SOP (owner decision
+2026-09-03, superseding this spec's earlier private-forever wording). Its
+canonical local checkout is
 `<showcase-checkout>`. The temporary authoring checkout may live
 elsewhere until the repository is created, but the reveal build must originate
 from the standalone remote.
@@ -409,12 +410,10 @@ illustrative. They may not be reconstructed from memory.
 - **T-0 morning:** deploy the release commit, repeat the live sweeps and byte
   verification, and confirm the portfolio contains no premature nav, card,
   sitemap, feed, structured-data, or chat-knowledge references.
-- **T-0 reveal:** keep the source repository private, intentionally make only
-  the showcase site public as approved, remove `noindex, nofollow`, add the
-  portfolio case-study/nav/metadata/sitemap surfaces, update any public chat
-  knowledge base, deploy both sites, and repeat the post-deploy live sweeps
-  before publishing social links. Publishing the source repository is a
-  separate operation that requires separate owner authorization.
+- **T-0 reveal (house SOP, supersedes the earlier private-forever wording):**
+  run the portfolio reveal ritual (case-study meta/nav/sitemap/chat KB), keep
+  the demo's permanent `noindex`, repeat the post-deploy live sweeps, then the
+  owner flips the source repository public and posts.
 - **After reveal:** keep the release commit and sweep artifact manifest pinned
   in the README so later deployments cannot silently rewrite the evidence.
 

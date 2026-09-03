@@ -1,9 +1,16 @@
-# Private Reveal Runbook
+# Reveal Runbook (repo-local tooling)
 
-The GitHub repository remains private throughout this runbook. Before T-0, the
-candidate site must also remain deployment-protected and `noindex, nofollow`.
-Removing robots protections, exposing the deployment, or modifying the
-portfolio requires explicit owner authorization at execution time.
+> **Superseded on 2026-09-03 by the house SOP** — owner decision: "everything
+> SOP." The governing ritual is the reveal-cycle skill + `HANDOFF.md` here:
+> git-integrated Vercel **production** on `main` behind a permanent `noindex`
+> at `garthpuckerin-aethersdk.vercel.app` (set up at T-2, Sep 8), live sweeps
+> run against that production URL, and the repository **flips public at T-0
+> noon** on the owner's go. The "private candidate / immutable SHA / never
+> change visibility" model below is Codex's earlier interpretation and is void;
+> the commands remain useful as the repo-local verification tooling.
+
+The GitHub repository is private until reveal day. Before T-0 the site serves
+`noindex, nofollow` (and keeps `noindex` permanently afterwards, site policy).
 
 Use the standalone showcase checkout only. Stop if any command names a different
 repository, project, production branch, release SHA, or deployment ID.
@@ -74,15 +81,17 @@ do not change the release SHA on `main`.
 
 ## T-0 — separately authorized site reveal
 
-Do not execute this section without fresh, explicit owner authorization. At
-T-0, only the site becomes public; the GitHub repository remains private.
+Run on the owner's go (noon ET ritual). At T-0 the portfolio ritual applies
+(`node scripts/reveal-day.mjs aethersdk --apply` in garthpuckerin.dev) and the
+repository flips public: `gh repo edit garthpuckerin/aethersdk-showcase
+--visibility public --accept-visibility-change-consequences`.
 
 1. Reconfirm the exact release SHA and deployment ID from the approved manifest.
 2. Prepare portfolio metadata, navigation, project card, case-study route, Open
    Graph image/alt text, sitemap entry, and assistant/chat knowledge using
    `REVEAL_COPY.md`. Show the owner the diff before modifying the portfolio.
 3. With explicit authorization, change only the site’s deployment/robots
-   protections required for public access. Never change repository visibility.
+   protections required for public access (the demo keeps `noindex`).
 4. Run the complete live sweep and asset-byte/hash checks again against the
    final public URL in fresh sessions. Confirm intended sitemap inclusion and
    crawler-visible HTML only after authorization.

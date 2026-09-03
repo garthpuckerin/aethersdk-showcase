@@ -30,8 +30,8 @@ describe('showcase documentation contract', () => {
     }
   });
 
-  it('ships aligned handoff and reveal documents with authorization gates', () => {
-    for (const path of ['docs/DEMO_DRIVEN_DELTAS.md', 'docs/REVEAL_COPY.md', 'docs/REVEAL_RUNBOOK.md']) {
+  it('ships aligned handoff and reveal documents that follow the house showcase SOP', () => {
+    for (const path of ['HANDOFF.md', 'docs/DEMO_DRIVEN_DELTAS.md', 'docs/REVEAL_COPY.md', 'docs/REVEAL_RUNBOOK.md']) {
       expect(existsSync(path), `${path} must exist`).toBe(true);
     }
     const deltas = read('docs/DEMO_DRIVEN_DELTAS.md');
@@ -44,8 +44,15 @@ describe('showcase documentation contract', () => {
     expect(runbook).toContain('T-2');
     expect(runbook).toContain('T-1');
     expect(runbook).toContain('T-0');
-    expect(runbook).toMatch(/repository remains private/i);
-    expect(runbook).toMatch(/explicit owner authorization/i);
+    // Owner decision 2026-09-03: house SOP — private until T-0, then public; the
+    // earlier "remains private" policy must not come back.
+    expect(runbook).toMatch(/flips public at T-0/i);
+    expect(runbook).not.toMatch(/never change repository visibility/i);
     expect(runbook).toContain('Stop if');
+
+    const handoff = read('HANDOFF.md');
+    expect(handoff).toContain('house showcase SOP');
+    expect(handoff).toContain('garthpuckerin-aethersdk.vercel.app');
+    expect(handoff).toContain('--visibility public');
   });
 });
