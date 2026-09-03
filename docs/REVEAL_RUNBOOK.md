@@ -36,11 +36,22 @@ repository, project, production branch, release SHA, or deployment ID.
 
 4. Confirm the linked source is the standalone private repository and the
    production branch is `main`. Stop if Vercel names another source or branch.
-5. Push the verified feature SHA, then fast-forward remote `main` to that exact
-   SHA. Wait for the Git-triggered deployment; do not substitute a CLI deploy.
-6. Inspect the deployment and verify its provider deployment ID, repository,
-   Git commit metadata, READY state, authentication protection, and crawler
-   headers. Stop on any identity mismatch or unauthenticated public response.
+5. On plans where Standard Protection excludes the default production alias,
+   temporarily disable automatic Git deployments, fast-forward remote `main`
+   to the verified SHA, and restore the Git integration. This prevents the
+   private rehearsal from assigning a public production domain.
+6. Create the candidate explicitly as a no-domain preview and bind its metadata
+   to the verified release:
+
+   ```powershell
+   vercel deploy --yes --target=preview --skip-domain -m githubCommitSha=<40-character-sha> -m githubRepo=garthpuckerin/aethersdk-showcase
+   vercel inspect <preview-deployment-url> --wait --timeout 5m
+   ```
+
+7. Verify the provider deployment ID, private repository, Git commit metadata,
+   READY/preview state, authentication challenge, and crawler headers. Confirm
+   the default production alias returns 404. Stop on any identity mismatch,
+   unauthenticated candidate response, or public production alias.
 
 ## T-1 — fresh-session evidence
 

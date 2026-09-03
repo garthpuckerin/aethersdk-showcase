@@ -1101,7 +1101,7 @@ git rev-parse HEAD
 Expected: clean status. Save the returned SHA as `releaseSha`; this exact commit,
 not a later evidence commit, is the release candidate.
 
-- [ ] **Step 5: Re-run the full gate on the clean release SHA and push the feature branch**
+- [x] **Step 5: Re-run the full gate on the clean release SHA and push the feature branch**
 
 ```powershell
 npm run verify
@@ -1115,7 +1115,7 @@ gh repo view garthpuckerin/aethersdk-showcase --json visibility
 Expected: all gates pass, status stays clean, the feature branch push succeeds,
 and repository visibility is `PRIVATE`; `main` is not advanced yet.
 
-- [ ] **Step 6: Link Vercel to the standalone Git repository before release push**
+- [x] **Step 6: Link Vercel to the standalone Git repository before release push**
 
 Precondition: Vercel authentication and deployment protection are confirmed.
 Run from the standalone repository only:
@@ -1129,22 +1129,25 @@ Expected: the linked Vercel project reports the GitHub repository as its Git
 source and `main` as its production branch. Stop if it links another project,
 repository, or production branch.
 
-- [ ] **Step 7: Fast-forward remote main and wait for its Git-triggered deployment**
+- [x] **Step 7: Fast-forward private main and create a no-domain protected preview**
 
-Advance `main` to the already verified feature SHA without creating a new commit:
+Vercel Standard Protection leaves the default production alias public. To keep
+the pre-reveal site private, temporarily disable automatic Git deployments,
+advance `main` to the verified SHA, restore the Git integration, then create an
+explicit preview with no production-domain assignment:
 
 ```powershell
 git push origin <release-sha>:main
-vercel list aethersdk-showcase --environment production --meta githubCommitSha=<release-sha> --status BUILDING,READY
-vercel inspect <git-deployment-url> --wait --timeout 5m
+vercel deploy --yes --target=preview --skip-domain -m githubCommitSha=<release-sha> -m githubRepo=garthpuckerin/aethersdk-showcase
+vercel inspect <preview-deployment-url> --wait --timeout 5m
 ```
 
-Expected: the push is a fast-forward, Vercel Git integration—not `vercel
-deploy`—creates the production deployment, the deployment metadata contains the
-same GitHub repository and `githubCommitSha == releaseSha`, and inspection
-returns its deployment ID and `READY` state. Stop on any SHA/source mismatch.
+Expected: the push is a fast-forward while automatic deployment is disabled;
+the Git integration is restored afterward; the protected preview metadata names
+the same private GitHub repository and `githubCommitSha == releaseSha`; the
+public project alias returns 404. Stop on any SHA/source/protection mismatch.
 
-- [ ] **Step 8: Configure protected automation access outside Git**
+- [x] **Step 8: Configure protected automation access outside Git**
 
 Create a Vercel Protection Bypass for Automation secret in project settings and
 expose it only as the process environment variable
@@ -1157,7 +1160,7 @@ query-string secret or commit an environment file.
 
 Reference: <https://vercel.com/docs/deployment-protection/methods-to-bypass-deployment-protection/protection-bypass-automation>
 
-- [ ] **Step 9: Run T-1 fresh-session live sweeps and exact-deployment captures**
+- [x] **Step 9: Run T-1 fresh-session live sweeps and exact-deployment captures**
 
 ```powershell
 npm run sweep:live -- --url <deployment-url> --out artifacts/reveal/2026-09-10
@@ -1170,7 +1173,7 @@ robots and crawler-spoiler checks pass; asset bytes/hashes are recorded; preview
 OG, teaser, desktop, mobile, and workflow images are generated from this exact
 deployment; the manifest validates and names `releaseSha` plus deployment ID.
 
-- [ ] **Step 10: Preserve evidence without changing the production branch**
+- [x] **Step 10: Preserve evidence without changing the production branch**
 
 Create an evidence branch from the verified release, commit only the dated
 artifacts, and return to `main`:
@@ -1188,7 +1191,7 @@ Expected: `main` still resolves to `releaseSha`; Vercel does not deploy the
 evidence branch; the manifest resolves to the exact deployed commit. If the
 production branch changes for any reason, repeat Steps 5–8 for the new SHA.
 
-- [ ] **Step 11: Execute only the private portion of the reveal runbook**
+- [x] **Step 11: Execute only the private portion of the reveal runbook**
 
 Verify the private source repository, protected/noindex site, portfolio spoiler
 exclusions, metadata/copy readiness, rollback path, and T-0 checklist. Do not
