@@ -41,9 +41,8 @@ owner voided that the same day. What applies:
   target fails, retry only it; plus a seeded termination/deactivation run;
   (2) learning in — LMS completion → canonical course entry → audit →
   webhook → DLQ → replay. Developer persona scoped to Docebo + LinkedIn
-  Learning. Confirm the "Xperience" spelling with the owner before it appears
-  in public text (the Connex-era docs say "Experience"). Full detail: the §9
-  brief.
+  Learning. Spelling decided: **"Xperience"** (the vendor uses both; owner's
+  spelling wins; one-line rename if it changes). Full detail: the §9 brief.
 - **Depth:** T-5 depth pass using the Claude Design canvas as the breadth
   source (catalog, hour drill-down, dense layout, typed audit, Roles/SCIM,
   create/invite/add modals) while preserving the reducer/selector contract.
