@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { can, PERSONAS } from '../access/policy';
 import StatusBadge from '../components/StatusBadge';
 import { useDemo } from '../demo/context';
+import { selectRuntimeHealth } from '../demo/selectors';
 import CommandPalette from './CommandPalette';
 import DemoControl from './DemoControl';
 import { ROUTES } from './routeRegistry';
@@ -11,6 +12,7 @@ const GROUPS = ['Observe', 'Operate', 'Govern', 'System'];
 
 export default function AppShell({ onReplayOnboarding, onReset }) {
   const { state } = useDemo();
+  const runtimeHealth = selectRuntimeHealth(state);
 
   useEffect(() => {
     document.documentElement.dataset.theme = state.theme;
@@ -50,7 +52,7 @@ export default function AppShell({ onReplayOnboarding, onReset }) {
       <div className="workspace">
         <header className="topbar">
           <CommandPalette routes={ROUTES} />
-          <div className="topbar__context"><StatusBadge status="healthy" /><span className="environment-label">Simulated</span></div>
+          <div className="topbar__context"><StatusBadge status={runtimeHealth} /><span className="environment-label">Simulated</span></div>
           <DemoControl onReplayOnboarding={onReplayOnboarding} onReset={onReset} />
         </header>
         <div className="page"><Outlet /></div>

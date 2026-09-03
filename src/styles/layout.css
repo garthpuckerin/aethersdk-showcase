@@ -155,7 +155,7 @@ kbd { padding: 0.15rem 0.35rem; border: 1px solid var(--color-border); border-ra
 .mobile-header > div { display: flex; align-items: center; gap: var(--space-3); }
 .mobile-main { width: 100%; min-height: calc(100dvh - 12rem); padding: var(--space-5) var(--space-4) var(--space-6); }
 .mobile-boundary { margin: 0; padding: var(--space-4); border-top: 1px solid var(--color-border); color: var(--color-ink-muted); font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.06em; text-align: center; text-transform: uppercase; }
-.mobile-nav { position: sticky; bottom: 0; z-index: 20; display: grid; grid-template-columns: repeat(3, 1fr); min-height: 4.6rem; padding-bottom: env(safe-area-inset-bottom); border-top: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-surface) 94%, transparent); backdrop-filter: blur(1rem); }
+.mobile-nav { position: relative; z-index: 20; display: grid; grid-template-columns: repeat(3, 1fr); min-height: 4.6rem; padding-bottom: env(safe-area-inset-bottom); border-top: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-surface) 94%, transparent); }
 .mobile-nav a { display: grid; place-content: center; justify-items: center; gap: 0.2rem; color: var(--color-ink-muted); font-size: 0.68rem; font-weight: 750; text-decoration: none; }
 .mobile-nav a span { font-size: 1rem; }
 .mobile-nav a[aria-current="page"] { color: var(--color-accent-ink); background: color-mix(in srgb, var(--color-accent) 24%, transparent); }

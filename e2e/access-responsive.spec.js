@@ -26,8 +26,12 @@ test('role changes govern navigation, deep links, commands, and saved appearance
 
 test('mobile auto-routing and desktop escape respect the 767px boundary', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'Mobile routing workflow');
+  await page.setViewportSize({ width: 390, height: 844 });
   await enterCockpit(page);
   await expect(page.getByRole('heading', { name: 'Operations pulse' })).toBeVisible();
+  const navigationBox = await page.getByRole('navigation', { name: 'Companion' }).boundingBox();
+  const activeRunBox = await page.getByRole('link', { name: /open active run/i }).boundingBox();
+  expect(navigationBox.y).toBeGreaterThanOrEqual(activeRunBox.y + activeRunBox.height);
   await page.getByRole('link', { name: 'More' }).click();
   await page.getByRole('link', { name: 'Open full desktop console' }).click();
   await expect(page.getByRole('heading', { name: 'Operational overview' })).toBeVisible();

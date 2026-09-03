@@ -17,6 +17,13 @@ export function selectVisibleRuns(state, personaId = state.activePersonaId) {
     .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt));
 }
 
+export function selectRuntimeHealth(state) {
+  const dependencies = values(state.dependencies).filter(({ tenantId }) => tenantId === state.activeTenantId);
+  if (dependencies.some(({ status }) => status === 'failed')) return 'failed';
+  if (dependencies.some(({ status }) => status === 'warning')) return 'warning';
+  return 'healthy';
+}
+
 export function selectFailedRunMetric(state, personaId = state.activePersonaId) {
   const records = selectVisibleRuns(state, personaId).filter((run) =>
     run.targetOutcomeIds.some((id) => state.targetOutcomes[id]?.status === 'failed'),

@@ -4,6 +4,7 @@ import {
   selectConnectorHealth,
   selectFailedRunMetric,
   selectOverviewMetrics,
+  selectRuntimeHealth,
   selectUsageMetric,
   selectVisibleRuns,
 } from './selectors';
@@ -53,5 +54,16 @@ describe('cohesive selectors', () => {
     for (const metric of Object.values(metrics)) {
       expect(metric).toEqual(expect.objectContaining({ value: expect.any(Number), recordIds: expect.any(Array) }));
     }
+  });
+
+  it('derives runtime health from the active tenant dependency graph', () => {
+    const state = createSeedState();
+    expect(selectRuntimeHealth(state)).toBe('warning');
+
+    state.dependencies.dep_event_delivery.status = 'healthy';
+    expect(selectRuntimeHealth(state)).toBe('healthy');
+
+    state.dependencies.dep_metering.status = 'failed';
+    expect(selectRuntimeHealth(state)).toBe('failed');
   });
 });
