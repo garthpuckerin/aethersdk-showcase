@@ -104,7 +104,7 @@
 **Files:**
 - No file changes
 
-- [ ] **Step 1: Verify repository identity before any implementation commit**
+- [x] **Step 1: Verify repository identity before any implementation commit**
 
 Run:
 
@@ -120,7 +120,7 @@ Expected: the top level is the independent showcase checkout, the remote is
 and only the approved plan/spec edits are pending. Stop if the top level is
 AetherSDK or the portfolio monorepo.
 
-- [ ] **Step 2: Verify private remote and required accounts**
+- [x] **Step 2: Verify private remote and required accounts**
 
 ```powershell
 gh auth status
@@ -132,7 +132,7 @@ Expected: GitHub authentication succeeds, visibility is `PRIVATE`, default
 branch is `main`, and Vercel authentication succeeds. A missing Vercel login
 blocks only deployment tasks, not local implementation.
 
-- [ ] **Step 3: Verify local runtime and source inputs**
+- [x] **Step 3: Verify local runtime and source inputs**
 
 ```powershell
 node --version
@@ -144,7 +144,7 @@ Expected: Node is 20.19–24.x, npm is 10+, and the design archive exists. Stop
 and report any mismatch rather than silently changing the toolchain or design
 source.
 
-- [ ] **Step 4: Commit and push the approved planning baseline**
+- [x] **Step 4: Commit and push the approved planning baseline**
 
 Before creating the implementation worktree, commit the approved status change
 and complete plan on `main`:
@@ -165,7 +165,7 @@ implementation starts in the new worktree on `codex/showcase-build`.
 - Create: `docs/SOURCE_RECONCILIATION.md`
 - Modify: none of the approved spec files; record conflicts for owner decision
 
-- [ ] **Step 1: Inventory the design export without copying it into Git**
+- [x] **Step 1: Inventory the design export without copying it into Git**
 
 Run:
 
@@ -175,13 +175,13 @@ tar -tf "C:\Users\garth\Downloads\Custom frontend design system.zip"
 
 Expected: the two `.dc.html` exports, screenshot references, and support file are listed; no archive contents are committed.
 
-- [ ] **Step 2: Map canonical Aether capabilities through mimir² before raw code inspection**
+- [x] **Step 2: Map canonical Aether capabilities through mimir² before raw code inspection**
 
 Query `map`, `find`, `explain`, and `neighbors` for `ExecutionContext`, entity codecs, connector resolution, sync operation journal, entity links, `PushResult`, audit, webhook delivery, dead letters, metering, RBAC, and readiness.
 
 Expected: a compact evidence list of canonical files/symbols and their relationships.
 
-- [ ] **Step 3: Discover and compare the optional Connex presentation artifacts**
+- [x] **Step 3: Discover and compare the optional Connex presentation artifacts**
 
 Run read-only discovery:
 
@@ -193,7 +193,7 @@ Expected: record each located artifact and what was inspected. If none exists,
 write `Unavailable on 2026-09-03; no Connex-derived presentation decisions
 accepted` in the reconciliation matrix. Do not copy artifacts into Git.
 
-- [ ] **Step 4: Compare the portfolio reveal conventions**
+- [x] **Step 4: Compare the portfolio reveal conventions**
 
 Read the non-code standards/checklists at:
 
@@ -207,7 +207,7 @@ Record landing gate, mock boundary, onboarding, mobile companion, capture,
 noindex, and T-1/T-0 conventions with source paths and dispositions. If a file
 is missing, record it as unavailable instead of substituting memory.
 
-- [ ] **Step 5: Write the reconciliation matrix**
+- [x] **Step 5: Write the reconciliation matrix**
 
 Include columns `Capability`, `Canonical evidence`, `Claude artifact`, `Showcase surface`, `Fixture identity`, `Disposition`. At minimum cover:
 
@@ -227,7 +227,7 @@ If canonical evidence materially contradicts the approved spec, add an
 `Owner decision required` section, stop implementation, and report the conflict.
 Do not silently edit the approved design.
 
-- [ ] **Step 6: Verify product naming and public-safety boundary**
+- [x] **Step 6: Verify product naming and public-safety boundary**
 
 Run:
 
@@ -237,7 +237,7 @@ rg -n -i "connex|customer|production data|real-time production" docs/SOURCE_RECO
 
 Expected: `Connex` appears only in the source/disposition explanation; no customer or production-data claim exists.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```powershell
 git add docs/SOURCE_RECONCILIATION.md
