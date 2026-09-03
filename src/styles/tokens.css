@@ -34,6 +34,8 @@
   --color-info: #2563a9;
   --color-info-soft: #e4effd;
   --color-border: #dfe2da;
+  --color-panel-muted: #aeb5a8;
+  --color-panel-border: #34382f;
   --color-overlay: rgba(10, 12, 9, 0.48);
   --font-sans: "Hanken Grotesk", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -60,6 +62,8 @@
   --color-ink: #f3f5ed;
   --color-ink-muted: #aab1a5;
   --color-border: #343a31;
+  --color-panel-muted: #aeb5a8;
+  --color-panel-border: #34382f;
   --color-overlay: rgba(0, 0, 0, 0.72);
 }
 

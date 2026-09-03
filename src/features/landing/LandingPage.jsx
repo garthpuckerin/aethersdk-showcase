@@ -1,5 +1,6 @@
 import { Button, Eyebrow } from '../../components/ui';
 import StatusBadge from '../../components/StatusBadge';
+import { LANDING_TRACE } from '../../demo/presentation';
 
 const FLOW = [
   ['01', 'Resolve', 'A tenant-owned connector and typed entity enter one governed context.'],
@@ -37,13 +38,13 @@ export default function LandingPage({ onLaunch }) {
 
         <div className="landing__signal" aria-label="Illustrative live sync trace">
           <div className="landing__signal-head">
-            <span>run_live_northstar_001</span>
+            <span>{LANDING_TRACE.runId}</span>
             <StatusBadge status="running" />
           </div>
-          <div className="landing__signal-number">1,842<span>ms</span></div>
+          <div className="landing__signal-number">{LANDING_TRACE.durationMs.toLocaleString()}<span>ms</span></div>
           <p>request → canonical contact → two provider outcomes</p>
           <div className="landing__bars" aria-hidden="true">
-            {[36, 52, 44, 68, 61, 78, 70, 88, 81, 96, 73, 90].map((height, index) => (
+            {LANDING_TRACE.bars.map((height, index) => (
               <span key={index} style={{ '--bar-height': `${height}%` }} />
             ))}
           </div>
