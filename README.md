@@ -54,6 +54,8 @@ npm run verify
 npm run test:e2e
 npm audit --audit-level=high
 git diff --check
+# or run the same release sequence with:
+npm run verify:release
 ```
 
 `npm run verify` runs linting, unit/component/contract tests, fixture-graph

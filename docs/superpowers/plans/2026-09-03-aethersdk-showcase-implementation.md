@@ -1034,7 +1034,7 @@ git commit -m "docs: explain showcase architecture and production deltas"
 - Modify: `package.json`
 - Modify: `README.md`
 
-- [ ] **Step 1: Write failing release-tool tests before implementation**
+- [x] **Step 1: Write failing release-tool tests before implementation**
 
 Test the dated result schema, secret/path redaction, release-SHA validation,
 deployment-ID validation, required route/viewport matrix, crawler/robots result,
@@ -1055,7 +1055,7 @@ The manifest schema must require:
 }
 ```
 
-- [ ] **Step 2: Implement executable capture and live-sweep tooling**
+- [x] **Step 2: Implement executable capture and live-sweep tooling**
 
 `capture-reveal.mjs --url <url> --out <directory>` uses Playwright for fresh
 browser contexts and Sharp for derivatives. It captures full-width desktop,
@@ -1073,7 +1073,7 @@ HTML, sitemap exclusion, and non-zero bytes/content hashes for every asset.
 mismatched release checkout. It permits untracked changes only inside the exact
 `--input`/`--output` evidence directory and rejects every other dirty path.
 
-- [ ] **Step 3: Pass tooling and complete local gates**
+- [x] **Step 3: Pass tooling and complete local gates**
 
 ```powershell
 npm run test:run -- scripts/reveal-tools.test.js src/quality-contracts.test.js
@@ -1089,7 +1089,7 @@ git diff --check
 Expected: every command exits 0 with no console warnings, failed requests,
 fixture errors, hardcoded-stat/color violations, or whitespace errors.
 
-- [ ] **Step 4: Commit all implementation and tooling before naming a release**
+- [x] **Step 4: Commit all implementation and tooling before naming a release**
 
 ```powershell
 git add .gitignore README.md artifacts/reveal/.gitkeep scripts package.json package-lock.json
