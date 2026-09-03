@@ -111,7 +111,8 @@ transition and explain the production boundary in context.
 
 ## Technical Shape
 
-- Vite 5 and React 18, matching the existing showcase repositories.
+- Vite 8 and React 18. The design began from the earlier showcase stack, but
+  implementation uses the current patched build toolchain.
 - Plain JavaScript/JSX unless a later owner decision standardizes showcases on
   TypeScript.
 - Token-driven CSS with Hanken Grotesk for interface text and JetBrains Mono for

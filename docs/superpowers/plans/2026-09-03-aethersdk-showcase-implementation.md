@@ -6,7 +6,7 @@
 
 **Architecture:** A React/Vite single-page application reads and mutates one canonical deterministic fixture graph through a reducer and selectors. Screens are projections over shared tenant, actor, request, connector, entity, run, audit, delivery, metering, and health identities; they do not own duplicate domain state. The showcase performs no runtime network calls and remains `noindex, nofollow` until a separately authorized reveal operation.
 
-**Tech Stack:** React 18, Vite 5, React Router 6, Vitest, Testing Library, Playwright, JavaScript/JSX, token-driven CSS, GitHub, Vercel
+**Tech Stack:** React 18, Vite 8, React Router 7, Vitest 4, Testing Library, Playwright, JavaScript/JSX, token-driven CSS, GitHub, Vercel
 
 ---
 
@@ -262,7 +262,7 @@ git commit -m "docs: reconcile showcase sources and signature capabilities"
 - Create: `public/fonts/OFL-JetBrains-Mono.txt`
 - Modify: `.gitignore`
 
-- [ ] **Step 1: Write the scaffold smoke test**
+- [x] **Step 1: Write the scaffold smoke test**
 
 Create `src/App.test.jsx`:
 
@@ -279,7 +279,7 @@ describe('App', () => {
 });
 ```
 
-- [ ] **Step 2: Create pinned package scripts and dependencies**
+- [x] **Step 2: Create pinned package scripts and dependencies**
 
 Use this complete package contract before any script is invoked:
 
@@ -311,23 +311,23 @@ Use this complete package contract before any script is invoked:
   "dependencies": {
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "6.30.1"
+    "react-router-dom": "7.18.3"
   },
   "devDependencies": {
-    "@eslint/js": "9.20.0",
-    "@playwright/test": "1.51.1",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.62.1",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.1.0",
     "@testing-library/user-event": "14.6.1",
-    "@vitejs/plugin-react": "4.3.4",
-    "eslint": "9.20.1",
-    "eslint-plugin-react-hooks": "5.2.0",
-    "eslint-plugin-react-refresh": "0.4.18",
+    "@vitejs/plugin-react": "6.1.1",
+    "eslint": "10.9.1",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.6",
     "globals": "15.14.0",
     "jsdom": "25.0.1",
-    "sharp": "0.33.5",
-    "vite": "5.4.14",
-    "vitest": "2.1.9"
+    "sharp": "0.35.4",
+    "vite": "8.2.2",
+    "vitest": "4.1.11"
   }
 }
 ```
@@ -335,7 +335,7 @@ Use this complete package contract before any script is invoked:
 Commit the generated `package-lock.json`; do not float versions during the
 reveal sprint.
 
-- [ ] **Step 3: Implement the minimum render and permanent private-phase metadata**
+- [x] **Step 3: Implement the minimum render and permanent private-phase metadata**
 
 `index.html` must contain:
 
@@ -352,7 +352,7 @@ license texts, and reference only same-origin `/fonts/...` URLs. Official font
 and license retrieval is a required gate; stop if it is unavailable. Never add
 a Google Fonts or other third-party runtime request.
 
-- [ ] **Step 4: Install and verify the failing-then-passing smoke test**
+- [x] **Step 4: Install and verify the failing-then-passing smoke test**
 
 Run:
 
@@ -363,7 +363,7 @@ npm run test:run -- src/App.test.jsx
 
 Expected: the initial test fails before `App` exists, then passes after the minimal render.
 
-- [ ] **Step 5: Run scaffold gates**
+- [x] **Step 5: Run scaffold gates**
 
 ```powershell
 npm run lint
@@ -373,7 +373,7 @@ npm run build
 Expected: both exit 0 and the build contains robots metadata, both self-hosted
 WOFF2 font assets, and both corresponding license files.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```powershell
 git add .gitignore package.json package-lock.json vite.config.js eslint.config.js playwright.config.js index.html vercel.json public/fonts src
