@@ -396,18 +396,18 @@ git commit -m "chore: scaffold standalone AetherSDK showcase"
 - Test: `src/components/primitives.test.jsx`
 - Test: `src/access/policy.test.js`
 
-- [ ] **Step 1: Write the failing permission and visibility contract tests**
+- [x] **Step 1: Write the failing permission and visibility contract tests**
 
 Define Platform Admin, Integration Operator, Auditor, and Developer expectations
 for route visibility, tenant/connector/run record scope, connector validation,
 sync, retry, replay, access management, settings, and denied resources. This
 policy exists before any selector or reducer depends on it.
 
-- [ ] **Step 2: Write failing primitive behavior tests**
+- [x] **Step 2: Write failing primitive behavior tests**
 
 Cover semantic button/link behavior, status text plus icon, dialog/drawer accessible names, Escape close, focus restoration, reduced-motion class behavior, and `DataState` variants.
 
-- [ ] **Step 3: Run the focused tests and confirm failure**
+- [x] **Step 3: Run the focused tests and confirm failure**
 
 ```powershell
 npm run test:run -- src/access/policy.test.js src/components/primitives.test.jsx
@@ -415,7 +415,7 @@ npm run test:run -- src/access/policy.test.js src/components/primitives.test.jsx
 
 Expected: FAIL because primitives and tokens do not exist.
 
-- [ ] **Step 4: Implement the access policy and token contract**
+- [x] **Step 4: Implement the access policy and token contract**
 
 `src/access/policy.js` is the only persona/permission/record-scope definition.
 It must not import fixtures or React and exposes pure functions consumed by
@@ -438,11 +438,11 @@ Define only CSS variables for colors, type, spacing, radii, borders, shadows, mo
 
 Use semantic status tokens independently of the lime brand accent. Add `prefers-reduced-motion` overrides and reserve dimensions for asynchronous/changing content to prevent CLS.
 
-- [ ] **Step 5: Implement focused primitives**
+- [x] **Step 5: Implement focused primitives**
 
 Keep focus management inside `Dialog`/`Drawer`, state composition inside `DataState`, and status semantics inside `StatusBadge`; feature components may not reimplement these contracts.
 
-- [ ] **Step 6: Run tests, lint, and contrast spot-check**
+- [x] **Step 6: Run tests, lint, and contrast spot-check**
 
 ```powershell
 npm run test:run -- src/access/policy.test.js src/components/primitives.test.jsx
@@ -451,7 +451,7 @@ npm run lint
 
 Expected: PASS and no literal feature-level hex colors outside token files.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```powershell
 git add src/access src/components src/styles
