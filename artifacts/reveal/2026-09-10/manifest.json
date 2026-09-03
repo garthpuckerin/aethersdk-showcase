@@ -1,0 +1,26 @@
+{
+  "releaseSha": "df6dbb483b181e168931ac42a9ed4af8080ee624",
+  "deploymentId": "dpl_CKCuwMkaKqcgzdd4TviVYP8Guyet",
+  "deploymentUrl": "https://aethersdk-showcase-a60ly7k0o-blackpanther7413s-projects.vercel.app/",
+  "createdAt": "2026-09-03T14:31:10.611Z",
+  "robotsProtected": true,
+  "commands": [
+    "npm run verify",
+    "npm run test:e2e",
+    "npm run sweep:live -- --url <redacted-deployment-url>",
+    "npm run capture -- --url <redacted-deployment-url>"
+  ],
+  "sweeps": [
+    "live-sweep.json"
+  ],
+  "captures": [
+    "captures/capture-result.json",
+    "captures/desktop-overview.webp",
+    "captures/mobile-companion.webp",
+    "captures/workflow-run.webp",
+    "captures/workflow-recovery.webp",
+    "captures/og.webp",
+    "captures/preview.webp",
+    "captures/teaser.webp"
+  ]
+}
