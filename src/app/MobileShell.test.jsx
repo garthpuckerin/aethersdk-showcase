@@ -49,6 +49,7 @@ describe('mobile operations companion', () => {
     setWidth(390);
     renderApp('/mobile/home');
     expect(screen.getByText('Northstar Labs')).toBeVisible();
+    expect(within(screen.getByRole('banner')).getByLabelText('Status: Warning')).toBeVisible();
     expect(screen.getByText('Slack Events')).toBeVisible();
     expect(screen.getByRole('link', { name: /open active run run_hist_01/i })).toBeVisible();
     expect(screen.getByRole('link', { name: /open failed run run_hist_06/i })).toBeVisible();

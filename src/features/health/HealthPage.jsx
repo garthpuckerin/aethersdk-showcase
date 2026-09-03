@@ -1,16 +1,11 @@
 import StatusBadge from '../../components/StatusBadge';
 import { useDemo } from '../../demo/context';
-
-function overallStatus(dependencies) {
-  if (dependencies.some(({ status }) => status === 'failed')) return 'failed';
-  if (dependencies.some(({ status }) => status === 'warning')) return 'warning';
-  return 'healthy';
-}
+import { selectRuntimeHealth } from '../../demo/selectors';
 
 export default function HealthPage() {
   const { state } = useDemo();
   const dependencies = Object.values(state.dependencies).filter(({ tenantId }) => tenantId === state.activeTenantId);
-  const status = overallStatus(dependencies);
+  const status = selectRuntimeHealth(state);
   return (
     <div className="page-stack">
       <section className="page-heading page-heading--split"><div><p className="eyebrow">System</p><h1>Runtime health</h1><p>Readiness follows the actual simulated control-plane dependencies used by connector, journal, delivery, and metering workflows.</p></div><div className="health-hero"><StatusBadge status={status} /><span>Overall service</span></div></section>

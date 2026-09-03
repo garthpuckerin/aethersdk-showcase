@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
@@ -41,6 +41,8 @@ describe('AppShell', () => {
     expect(screen.getByText('Simulated')).toBeVisible();
     expect(screen.getByText(/portfolio demo · mock data/i)).toBeVisible();
     expect(screen.getByText('Integration Operator')).toBeVisible();
+    const topbar = screen.getByRole('button', { name: 'Search and commands' }).closest('header');
+    expect(within(topbar).getByLabelText('Status: Warning')).toBeVisible();
   });
 
   it('renders a designed denied deep link with its permission', () => {
