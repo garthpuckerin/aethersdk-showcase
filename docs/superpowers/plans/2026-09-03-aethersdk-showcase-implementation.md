@@ -738,26 +738,27 @@ git commit -m "feat: connect overview and integration projections"
 - Create: `src/features/runs/RunsPage.jsx`
 - Create: `src/features/runs/RunDetailPage.jsx`
 - Create: `src/features/runs/RunTimeline.jsx`
+- Create: `src/features/runs/runStages.js`
 - Test: `src/features/runs/RunsPage.test.jsx`
 - Test: `src/features/runs/RunDetailPage.test.jsx`
 
-- [ ] **Step 1: Write failing run-list tests**
+- [x] **Step 1: Write failing run-list tests**
 
 Test status/direction/entity/provider/time filters, stable deep links, role scoping, and derived durations/latencies.
 
-- [ ] **Step 2: Write failing signature-workflow component test**
+- [x] **Step 2: Write failing signature-workflow component test**
 
 From a validated connector: start sync, navigate to the new run, progress through queue/authorization/fetch/normalization/match/write/link/audit/webhook/metering, retain the successful target, fail one target, and retry only that target with the original idempotency identity. Assert the webhook stage creates a delivery carrying the same `requestId`, `runId`, and generated `eventId`; do not complete replay in this component test.
 
-- [ ] **Step 3: Implement run list, detail, and timeline**
+- [x] **Step 3: Implement run list, detail, and timeline**
 
 Render canonical/provider identities, per-target outcomes, sanitized error, sample fictional payload, and links to related audit/delivery objects. Raw data views must be clearly fictional and copy-safe.
 
-- [ ] **Step 4: Verify cross-screen projections**
+- [x] **Step 4: Verify cross-screen projections**
 
 After retry, assert Overview, connector health, run totals, audit, and usage all update through selectors without component-owned patches.
 
-- [ ] **Step 5: Run tests**
+- [x] **Step 5: Run tests**
 
 ```powershell
 npm run test:run -- src/features/runs/RunsPage.test.jsx src/features/runs/RunDetailPage.test.jsx src/demo/reducer.test.js src/demo/selectors.test.js
@@ -765,7 +766,7 @@ npm run test:run -- src/features/runs/RunsPage.test.jsx src/features/runs/RunDet
 
 Expected: PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```powershell
 git add src/features/runs

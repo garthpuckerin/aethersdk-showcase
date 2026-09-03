@@ -125,9 +125,46 @@
 .detail-grid dd { margin: var(--space-2) 0 0; overflow-wrap: anywhere; }
 .permission-note { margin: 0; padding: var(--space-3); border-left: 3px solid var(--color-warning); background: var(--color-warning-soft); }
 
+.run-filters { display: grid; grid-template-columns: repeat(5, minmax(8rem, 1fr)); gap: var(--space-3); padding: var(--space-4); border-bottom: 1px solid var(--color-border); }
+.run-filters label { display: grid; gap: var(--space-2); color: var(--color-ink-muted); font-size: 0.7rem; font-weight: 700; }
+.run-filters select { min-height: 2.65rem; padding: 0.55rem 0.7rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-ink); background: var(--color-panel); font: inherit; }
+.record-link { color: var(--color-ink); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; }
+
+.identity-chain { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr) auto); align-items: center; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+.identity-chain div { display: grid; gap: var(--space-1); min-width: 0; }
+.identity-chain div:last-child { grid-column: auto / span 1; }
+.identity-chain span { color: var(--color-ink-muted); font-size: 0.68rem; font-weight: 750; text-transform: uppercase; }
+.identity-chain code { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.identity-chain i { color: var(--color-accent-ink); font-style: normal; }
+
+.run-timeline { display: grid; grid-template-columns: repeat(10, minmax(6rem, 1fr)); margin: 0; padding: 0; overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); list-style: none; }
+.run-timeline li { display: grid; gap: var(--space-2); min-height: 7.5rem; padding: var(--space-3); border-right: 1px solid var(--color-border); }
+.run-timeline li:last-child { border-right: 0; }
+.run-timeline span, .run-timeline small { color: var(--color-ink-muted); font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; }
+.run-timeline strong { align-self: end; font-size: 0.78rem; text-transform: capitalize; }
+.run-timeline [data-stage-state="complete"] { background: color-mix(in srgb, var(--color-positive-soft) 65%, transparent); }
+.run-timeline [data-stage-state="current"] { background: var(--color-accent); color: var(--color-accent-ink); }
+.run-timeline [data-stage-state="current"] span, .run-timeline [data-stage-state="current"] small { color: currentColor; opacity: 0.65; }
+
+.outcome-table { width: 100%; border-collapse: collapse; }
+.outcome-table th, .outcome-table td { padding: var(--space-3); border-bottom: 1px solid var(--color-border); text-align: left; }
+.outcome-table thead th { color: var(--color-ink-muted); font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; }
+.outcome-table tbody th { font-size: 0.85rem; }
+.run-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
+.completion-note { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 var(--space-4); border-radius: var(--radius-sm); color: var(--color-positive); background: var(--color-positive-soft); }
+.run-context { align-content: start; }
+.run-context > h2 { margin: var(--space-2) 0 var(--space-4); }
+.detail-grid--single { grid-template-columns: 1fr; }
+.run-context details { margin: var(--space-4) 0; }
+.run-context summary { cursor: pointer; font-weight: 750; }
+.run-context pre { overflow-x: auto; padding: var(--space-3); border-radius: var(--radius-sm); background: var(--color-ink); color: var(--color-accent); font-size: 0.7rem; }
+
 @media (max-width: 900px) {
   .metric-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .chart-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .run-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .identity-chain { grid-template-columns: 1fr; }
+  .identity-chain i { transform: rotate(90deg); }
 }
 
 @media (max-width: 620px) {
