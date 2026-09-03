@@ -1,8 +1,8 @@
 {
-  "releaseSha": "df6dbb483b181e168931ac42a9ed4af8080ee624",
-  "deploymentId": "dpl_CKCuwMkaKqcgzdd4TviVYP8Guyet",
-  "deploymentUrl": "https://aethersdk-showcase-a60ly7k0o-blackpanther7413s-projects.vercel.app/",
-  "createdAt": "2026-09-03T14:31:10.611Z",
+  "releaseSha": "4cc14ebc0ea2423ca4aff476edceaa4ec08d55c4",
+  "deploymentId": "dpl_8D2FMYGNqvqu62Vfse8NSmzftgkt",
+  "deploymentUrl": "https://aethersdk-showcase-ncxg3z4qp-blackpanther7413s-projects.vercel.app/",
+  "createdAt": "2026-09-03T16:18:18.693Z",
   "robotsProtected": true,
   "commands": [
     "npm run verify",

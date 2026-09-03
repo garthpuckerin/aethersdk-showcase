@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-09-03T14:30:58.042Z",
-  "sourceUrl": "https://aethersdk-showcase-a60ly7k0o-blackpanther7413s-projects.vercel.app/",
+  "capturedAt": "2026-09-03T16:17:45.513Z",
+  "sourceUrl": "https://aethersdk-showcase-ncxg3z4qp-blackpanther7413s-projects.vercel.app/",
   "captures": [
     {
       "id": "desktop-overview",
@@ -9,8 +9,8 @@
       "file": "desktop-overview.webp",
       "width": 1440,
       "height": 1100,
-      "bytes": 71190,
-      "sha256": "4e9db3e54cbdc19cd0109c6a67e36df97491bb47ba9106028cb62068e316b3c8"
+      "bytes": 71392,
+      "sha256": "e25508dcd5ee1797b39a798f9187972bd8e0f9d53f63edbf36ae09f3468d2b44"
     },
     {
       "id": "mobile-companion",
@@ -18,8 +18,8 @@
       "file": "mobile-companion.webp",
       "width": 390,
       "height": 844,
-      "bytes": 19664,
-      "sha256": "a837ad7dc16cafa2d65b2a2a50f3eb3f1021f9760e1bf4dd22b51f9e947d5b18"
+      "bytes": 20188,
+      "sha256": "495d83912501e5c088a7c3f095be76f2fcf8aa995f42d694619d4fc9bbe04789"
     },
     {
       "id": "workflow-run",
@@ -27,8 +27,8 @@
       "file": "workflow-run.webp",
       "width": 1440,
       "height": 1100,
-      "bytes": 86124,
-      "sha256": "27d32eb4eb0cef82cd1bbcbfcf44c15101eaaf48a648b6f8081f279ec8d29e47"
+      "bytes": 86328,
+      "sha256": "7d982885263d0f8311b43a505eeb51cdb3b125c15a8adafe5cb59ee8c265f6d4"
     },
     {
       "id": "workflow-recovery",
@@ -45,8 +45,8 @@
       "file": "og.webp",
       "width": 1200,
       "height": 630,
-      "bytes": 49950,
-      "sha256": "8ca6c262d9a2d00b1f4d225cbeabb70291ce8a376a0963da1645b8a2f9c3009d"
+      "bytes": 50056,
+      "sha256": "bd39656eedc831438db65ac11c83f139bf05d500aefafe8c7f3f3c3acec5ad47"
     },
     {
       "id": "preview",
@@ -54,8 +54,8 @@
       "file": "preview.webp",
       "width": 960,
       "height": 600,
-      "bytes": 40296,
-      "sha256": "7619282bdd82fe9a0c55e740f8437e19f5ffed9bb51f84744311d79f6c015ce2"
+      "bytes": 40424,
+      "sha256": "59359b0b6695dc6910a1b5bdce1189e776ea25b69daadd223d641ab2752457f6"
     },
     {
       "id": "teaser",
@@ -63,8 +63,8 @@
       "file": "teaser.webp",
       "width": 1080,
       "height": 1350,
-      "bytes": 81840,
-      "sha256": "48dc7453c325020786952d6bc84117c05ac6fe60cc500e50a78685f7a728282b"
+      "bytes": 81964,
+      "sha256": "eed366b659129cf567a033646ba12996aa63b5eb20d94d1b1874d85addb4a7dc"
     }
   ]
 }
