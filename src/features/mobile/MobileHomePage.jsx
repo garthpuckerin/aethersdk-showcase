@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import StatusBadge from '../../components/StatusBadge';
 import { useDemo } from '../../demo/context';
-import { selectDeadLetters, selectOverviewMetrics, selectVisibleConnectors, selectVisibleRuns } from '../../demo/selectors';
+import { selectDeadLetters, selectOverviewMetrics, selectRuntimeHealth, selectVisibleConnectors, selectVisibleRuns } from '../../demo/selectors';
 
 export default function MobileHomePage() {
   const { state } = useDemo();
@@ -13,8 +13,7 @@ export default function MobileHomePage() {
   const failedRun = runs.find(({ status }) => status === 'failed');
   const exceptions = connectors.filter(({ status }) => ['warning', 'failed'].includes(status));
   const deadLetters = selectDeadLetters(state);
-  const dependencies = Object.values(state.dependencies);
-  const health = dependencies.some(({ status }) => status === 'failed') ? 'failed' : dependencies.some(({ status }) => status === 'warning') ? 'warning' : 'healthy';
+  const health = selectRuntimeHealth(state);
   return (
     <div className="mobile-stack">
       <section className="mobile-title"><p className="eyebrow">{tenant.name}</p><h1>Operations pulse</h1><p>Fast triage over the same governed records as the desktop console.</p></section>
