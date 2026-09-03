@@ -864,11 +864,11 @@ git commit -m "feat: complete governed system projections"
 - Modify: `src/styles/layout.css`
 - Test: `src/app/MobileShell.test.jsx`
 
-- [ ] **Step 1: Write failing boot-routing tests**
+- [x] **Step 1: Write failing boot-routing tests**
 
 At 767 px and below, default to companion routes. `?view=desktop` must persist for the current navigation session. Desktop widths must not auto-route to mobile.
 
-- [ ] **Step 2: Write failing companion interaction tests**
+- [x] **Step 2: Write failing companion interaction tests**
 
 Test the persistent `Portfolio demo · mock data` boundary, health summary,
 attention connectors, failed/active runs, run detail, DLQ items,
@@ -876,11 +876,11 @@ permission-aware retry/replay, home/landing/More routes, and the absence of dead
 chevrons/cards/rows. Exercise loading, empty, sanitized error/retry, and denied
 states on companion surfaces, not only desktop surfaces.
 
-- [ ] **Step 3: Implement a full-bleed companion**
+- [x] **Step 3: Implement a full-bleed companion**
 
 No decorative device bezel. Omit dense admin forms and payload tables. Reuse the canonical reducer/selectors and shared status/data-state primitives.
 
-- [ ] **Step 4: Run tests at boundary widths**
+- [x] **Step 4: Run tests at boundary widths**
 
 ```powershell
 npm run test:run -- src/app/MobileShell.test.jsx
@@ -888,7 +888,7 @@ npm run test:run -- src/app/MobileShell.test.jsx
 
 Expected: PASS at 320, 390, 767, and 768 px cases.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```powershell
 git add src/app/MobileShell.jsx src/app/routes.jsx src/features/mobile src/styles/layout.css
