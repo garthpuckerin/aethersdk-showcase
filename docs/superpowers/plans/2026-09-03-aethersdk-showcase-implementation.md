@@ -613,7 +613,7 @@ git commit -m "feat: model cohesive showcase workflows"
 - Test: `src/features/landing/LandingPage.test.jsx`
 - Test: `src/features/onboarding/OnboardingDialog.test.jsx`
 
-- [ ] **Step 1: Write failing storage contract tests**
+- [x] **Step 1: Write failing storage contract tests**
 
 Use exactly these keys:
 
@@ -627,15 +627,15 @@ localStorage['aether-density']
 
 Test fresh session, launch, skip, completion, replay-onboarding, sign-out/reset, and malformed-storage fallback.
 
-- [ ] **Step 2: Write failing landing/onboarding interaction tests**
+- [x] **Step 2: Write failing landing/onboarding interaction tests**
 
 Assert the mock boundary is visible before `Launch demo`; onboarding has four named steps; persona selection affects the provider; Skip marks completion; reset returns to pristine landing.
 
-- [ ] **Step 3: Implement landing and onboarding**
+- [x] **Step 3: Implement landing and onboarding**
 
 The hero must communicate within ten seconds: typed multi-provider sync, one governed runtime, operational recovery, and mock-data boundary. Preview both signature workflows without unsupported production claims.
 
-- [ ] **Step 4: Run focused tests**
+- [x] **Step 4: Run focused tests**
 
 ```powershell
 npm run test:run -- src/demo/persistence.test.js src/features/landing/LandingPage.test.jsx src/features/onboarding/OnboardingDialog.test.jsx
@@ -643,7 +643,7 @@ npm run test:run -- src/demo/persistence.test.js src/features/landing/LandingPag
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```powershell
 git add src/App.jsx src/demo/persistence.js src/features/landing src/features/onboarding
