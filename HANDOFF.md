@@ -73,11 +73,19 @@ Gates). Vercel rename + Git production + noindex confirmed 2026-09-05 (see
 Owner decisions → Deploy). Imagery captured from the live URL 2026-09-05
 (garthpuckerin.dev `develop` 9c18739: preview + OG + teaser, LIGHT, 1968px
 full-width; ritual dry-run green except the T-1 teaser staging; recapture T-0
-morning if anything visible ships). REMAINING (T-3 → T-2, Sep 6–8): onboard
-this repo into the the code-graph graph manifest;
-history-level public-safety review before the T-0 flip. Site side is already
-prepared on garthpuckerin.dev `develop` (reveal-meta, case study, chat KB,
-wall card; ritual dry-run green except the not-yet-captured assets).
+morning if anything visible ships; recaptured on the 30-day graph at site
+`develop` f60e744). Graph onboarding DONE 2026-09-05: fleet-manifest entry in
+the code-graph repo (local commit 40b8949 on `develop`, unpushed — that branch was
+already 44 ahead of origin, owner's call), re-ingest hook installed, first
+ingest fired at e087731. Standards compliance DONE 2026-09-05 (`BCSTANDARDS.md`,
+routing homes under `docs/`, `capabilities.yaml`, `CHANGELOG.md`, hygiene
+block, CSP proven live). REMAINING (T-3 → T-2, Sep 6–8): history-level
+public-safety review before the T-0 flip — see `docs/ISSUES.md` ISSUE-005:
+the safety scan does not check `HANDOFF.md` / `docs/**` for private paths, and
+this file carries checkout paths and the Vercel project id; scrub or accept
+explicitly before the flip. Site side is prepared on garthpuckerin.dev
+`develop` (reveal-meta, case study, chat KB, wall card, imagery; ritual dry-run
+green except the T-1 teaser staging).
 
 ## Owner-caught defects (2026-09-04) — FIXED 2026-09-05
 
