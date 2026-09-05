@@ -63,7 +63,8 @@ sweep clean (52 screens); viewport sweep clean (20 sizes); mobile sweep clean
 (6 viewports / 32 screens) after the integrations-grid and allowlist fixes —
 all three sweeps verified clean on 2026-09-04 against the dev server.
 
-REMAINING (T-3 → T-2, Sep 6–8): `npm run verify:release` from a clean checkout;
+DONE 2026-09-05: `verify:release` green from a fresh clone at `be7d0ea` (see
+Gates). REMAINING (T-3 → T-2, Sep 6–8):
 Vercel: rename project to `garthpuckerin-aethersdk`, re-enable Git production
 on `main`, confirm noindex; capture imagery from the live URL with
 `garthpuckerin.dev/scripts/capture-aether-preview.mjs` (LIGHT) then
@@ -114,11 +115,17 @@ DONE 2026-09-04 (`4ac618f`): eight self-hosted marks via the shared
 
 ## Gates
 
-`npm run verify` (lint · vitest · fixture verify · build · public-safety scan)
-and `npm run test:e2e` are green at `4cc14eb`. Still to port from the house
-suite before T-3: `whiteglove-sweep.mjs`, `mobile-sweep.mjs`,
-`viewport-sweep.mjs`, the anchor-relative coherence gate, and phone-width e2e
-of both signature workflows.
+`npm run verify:release` (lint · vitest 29 files / 244 tests · coherence gate ·
+build · public-safety scan · full Playwright 13 passed / 9 skipped-by-project ·
+`npm audit --audit-level=high` 0 vulns · `git diff --check`) is green from a
+**fresh clone** at `be7d0ea` (2026-09-05). The three house sweeps
+(`npm run sweeps`) are clean at `50df878` against the dev server.
+
+Gotchas: the Playwright `webServer` wants port 4173 — if something else holds it
+(a stray `python -m http.server 4173` did on 2026-09-05), serve the build on a
+spare port and set `E2E_BASE_URL` (the same override is used for the T-1/T-0
+runs against production). The dev server answers on `localhost:3400`, not
+`127.0.0.1`, so sweeps against it need `BASE_URL=http://localhost:3400`.
 
 ## Local dev
 
