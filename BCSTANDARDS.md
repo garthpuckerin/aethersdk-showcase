@@ -100,7 +100,7 @@
 - The comprehension and memory habits are active client bindings, not passive
   repository guidance. Each client must use the highest enforcement tier it
   supports under the Comprehension Ladder Standard.
-- Recall the memory tier with `hybrid_search` when starting work on a system that may
+- Recall the memory tier (`hybrid_search`) when starting work on a system that may
   have prior context. Before ending, store decisions with rationale, gotchas,
   and cross-session operational context with source, controlled tags, and a
   deliberate TTL. Never store secrets or code-structure facts.

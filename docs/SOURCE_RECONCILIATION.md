@@ -21,7 +21,7 @@ When sources disagree, use this order:
 
 ### Canonical AetherSDK graph
 
-Queried through the code-graph `map`, `find`, `explain`, and `neighbors` for the
+Queried through the code-graph ladder `map`, `find`, `explain`, and `neighbors` for the
 canonical repo `github.com/garthpuckerin/aethersdk`.
 
 Key evidence:
@@ -63,7 +63,7 @@ Key evidence:
 ### Claude Design export
 
 Inspected from
-`<downloads> frontend design system.zip` without copying
+the exported design archive (owner's downloads, not in Git) without copying
 the archive or generated HTML into Git.
 
 Located:
@@ -100,7 +100,7 @@ Adapted or rejected:
 
 ### Connex artifacts
 
-Read-only discovery in `<downloads>` located:
+Read-only discovery in the owner's downloads folder located:
 
 - `connex-dashboard.tar.gz`
 - `Connex_Architecture_Map.png`
@@ -131,9 +131,9 @@ Rejected as Aether product claims:
 
 Inspected:
 
-- `<hub-repo>\BCSTANDARDS.md`
-- `<hub-repo>\docs\DEMO_POLISH_CHECKLIST.md`
-- `<hub-repo>\docs\REPO_RECONCILIATION_MAP.md`
+- the hub repo's `BCSTANDARDS.md`
+- the hub repo's `docs/DEMO_POLISH_CHECKLIST.md`
+- the hub repo's `docs/REPO_RECONCILIATION_MAP.md`
 
 Accepted requirements:
 

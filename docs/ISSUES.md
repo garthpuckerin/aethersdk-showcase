@@ -43,9 +43,9 @@
   workflow running `npm run verify` once one exists for Vite + Playwright repos.
 
 ### ISSUE-005 · Public-safety scan checks private absolute paths only on public-surface roots
-- **Severity:** medium · **Status:** open (release blocker for the T-0 flip unless the owner accepts) · **Visible:** no until the repo flips public
+- **Severity:** medium · **Status:** current files resolved 2026-09-05 (scan now covers every tracked file, sealed names matched by hash, docs scrubbed); **history rewrite pending owner decision** · **Visible:** no until the repo flips public
 - **Evidence:** `scripts/public-safety-scan.mjs` applies the "personal absolute path" pattern to `src`, `public`, `index.html`, `README.md`, `ARCHITECTURE.md`, `dist` only; `HANDOFF.md`, `docs/REVEAL_RUNBOOK.md` and `docs/superpowers/**` carry machine-local checkout paths and a Vercel project id, and the scan passes.
-- **Next action:** at the T-2 history-level review, either scrub those files (and the history that introduced them) or widen the scan to every tracked file and accept the findings explicitly. Decide before the flip.
+- **Next action (owner decision before the flip):** history still carries the scrubbed content in 42 commits — private checkout paths (6 files), the Vercel project id, deployment ids in an artifact manifest, and sealed sibling names ("a-sibling-project" in the scanner's old denylist since 29731f1, the graph/memory system names in docs). No secrets anywhere in history. Either accept (private paths and ids are low-value; the sealed names are spoilers of later reveals) or rewrite with `git filter-repo --replace-text <replacements>` from a fresh clone, then force-push `main` and let Vercel redeploy — the replacements file is prepared (session scratch `history-replacements.txt`, copy into `scripts/` if adopted). A rewrite invalidates the re-ingest hook's source revisions; re-ingest once afterwards.
 
 ### ISSUE-006 · Audit action vocabulary diverges from the engine's
 - **Severity:** low · **Status:** open (deferred hardening) · **Visible:** yes — audit screen, activity feed, chat/case-study copy that quotes action names

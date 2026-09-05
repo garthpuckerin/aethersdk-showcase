@@ -103,7 +103,7 @@ It never contains:
 - real provider credentials, tokens, endpoints, tenants, or customer data;
 - a functioning provider adapter or network client;
 - production deployment configuration; or
-- claims that the showcase itself is production-ready.
+- claims that the showcase itself is a deployable product rather than a demo.
 
 Every entry surface states `Portfolio demo · mock data`. Operations that would
 cause a real external side effect complete as an explicitly simulated state
@@ -127,7 +127,7 @@ inside the portfolio monorepo. Its canonical remote is
 reveal and flips public at T-0 per the house showcase SOP (owner decision
 2026-09-03, superseding this spec's earlier private-forever wording). Its
 canonical local checkout is
-`<showcase-checkout>`. The temporary authoring checkout may live
+this checkout. The temporary authoring checkout may live
 elsewhere until the repository is created, but the reveal build must originate
 from the standalone remote.
 

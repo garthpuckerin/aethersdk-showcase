@@ -16,7 +16,7 @@
   during, and after reveal unless publishing source is separately authorized).
 - Production engine: `github.com/garthpuckerin/aethersdk`; read-only source of truth for concepts and public-safe semantics.
 - Portfolio hub: `github.com/garthpuckerin/garthpuckerin-portfolio`; do not modify until the T-0 reveal is separately authorized.
-- Exported design: `<downloads> frontend design system.zip`; inspiration and component inventory, not product truth.
+- Exported design: the exported design archive (owner's downloads, not in Git); inspiration and component inventory, not product truth.
 - Use `@test-driven-development` for behavior changes, `@adaptive-ui` for implementation fidelity, `@e2e-testing` for browser coverage, `@security-review` for public-safety gates, and `@verification-before-completion` before completion claims.
 - Keep the application fully deterministic. Do not add a backend, API client, provider SDK, secret, telemetry client, or environment-dependent fixture.
 - Do not make the repository or deployment public, remove `noindex`, or touch portfolio reveal surfaces during implementation. T-0 may publish only the deployed site; repository publication is a separate authorization.
@@ -137,7 +137,7 @@ blocks only deployment tasks, not local implementation.
 ```powershell
 node --version
 npm --version
-Test-Path "<downloads> frontend design system.zip"
+Test-Path "<downloads>/Custom frontend design system.zip"
 ```
 
 Expected: Node is 20.19–24.x, npm is 10+, and the design archive exists. Stop
@@ -170,12 +170,12 @@ implementation starts in the new worktree on `codex/showcase-build`.
 Run:
 
 ```powershell
-tar -tf "<downloads> frontend design system.zip"
+tar -tf "<downloads>/Custom frontend design system.zip"
 ```
 
 Expected: the two `.dc.html` exports, screenshot references, and support file are listed; no archive contents are committed.
 
-- [x] **Step 2: Map canonical Aether capabilities through the code-graph before raw code inspection**
+- [x] **Step 2: Map canonical Aether capabilities through the code-graph ladder before raw code inspection**
 
 Query `map`, `find`, `explain`, and `neighbors` for `ExecutionContext`, entity codecs, connector resolution, sync operation journal, entity links, `PushResult`, audit, webhook delivery, dead letters, metering, RBAC, and readiness.
 
@@ -198,9 +198,9 @@ accepted` in the reconciliation matrix. Do not copy artifacts into Git.
 Read the non-code standards/checklists at:
 
 ```text
-<hub-repo>\BCSTANDARDS.md
-<hub-repo>\docs\DEMO_POLISH_CHECKLIST.md
-<hub-repo>\docs\REPO_RECONCILIATION_MAP.md
+<hub-repo>/BCSTANDARDS.md
+<hub-repo>/docs/DEMO_POLISH_CHECKLIST.md
+<hub-repo>/docs/REPO_RECONCILIATION_MAP.md
 ```
 
 Record landing gate, mock boundary, onboarding, mobile companion, capture,

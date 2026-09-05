@@ -4,8 +4,8 @@ Reveal: **Thu 2026-09-10, noon ET.** This repo is the public cockpit for the
 Aether SDK reveal and follows the **house showcase SOP** (models:
 `grant-tracker-showcase`, `ops-command-center-showcase`). The governing brief
 is the aethersdk §9 section of
-`<hub-repo>\docs\DEMO_POLISH_CHECKLIST.md`; the ritual is the
-`reveal-cycle` skill in `<site-repo>`. Read both before
+the hub repo's `docs/DEMO_POLISH_CHECKLIST.md`; the ritual is the
+`reveal-cycle` skill in the site repo. Read both before
 touching this repo.
 
 ## Owner decisions (2026-09-03) — "everything SOP"
@@ -20,7 +20,7 @@ owner voided that the same day. What applies:
   canonical dev home from then on.
 - **Deploy:** git-integrated Vercel production on `main` behind a **permanent**
   `noindex` at `garthpuckerin-aethersdk.vercel.app`. **DONE 2026-09-05:** the
-  Vercel project (`<vercel-project-id>`) is renamed
+  Vercel project (id in the owner's Vercel dashboard) is renamed
   `garthpuckerin-aethersdk`, the domain is attached and verified, the Git link
   (`garthpuckerin/aethersdk-showcase`, production branch `main`) is intact and
   `gitProviderOptions.createDeployments` is `enabled` — every push to `main`
@@ -28,8 +28,8 @@ owner voided that the same day. What applies:
   resolves. Deployment Protection (`all_except_custom_domains`) does not gate
   the vercel.app production domain: it serves 200 + `X-Robots-Tag: noindex`
   without a bypass secret. Production smoke 2026-09-05 (`E2E_BASE_URL=https://garthpuckerin-aethersdk.vercel.app`): landing-onboarding, public-safety, connector-sync — 6 passed / 2 skipped-by-project. T-1/T-0 sweeps run against that production URL.
-- **Canonical checkout:** `<showcase-checkout>` (this one). The two
-  checkouts inside `<engine-repo>\` (`_aethersdk_showcase` on
+- **Canonical checkout:** this checkout (this one). The two
+  checkouts inside the engine repo directory (`_aethersdk_showcase` on
   `evidence/aether-2026-09-10`, `_worktrees\aethersdk-showcase-build` on
   `codex/showcase-build`) are retired at T+0 — do not develop in them. Codex's
   untracked `HANDOFF.md` in the worktree is superseded by this file.
@@ -75,15 +75,15 @@ Owner decisions → Deploy). Imagery captured from the live URL 2026-09-05
 full-width; ritual dry-run green except the T-1 teaser staging; recapture T-0
 morning if anything visible ships; recaptured on the 30-day graph at site
 `develop` f60e744). Graph onboarding DONE 2026-09-05: fleet-manifest entry in
-the code-graph repo (local commit 40b8949 on `develop`, unpushed — that branch was
+the code-graph repo (local commit on its `develop`, unpushed — that branch was
 already 44 ahead of origin, owner's call), re-ingest hook installed, first
 ingest fired at e087731. Standards compliance DONE 2026-09-05 (`BCSTANDARDS.md`,
 routing homes under `docs/`, `capabilities.yaml`, `CHANGELOG.md`, hygiene
 block, CSP proven live). REMAINING (T-3 → T-2, Sep 6–8): history-level
-public-safety review before the T-0 flip — see `docs/ISSUES.md` ISSUE-005:
-the safety scan does not check `HANDOFF.md` / `docs/**` for private paths, and
-this file carries checkout paths and the Vercel project id; scrub or accept
-explicitly before the flip. Site side is prepared on garthpuckerin.dev
+public-safety review: DONE for current files 2026-09-05 (docs scrubbed, scan
+widened to every tracked file, sealed names matched by hash) — the remaining
+decision is whether to rewrite history before the flip, see `docs/ISSUES.md`
+ISSUE-005. Site side is prepared on garthpuckerin.dev
 `develop` (reveal-meta, case study, chat KB, wall card, imagery; ritual dry-run
 green except the T-1 teaser staging).
 

@@ -79,7 +79,7 @@ audited mutations.
 
 ## 5. 2026-09-05 review: engine (`develop` @ 8f4caef) vs this demo
 
-Evidence: the code-graph ladder over `github.com/garthpuckerin/aethersdk`
+Evidence: code-graph ladder over `github.com/garthpuckerin/aethersdk`
 (`sync_many`, `MultiTargetSyncResult`, `SyncOperationState`,
 `security/webhook_delivery.py`, `security/webhook_dead_letter.py`,
 `runtime/readiness.py`, `security/scim_rbac.py`, `security/metering.py`,

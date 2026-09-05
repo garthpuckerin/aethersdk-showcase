@@ -1,8 +1,8 @@
 # T-5 depth pass — shared brief for every implementer
 
-**Date:** 2026-09-04 · **Reveal:** Thu 2026-09-10 noon ET · **Repo:** `<showcase-checkout>`
+**Date:** 2026-09-04 · **Reveal:** Thu 2026-09-10 noon ET · **Repo:** this checkout
 **Governing docs:** `HANDOFF.md` (owner decisions), the aethersdk §9 brief in
-`<hub-repo>\docs\DEMO_POLISH_CHECKLIST.md` (depth bar, tells,
+the hub repo's `docs/DEMO_POLISH_CHECKLIST.md` (depth bar, tells,
 design-canvas diff). Read `HANDOFF.md` before touching anything.
 
 ## The story (fixture graph, already rewritten — do not change `src/demo/seed.js` shapes)
@@ -129,8 +129,8 @@ with a 2-letter initial from the provider name.
 4. Persona changes scope and actions, not just styling.
 5. No console errors/warnings (React keys!), no external requests, no
    `console.log`.
-6. Public-safety scan: no personal absolute paths, no "production-ready",
-   never name a-sibling-project / a-sibling-project / a-sibling-project.
+6. Public-safety scan: no personal absolute paths, no readiness claims,
+   never name sibling projects that reveal later (the safety scan carries their hashes).
 7. Keyboard: dialogs/drawers close on Escape and return focus; interactive
    chart points are buttons.
 8. Tests: keep the colocated `*.test.jsx` for your feature green and

@@ -5,6 +5,12 @@ not adopted, the Vercel production deploy of `main` is the release.
 
 ## Unreleased
 
+### Security
+- Public-safety scan now covers every tracked file (was six public-surface
+  roots), adds platform resource ids, and matches sealed sibling-project names
+  by SHA-256 so the denylist itself cannot spoil a reveal. Docs scrubbed of
+  private checkout paths, the Vercel project id and sealed names (ISSUE-005).
+
 ### Added
 - README "What's real vs. illustrative" table and `docs/DEMO_DRIVEN_DELTAS.md`
   §5: the 2026-09-05 review of this demo against the engine graph and OpenAPI
