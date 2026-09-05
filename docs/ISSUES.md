@@ -47,6 +47,16 @@
 - **Evidence:** `scripts/public-safety-scan.mjs` applies the "personal absolute path" pattern to `src`, `public`, `index.html`, `README.md`, `ARCHITECTURE.md`, `dist` only; `HANDOFF.md`, `docs/REVEAL_RUNBOOK.md` and `docs/superpowers/**` carry machine-local checkout paths and a Vercel project id, and the scan passes.
 - **Next action:** at the T-2 history-level review, either scrub those files (and the history that introduced them) or widen the scan to every tracked file and accept the findings explicitly. Decide before the flip.
 
+### ISSUE-006 · Audit action vocabulary diverges from the engine's
+- **Severity:** low · **Status:** open (deferred hardening) · **Visible:** yes — audit screen, activity feed, chat/case-study copy that quotes action names
+- **Evidence:** demo emits `sync.completed`, `sync.retried`, `webhook.replayed`, `webhook.delivery.exhausted`, `member.invited`, `role.updated`, `scim.user.deprovisioned`, `connector.credential.rotated`; the engine's audit calls use `sync.batch.completed`, `sync.target.completed`, `webhook.replay.succeeded|failed`, `webhook.delivery.succeeded|failed`, `webhook.dead_letter.created`, `connector.validated`, `connector.configured`, `connector.enabled`, `authz.deny`, `tenant.create` (grep of `action="…"` in `application/`, `security/`). Reviewed 2026-09-05, `docs/DEMO_DRIVEN_DELTAS.md` §5.
+- **Next action:** rename fixture/reducer action strings to the engine vocabulary where an equivalent exists; keep demo-only actions (invite, role update) but label them illustrative in the README table. Re-run `npm run verify` and the sweeps (the white-glove sweep greps text).
+
+### ISSUE-007 · Six demo surfaces are illustrative, not engine-backed
+- **Severity:** low · **Status:** open (documented limitation) · **Visible:** yes, by design; now disclosed in the README "What's real vs. illustrative" table
+- **Evidence:** stage rail, usage tier bar, latency/throughput KPIs, invite member, rotate credential reference, export audit trail have no engine endpoint (`docs/DEMO_DRIVEN_DELTAS.md` §5 G1–G8).
+- **Next action:** none in the demo; the engine backlog carries the production shapes. Revisit the table whenever an engine capability lands.
+
 ## Closed
 
 - 2026-09-05 · Replay onboarding reopened on the last step; no Back button;

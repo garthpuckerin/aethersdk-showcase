@@ -6,6 +6,9 @@ not adopted, the Vercel production deploy of `main` is the release.
 ## Unreleased
 
 ### Added
+- README "What's real vs. illustrative" table and `docs/DEMO_DRIVEN_DELTAS.md`
+  §5: the 2026-09-05 review of this demo against the engine graph and OpenAPI
+  contract (ten engine-side gaps G1–G10, two demo-side issues).
 - Standards compliance files: `BCSTANDARDS.md`, `capabilities.yaml`,
   `docs/ISSUES.md`, `docs/FEATURES-BACKLOG.md`, `docs/ROADMAP.md`,
   `docs/DECISIONS.md`, this changelog; the Repo Hygiene `.gitignore` block.

@@ -107,6 +107,25 @@ autopilot.
 - `docs/REVEAL_RUNBOOK.md`: repo-local rehearsal/verification tooling; the
   reveal ritual itself is the house one (`HANDOFF.md`).
 
+## What's real vs. illustrative
+
+Reviewed 2026-09-05 against the engine's code graph and its OpenAPI contract
+(`docs/DEMO_DRIVEN_DELTAS.md` §5 has the evidence per row).
+
+| In this cockpit | In the engine today |
+|---|---|
+| Governed multi-target sync, one target fails, retry only that target with the same idempotency key | Real: `sync_many`, partial outcomes, retry-only-retryable-target proven by tests |
+| Webhook subscriptions, delivery retries, dead letter, replay with the same identities | Real: subscriptions, retry policy, dead-letter queue and replay endpoint |
+| Connector validation, tenant-scoped providers, readiness with named dependencies, incidents | Real: `/v1/connectors/{id}/validate`, `/v1/ready`, `/v1/operations` incidents |
+| Audit trail with typed actions | Real audit log; the demo's action names are a simplified vocabulary, not the engine's |
+| Eleven-stage run rail (queued → … → complete) | Illustrative: the engine journals six durable target states plus run status; a stage timeline would be projected from audit events |
+| Usage tier bar ("entity events this period" against a plan limit) | Illustrative: metering events are emitted; there is no usage summary or quota read model yet |
+| p95 latency, peak-per-hour, throughput history | Illustrative: the operations snapshot carries counts, not latency series |
+| "Invite member" | Illustrative: identities arrive through SCIM provisioning and role mapping, not invitations |
+| "Rotate credential reference", "Export audit trail" | Illustrative: credential references are set and read; the audit log is listed with a cursor; neither verb exists as an endpoint |
+| UKG, Xperience, Docebo, LinkedIn Learning, Axonify, Tableau, Slack | Illustrative vendors for the story; the engine ships CRM, HRIS (BambooHR), ticketing (Jira, Linear, GitHub) and local adapters, and generates others per deployment from its OpenAPI adapter generator |
+| Personas switched from Demo controls; browser-stored preferences; the autopilot | Showcase-only, never production |
+
 ## Publication boundary
 
 The build contains only static assets and fictional fixtures. Authoring specs,
