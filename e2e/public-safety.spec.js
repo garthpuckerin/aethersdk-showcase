@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test';
 
-test('runtime stays same-origin, asset-complete, and console-clean', async ({ page }) => {
+test('runtime stays same-origin, asset-complete, and console-clean', async ({ page, baseURL }) => {
+  const origin = new URL(baseURL).origin;
   const external = [];
   const consoleProblems = [];
   const failed = [];
-  page.on('request', (request) => { if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') external.push(request.url()); });
+  page.on('request', (request) => { if (new URL(request.url()).origin !== origin) external.push(request.url()); });
   page.on('console', (message) => { if (['warning', 'error'].includes(message.type())) consoleProblems.push(message.text()); });
   page.on('pageerror', (error) => consoleProblems.push(error.message));
   page.on('response', (response) => { if (response.status() >= 400) failed.push(`${response.status()} ${response.url()}`); });
