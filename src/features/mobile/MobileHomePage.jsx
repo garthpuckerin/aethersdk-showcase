@@ -1,8 +1,9 @@
+import ProviderMark from '../../components/ProviderMark';
 import { Link } from 'react-router-dom';
 import StatusBadge from '../../components/StatusBadge';
 import { useDemo, useRelativeTime } from '../../demo/context';
 import { selectExceptions, selectOverviewMetrics, selectRuntimeHealth, selectTenant, selectVisibleRuns } from '../../demo/selectors';
-import { credentialLabel, operationLabel, providerMarkFor } from './mobileData';
+import { credentialLabel, operationLabel, providerNameFor } from './mobileData';
 
 const RECENT_RUN_LIMIT = 5;
 
@@ -58,14 +59,14 @@ export default function MobileHomePage() {
           <div className="mobile-card-list">
             {exceptions.connectors.map((connector) => (
               <Link className="mobile-record mobile-record--row" key={connector.id} to={`/mobile/integrations/${connector.id}`}>
-                <span className="provider-mark" aria-hidden="true">{providerMarkFor(state, connector.id)}</span>
+                <ProviderMark name={providerNameFor(state, connector.id)} />
                 <div><strong>{connector.name}</strong><small>{connectorIssue(connector)}</small></div>
                 <StatusBadge status={connector.status} />
               </Link>
             ))}
             {exceptions.failedRuns.map((run) => (
               <Link className="mobile-record mobile-record--row" key={run.id} aria-label={`Open failed run ${run.id}`} to={`/mobile/runs/${run.id}`}>
-                <span className="provider-mark" aria-hidden="true">{providerMarkFor(state, run.sourceConnectorId)}</span>
+                <ProviderMark name={providerNameFor(state, run.sourceConnectorId)} />
                 <div><strong className="mono">{run.id}</strong><small>{operationLabel(run.operation)} · {rel(run.startedAt)}</small></div>
                 <StatusBadge status={run.status} />
               </Link>
@@ -86,7 +87,7 @@ export default function MobileHomePage() {
         <div className="mobile-card-list">
           {recentRuns.map((run) => (
             <Link className="mobile-record mobile-record--row" key={run.id} to={`/mobile/runs/${run.id}`}>
-              <span className="provider-mark" aria-hidden="true">{providerMarkFor(state, run.sourceConnectorId)}</span>
+              <ProviderMark name={providerNameFor(state, run.sourceConnectorId)} />
               <div><strong className="mono">{run.id}</strong><small>{operationLabel(run.operation)} · {run.entitiesProcessed} entities · {rel(run.startedAt)}</small></div>
               <StatusBadge status={run.status} />
             </Link>

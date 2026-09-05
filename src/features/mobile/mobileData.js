@@ -105,3 +105,8 @@ export function selectRunEvidence(state, runId) {
   const deliveries = selectDeliveries(state).filter((delivery) => delivery.runId === runId);
   return { auditEvent, deliveries };
 }
+
+export function providerNameFor(state, connectorId) {
+  const connector = state.connectors[connectorId];
+  return state.providerDefinitions[connector?.providerDefinitionId]?.name ?? connector?.name ?? '';
+}

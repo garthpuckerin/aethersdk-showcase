@@ -1,9 +1,10 @@
+import ProviderMark from '../../components/ProviderMark';
 import { Link } from 'react-router-dom';
 import StatusBadge from '../../components/StatusBadge';
 import { formatDuration } from '../../demo/clock';
 import { useDemo, useRelativeTime } from '../../demo/context';
 import { selectConnectorHealth } from '../../demo/selectors';
-import { activityFamily, directionLabel, providerMark, recordsLink } from './format';
+import { activityFamily, directionLabel, recordsLink } from './format';
 
 /* Building blocks shared by the roomy and dense overview layouts. Every
    number is read from the record or selector passed in. */
@@ -16,7 +17,7 @@ function useProviderName() {
 export function ProviderCell({ name, size }) {
   return (
     <span className="provider-cell">
-      <span className={`provider-mark ${size === 'sm' ? 'provider-mark--sm' : ''}`.trim()}>{providerMark(name)}</span>
+      <ProviderMark name={name} size={size} />
       <strong>{name}</strong>
     </span>
   );
@@ -88,7 +89,7 @@ export function HealthList({ connectors }) {
         return (
           <li key={connector.id}>
             <Link to={recordsLink('/app/integrations', [connector.id])} className="health-list__row">
-              <span className="provider-mark">{providerMark(provider?.name ?? connector.name)}</span>
+              <ProviderMark name={provider?.name ?? connector.name} />
               <span className="health-list__body">
                 <strong>{provider?.name ?? connector.name}</strong>
                 <small>{provider?.category ?? connector.role} · {health?.lastRunAt ? rel(health.lastRunAt) : 'no runs yet'}</small>
@@ -136,7 +137,7 @@ export function IntegrationMatrix({ connectors }) {
         return (
           <Link key={connector.id} to={recordsLink('/app/integrations', [connector.id])} className="integration-card">
             <span className="integration-card__head">
-              <span className="provider-mark">{providerMark(provider?.name ?? connector.name)}</span>
+              <ProviderMark name={provider?.name ?? connector.name} />
               <strong>{provider?.name ?? connector.name}</strong>
               <span className={`status-dot status-dot--${connector.status}`} aria-label={`Status: ${connector.status}`} />
             </span>

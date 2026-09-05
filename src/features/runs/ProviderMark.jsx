@@ -1,8 +1,8 @@
-import { providerInitials } from './runFormat';
+import SharedProviderMark from '../../components/ProviderMark';
 
-/* Two-letter provider mark; decorative, the name beside it carries meaning. */
-export default function ProviderMark({ name, size }) {
-  return <span className={`provider-mark${size === 'lg' ? ' provider-mark--lg' : ''}`} aria-hidden="true">{providerInitials(name)}</span>;
+/* Provider mark (vendor logo or monogram); decorative, the name beside it carries meaning. */
+export default function ProviderMark(props) {
+  return <SharedProviderMark {...props} />;
 }
 
 export function SystemCell({ name, providerName }) {

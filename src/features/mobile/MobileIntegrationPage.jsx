@@ -1,3 +1,4 @@
+import ProviderMark from '../../components/ProviderMark';
 import { Link, useParams } from 'react-router-dom';
 import { can } from '../../access/policy';
 import DataState from '../../components/DataState';
@@ -5,7 +6,7 @@ import StatusBadge from '../../components/StatusBadge';
 import { useDemo, useRelativeTime } from '../../demo/context';
 import { ACTIONS } from '../../demo/reducer';
 import { selectConnectorHealth, selectConnectorRuns, selectVisibleConnectors } from '../../demo/selectors';
-import { credentialLabel, directionLabel, operationLabel, providerFor, providerInitials } from './mobileData';
+import { credentialLabel, directionLabel, operationLabel, providerFor } from './mobileData';
 
 const RECENT_RUN_LIMIT = 3;
 
@@ -29,7 +30,7 @@ export default function MobileIntegrationPage() {
         <p className="eyebrow">{provider?.name ?? 'Connector'}</p>
         <h1>{connector.name}</h1>
         <div className="mobile-title__status">
-          <span className="provider-mark" aria-hidden="true">{providerInitials(provider?.name ?? connector.name)}</span>
+          <ProviderMark name={provider?.name ?? connector.name} />
           <StatusBadge status={connector.status} />
         </div>
       </section>
