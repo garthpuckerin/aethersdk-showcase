@@ -70,9 +70,11 @@ all three sweeps verified clean on 2026-09-04 against the dev server.
 
 DONE 2026-09-05: `verify:release` green from a fresh clone at `be7d0ea` (see
 Gates). Vercel rename + Git production + noindex confirmed 2026-09-05 (see
-Owner decisions → Deploy). REMAINING (T-3 → T-2, Sep 6–8): capture imagery from the live URL with
-`garthpuckerin.dev/scripts/capture-aether-preview.mjs` (LIGHT) then
-`build-previews.mjs`; onboard this repo into the the code-graph graph manifest;
+Owner decisions → Deploy). Imagery captured from the live URL 2026-09-05
+(garthpuckerin.dev `develop` 9c18739: preview + OG + teaser, LIGHT, 1968px
+full-width; ritual dry-run green except the T-1 teaser staging; recapture T-0
+morning if anything visible ships). REMAINING (T-3 → T-2, Sep 6–8): onboard
+this repo into the the code-graph graph manifest;
 history-level public-safety review before the T-0 flip. Site side is already
 prepared on garthpuckerin.dev `develop` (reveal-meta, case study, chat KB,
 wall card; ritual dry-run green except the not-yet-captured assets).
