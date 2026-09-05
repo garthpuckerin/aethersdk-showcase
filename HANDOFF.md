@@ -72,6 +72,21 @@ history-level public-safety review before the T-0 flip. Site side is already
 prepared on garthpuckerin.dev `develop` (reveal-meta, case study, chat KB,
 wall card; ritual dry-run green except the not-yet-captured assets).
 
+## Provider icons (owner request 2026-09-04, deferred)
+
+The cards/rows use two-letter monograms (`.provider-mark`). Simple Icons (CC0)
+only carries Jira, SAP, Snowflake, Okta — LinkedIn, Slack, Salesforce, Tableau,
+Workday, Teams, ServiceNow were removed at the vendors' request, and UKG,
+Docebo, Axonify, Cornerstone were never included. Real marks for the headline
+six need the vendors' own brand kits (UKG, Docebo, LinkedIn Brand Center,
+Axonify, Tableau/Salesforce brand, Slack brand) with their usage terms read;
+self-host under `public/icons/providers/<slug>.svg`, add `iconSlug` to
+`PROVIDER_DEFINITIONS` in `src/demo/seed.js`, render `<img>` with the monogram
+as fallback in the three mark helpers (`features/integrations/providerMark.js`,
+`features/runs/ProviderMark.jsx`, `features/overview/format.js`/`panels.jsx`).
+Do it for all-or-none of the connected providers — mixed logos and monograms
+read as unfinished.
+
 ## Gates
 
 `npm run verify` (lint · vitest · fixture verify · build · public-safety scan)
