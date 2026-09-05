@@ -1,0 +1,17 @@
+/* Audit trail — feature layout on top of the shared table primitives. */
+.audit-toolbar .field { flex: 0 1 11rem; }
+.audit-toolbar .field--search { flex: 1 1 16rem; }
+.audit-chip-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border); }
+.audit-chip-bar > span { color: var(--color-ink-muted); font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.audit-action { display: inline-flex; align-items: center; gap: var(--space-2); font-family: var(--font-mono); font-size: var(--text-sm); font-weight: 600; }
+.audit-actor small { text-transform: capitalize; }
+.audit-detail { display: block; max-width: 22rem; color: var(--color-ink-muted); white-space: normal; }
+.audit-pager { display: flex; align-items: center; gap: var(--space-2); }
+.export-options .segmented { justify-self: start; }
+
+/* Semantic tones for the action dot. Candidates for the shared
+   .status-dot family in components.css (shell owner). */
+.status-dot--positive { background: var(--color-positive); }
+.status-dot--danger { background: var(--color-danger); }
+.status-dot--info { background: var(--color-info); }
+.status-dot--accent { background: var(--color-accent-strong); }

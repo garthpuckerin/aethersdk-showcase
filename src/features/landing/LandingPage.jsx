@@ -1,12 +1,8 @@
 import { Button, Eyebrow } from '../../components/ui';
 import StatusBadge from '../../components/StatusBadge';
-import { LANDING_TRACE } from '../../demo/presentation';
+import { LANDING_FLOW, LANDING_TRACE } from '../../demo/presentation';
 
-const FLOW = [
-  ['01', 'Resolve', 'A tenant-owned connector and typed entity enter one governed context.'],
-  ['02', 'Synchronize', 'Canonical identity, provider links, and per-target outcomes stay traceable.'],
-  ['03', 'Recover', 'Audit, delivery, dead letter, replay, health, and usage resolve as one chain.'],
-];
+const PROVIDERS = ['UKG Pro', 'Xperience', 'Docebo', 'LinkedIn Learning', 'Axonify', 'Tableau'];
 
 export default function LandingPage({ onLaunch }) {
   return (
@@ -27,12 +23,17 @@ export default function LandingPage({ onLaunch }) {
           <Eyebrow>Integration substrate · Operator cockpit</Eyebrow>
           <h1>The seams between systems, <em>made operable.</em></h1>
           <p className="landing__lede">
-            A tenant-aware control plane for typed, multi-provider synchronization—where
-            identity, execution, audit, delivery, recovery, and usage share one context.
+            A fictional credit union moves every new hire from its HR systems of record into three
+            learning platforms, and every course completion back out to analytics. AetherSDK is the
+            tenant-aware control plane for that typed, multi-provider synchronization—identity,
+            execution, audit, delivery, recovery, and usage sharing one context.
           </p>
           <div className="landing__actions">
             <Button onClick={onLaunch}>Launch demo <span aria-hidden="true">↗</span></Button>
             <span>Portfolio demo · mock data</span>
+          </div>
+          <div className="landing__providers" aria-label="Featured integrations">
+            {PROVIDERS.map((provider) => <span key={provider}>{provider}</span>)}
           </div>
         </div>
 
@@ -41,8 +42,8 @@ export default function LandingPage({ onLaunch }) {
             <span>{LANDING_TRACE.runId}</span>
             <StatusBadge status="running" />
           </div>
-          <div className="landing__signal-number">{LANDING_TRACE.durationMs.toLocaleString()}<span>ms</span></div>
-          <p>request → canonical contact → two provider outcomes</p>
+          <div className="landing__signal-number">{LANDING_TRACE.durationMs.toLocaleString('en-US')}<span>ms</span></div>
+          <p>{LANDING_TRACE.caption}</p>
           <div className="landing__bars" aria-hidden="true">
             {LANDING_TRACE.bars.map((height, index) => (
               <span key={index} style={{ '--bar-height': `${height}%` }} />
@@ -60,7 +61,7 @@ export default function LandingPage({ onLaunch }) {
           <h2 id="flow-title">Follow the consequence, not just the request.</h2>
         </div>
         <div className="landing__flow-grid">
-          {FLOW.map(([number, title, detail]) => (
+          {LANDING_FLOW.map(([number, title, detail]) => (
             <article key={number}>
               <span className="mono">{number}</span>
               <h3>{title}</h3>

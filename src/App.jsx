@@ -3,14 +3,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './app/routes';
 import { DemoProvider } from './demo/DemoProvider';
 import { useDemo } from './demo/context';
+import { buildInitialState } from './demo/bootstrap';
 import { ACTIONS } from './demo/reducer';
-import { createSeedState } from './demo/seed';
 import {
+  clearWorkflowState,
   completeOnboarding,
   hasEnteredDemo,
   hasFinishedOnboarding,
   launchDemo,
-  loadPreferences,
   replayOnboarding,
   resetDemoPersistence,
   savePreference,
@@ -46,6 +46,7 @@ function Experience() {
 
   function reset() {
     resetDemoPersistence();
+    clearWorkflowState();
     dispatch({ type: ACTIONS.RESET_DEMO });
     setEntered(false);
     setOnboardingOpen(false);
@@ -67,10 +68,7 @@ function Experience() {
 }
 
 export default function App() {
-  const [initialState] = useState(() => {
-    const preferences = loadPreferences();
-    return { ...createSeedState(), activePersonaId: preferences.persona, theme: preferences.theme, density: preferences.density };
-  });
+  const [initialState] = useState(buildInitialState);
   return (
     <DemoProvider initialState={initialState}>
       <BrowserRouter>

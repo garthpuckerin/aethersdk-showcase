@@ -3,20 +3,16 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import { DemoProvider } from '../../demo/DemoProvider';
-import { showcaseReducer, ACTIONS } from '../../demo/reducer';
-import { createSeedState } from '../../demo/seed';
+import { selectAuditEvents, selectDeliveries } from '../../demo/selectors';
+import { buildState } from '../../test/fixture-builders';
 import AuditPage from './AuditPage';
 
-function generatedAuditState() {
-  let state = createSeedState();
-  state = showcaseReducer(state, { type: ACTIONS.START_SYNC, sourceConnectorId: 'con_salesforce', targetConnectorIds: ['con_hubspot', 'con_pipedrive'] });
-  state = showcaseReducer(state, { type: ACTIONS.ADVANCE_RUN_STAGE, runId: state.liveIds.runId, stage: 'audit' });
-  state = showcaseReducer(state, { type: ACTIONS.ADVANCE_RUN_STAGE, runId: state.liveIds.runId, stage: 'webhook' });
-  return state;
-}
-
-function renderAudit(state = generatedAuditState()) {
-  return render(<MemoryRouter><DemoProvider initialState={state}><AuditPage /></DemoProvider></MemoryRouter>);
+function renderAudit(state = buildState(), route = '/app/audit') {
+  return render(
+    <MemoryRouter initialEntries={[route]}>
+      <DemoProvider initialState={state} autopilotEnabled={false}><AuditPage /></DemoProvider>
+    </MemoryRouter>,
+  );
 }
 
 function rows() {
@@ -24,24 +20,62 @@ function rows() {
 }
 
 describe('AuditPage', () => {
-  it('filters immutable events by actor, action, resource, and request identity', async () => {
+  it('filters the stream by resource-type chip', async () => {
     const user = userEvent.setup();
-    renderAudit();
-    await user.selectOptions(screen.getByLabelText('Audit actor'), 'actor_operator');
-    expect(rows().length).toBeGreaterThan(0);
-    await user.selectOptions(screen.getByLabelText('Audit action'), 'sync.completed');
-    await user.selectOptions(screen.getByLabelText('Resource type'), 'run');
-    await user.type(screen.getByRole('searchbox', { name: 'Request identity' }), 'req_live_northstar_001');
-    expect(rows()).toHaveLength(1);
-    expect(screen.getByText('evt_live_northstar_001')).toBeVisible();
+    const state = buildState();
+    const memberEvents = selectAuditEvents(state).filter(({ resourceType }) => resourceType === 'member');
+    renderAudit(state);
+    expect(screen.getByRole('heading', { name: 'Audit trail' })).toBeVisible();
+    expect(screen.getByText(`Read-only, tamper-evident event stream · ${selectAuditEvents(state).length} events`)).toBeVisible();
+    await user.click(screen.getByRole('button', { name: 'member' }));
+    expect(screen.getByRole('button', { name: 'member' })).toHaveAttribute('aria-pressed', 'true');
+    expect(rows()).toHaveLength(memberEvents.length);
+    for (const row of rows()) expect(within(row).getByRole('link', { name: /actor_/ })).toHaveAttribute('href', '/app/access');
   });
 
-  it('links the shared run and generated delivery without mutation affordances', () => {
+  it('finds a single event by request id', async () => {
+    const user = userEvent.setup();
     renderAudit();
-    const eventRow = screen.getByText('evt_live_northstar_001').closest('tr');
-    expect(within(eventRow).getByRole('link', { name: 'run_live_northstar_001' })).toHaveAttribute('href', '/app/runs/run_live_northstar_001');
-    expect(within(eventRow).getByRole('link', { name: 'View delivery' })).toHaveAttribute('href', '/app/webhooks?records=delivery_live_northstar_001');
-    expect(screen.getByText(/immutable tenant audit stream/i)).toBeVisible();
+    await user.type(screen.getByRole('searchbox', { name: 'Search' }), 'req_gov_04');
+    expect(rows()).toHaveLength(1);
+    expect(screen.getByText('evt_gov_04')).toBeVisible();
+    expect(screen.getByText('member.invited')).toBeVisible();
+    expect(screen.getByText(/showing 1–1 of 1 events/i)).toBeVisible();
+  });
+
+  it('links a delivered event to its delivery and honours ?records=', () => {
+    const state = buildState();
+    const delivery = selectDeliveries(state).find(({ eventId }) => state.auditEvents[eventId]);
+    const expected = selectDeliveries(state).find(({ eventId }) => eventId === delivery.eventId);
+    renderAudit(state, `/app/audit?records=${delivery.eventId}`);
+    expect(rows()).toHaveLength(1);
+    const row = rows()[0];
+    expect(within(row).getByRole('link', { name: 'View delivery' })).toHaveAttribute('href', `/app/webhooks?records=${expected.id}`);
+    expect(within(row).getByRole('link', { name: state.auditEvents[delivery.eventId].resourceId })).toHaveAttribute('href', `/app/runs/${state.auditEvents[delivery.eventId].resourceId}`);
+    expect(screen.getByRole('button', { name: 'Show all events' })).toBeVisible();
     expect(screen.queryByRole('button', { name: /delete|edit/i })).not.toBeInTheDocument();
+  });
+
+  it('records an export request as an audit event without producing a file', async () => {
+    const user = userEvent.setup();
+    renderAudit();
+    await user.click(screen.getByRole('button', { name: 'audit' }));
+    const before = rows().length;
+    await user.click(screen.getByRole('button', { name: 'Export' }));
+    const dialog = screen.getByRole('dialog', { name: 'Export audit trail' });
+    await user.click(within(dialog).getByRole('button', { name: 'Last 7 days' }));
+    await user.selectOptions(within(dialog).getByRole('combobox', { name: 'Format' }), 'CSV');
+    await user.click(within(dialog).getByRole('button', { name: 'Request export' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('Export requested — recorded as an audit event');
+    expect(screen.getByRole('status')).toHaveTextContent('no file is produced');
+    expect(rows()).toHaveLength(before + 1);
+    expect(screen.getByText('7-day export · CSV')).toBeVisible();
+  });
+
+  it('withholds the export action from a persona without audit permissions', () => {
+    renderAudit(buildState((state) => { state.activePersonaId = 'developer'; }));
+    expect(screen.queryByRole('button', { name: 'Export' })).not.toBeInTheDocument();
+    expect(screen.getByText(/needs audit:export or audit:view/i)).toBeVisible();
   });
 });

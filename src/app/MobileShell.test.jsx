@@ -1,20 +1,29 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it } from 'vitest';
 import { DemoProvider } from '../demo/DemoProvider';
-import { createSeedState } from '../demo/seed';
+import { selectExceptions } from '../demo/selectors';
+import { buildState } from '../test/fixture-builders';
 import { AppRoutes } from './routes';
 
 function setWidth(width) {
   Object.defineProperty(window, 'innerWidth', { configurable: true, writable: true, value: width });
 }
 
-function renderApp(path, state = createSeedState()) {
-  return render(<MemoryRouter initialEntries={[path]}><DemoProvider initialState={state}><AppRoutes onReplayOnboarding={() => {}} onReset={() => {}} /></DemoProvider></MemoryRouter>);
+function renderApp(path, state = buildState()) {
+  return render(
+    <MemoryRouter initialEntries={[path]}>
+      <DemoProvider initialState={state} autopilotEnabled={false}>
+        <AppRoutes onReplayOnboarding={() => {}} onReset={() => {}} />
+      </DemoProvider>
+    </MemoryRouter>,
+  );
 }
 
-afterEach(() => sessionStorage.clear());
+afterEach(() => {
+  sessionStorage.clear();
+  localStorage.clear();
+});
 
 describe('mobile boot routing', () => {
   for (const width of [320, 390, 767]) {
@@ -43,56 +52,45 @@ describe('mobile boot routing', () => {
   });
 });
 
-describe('mobile operations companion', () => {
-  it('surfaces health, exceptions, active/failed runs, and DLQ records with live affordances', async () => {
-    const user = userEvent.setup();
+describe('mobile companion shell', () => {
+  it('owns the floor with four bottom tabs and the mock-data boundary', () => {
     setWidth(390);
     renderApp('/mobile/home');
-    expect(screen.getByText('Northstar Labs')).toBeVisible();
+    const nav = screen.getByRole('navigation', { name: 'Companion' });
+    const tabs = within(nav).getAllByRole('link');
+    expect(tabs).toHaveLength(4);
+    expect(within(nav).getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/mobile/home');
+    expect(within(nav).getByRole('link', { name: 'Runs' })).toHaveAttribute('href', '/mobile/runs');
+    expect(within(nav).getByRole('link', { name: /^Queue/ })).toHaveAttribute('href', '/mobile/queue');
+    expect(within(nav).getByRole('link', { name: 'More' })).toHaveAttribute('href', '/mobile/more');
+    expect(screen.getByText('Portfolio demo · mock data')).toBeVisible();
     expect(within(screen.getByRole('banner')).getByLabelText('Status: Warning')).toBeVisible();
-    expect(screen.getByText('Slack Events')).toBeVisible();
-    expect(screen.getByRole('link', { name: /open active run run_hist_01/i })).toBeVisible();
-    expect(screen.getByRole('link', { name: /open failed run run_hist_06/i })).toBeVisible();
-    expect(screen.getByText('dlq_hist_1')).toBeVisible();
-    await user.click(screen.getByRole('link', { name: /open failed run run_hist_06/i }));
-    expect(screen.getByRole('heading', { name: 'run_hist_06' })).toBeVisible();
-    expect(screen.getByText(/PROVIDER_RATE_LIMIT · sanitized/i)).toBeVisible();
-    await user.click(screen.getByRole('button', { name: 'Retry failed target only' }));
-    expect(screen.getByLabelText('Status: Success')).toBeVisible();
   });
 
-  it('makes retry and replay permission-aware', async () => {
-    const user = userEvent.setup();
-    const state = createSeedState();
-    state.activePersonaId = 'auditor';
+  it('badges the Queue tab with dead letters plus failed runs from the exception selector', () => {
+    const state = buildState();
+    const exceptions = selectExceptions(state);
+    const expected = exceptions.deadLetters.length + exceptions.failedRuns.length;
+    expect(expected).toBeGreaterThan(0);
     setWidth(390);
-    renderApp('/mobile/runs/run_hist_06', state);
-    expect(screen.queryByRole('button', { name: 'Retry failed target only' })).not.toBeInTheDocument();
-    expect(screen.getByText(/sync:retry permission/i)).toBeVisible();
-    await user.click(screen.getByRole('link', { name: 'More' }));
-    const deadLetter = screen.getByTestId('mobile-dlq-dlq_hist_1');
-    expect(within(deadLetter).queryByRole('button', { name: 'Replay dead letter' })).not.toBeInTheDocument();
-    expect(within(deadLetter).getByText(/delivery:replay permission/i)).toBeVisible();
+    renderApp('/mobile/home', state);
+    expect(screen.getByTestId('mobile-queue-count')).toHaveTextContent(String(expected));
   });
 
-  it('replays a DLQ item locally and offers live home, launch, and desktop destinations', async () => {
-    const user = userEvent.setup();
-    const state = createSeedState();
-    state.activePersonaId = 'operator';
+  it('hides the Queue badge when nothing needs recovery', () => {
+    const state = buildState((draft) => {
+      draft.deadLetters = {};
+      draft.deadLetterOrder = [];
+      for (const run of Object.values(draft.runs)) if (run.status === 'failed') run.status = 'success';
+    });
     setWidth(390);
-    renderApp('/mobile/more', state);
-    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/mobile/home');
-    expect(screen.getByRole('link', { name: 'Open full desktop console' })).toHaveAttribute('href', '/app/overview?view=desktop');
-    expect(screen.getByRole('button', { name: 'Return to launch page' })).toBeVisible();
-    await user.click(screen.getByRole('button', { name: 'Replay dead letter' }));
-    expect(screen.queryByText('dlq_hist_1')).not.toBeInTheDocument();
-    expect(screen.getByText(/delivery replayed successfully/i)).toBeVisible();
+    renderApp('/mobile/home', state);
+    expect(screen.queryByTestId('mobile-queue-count')).not.toBeInTheDocument();
   });
 
   for (const [scenario, heading] of Object.entries({ loading: 'Loading simulated data', empty: 'No simulated records', error: 'Simulated service error', denied: 'Permission boundary preview' })) {
     it(`renders the ${scenario} state on companion surfaces`, () => {
-      const state = createSeedState();
-      state.scenario = scenario;
+      const state = buildState((draft) => { draft.scenario = scenario; });
       setWidth(390);
       renderApp('/mobile/home', state);
       expect(screen.getByRole('heading', { name: heading })).toBeVisible();

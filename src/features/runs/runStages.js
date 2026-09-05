@@ -1,10 +1,26 @@
-export const RUN_STAGES = ['queued', 'authorization', 'fetch', 'normalization', 'match', 'provider_write', 'identity_link', 'audit', 'webhook', 'metering'];
+/* Stage vocabulary is owned by the reducer; this module only adds the labels
+   the rail renders. The autopilot advances stages — the UI never does. */
+export { RUN_STAGES, nextStage } from '../../demo/reducer';
+
+const STAGE_LABELS = {
+  queued: 'Queued',
+  authorization: 'Authorization',
+  fetch: 'Fetch',
+  normalization: 'Normalization',
+  match: 'Match',
+  provider_write: 'Provider write',
+  identity_link: 'Identity link',
+  audit: 'Audit',
+  webhook: 'Webhook',
+  metering: 'Metering',
+  complete: 'Complete',
+};
 
 export function stageLabel(stage) {
-  return stage.replaceAll('_', ' ');
+  return STAGE_LABELS[stage] ?? String(stage).replaceAll('_', ' ');
 }
 
-export function nextStage(stage) {
-  const index = RUN_STAGES.indexOf(stage);
-  return index >= 0 && index < RUN_STAGES.length - 1 ? RUN_STAGES[index + 1] : null;
+/* `complete` is a terminal marker the engine sets, not a step a human watches. */
+export function visibleStages(stages) {
+  return stages.filter((stage) => stage !== 'complete');
 }

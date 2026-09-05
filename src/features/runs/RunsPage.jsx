@@ -1,56 +1,142 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import DataTable from '../../components/DataTable';
+import { useRef, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { can } from '../../access/policy';
 import StatusBadge from '../../components/StatusBadge';
-import { useDemo } from '../../demo/context';
+import { formatDuration } from '../../demo/clock';
+import { useDemo, useRelativeTime } from '../../demo/context';
 import { selectVisibleRuns } from '../../demo/selectors';
+import { SystemCell } from './ProviderMark';
+import RunSyncDialog from './RunSyncDialog';
+import { DEFAULT_FILTERS, DIRECTIONS, STATUS_CHIPS, WINDOW_OPTIONS, distinct, filterRuns, paginate, runsInWindow, statusCounts, windowLabel } from './runFilters';
+import { directionLabel, latencyLabel, operationLabel, plural, providerFor } from './runFormat';
+import '../../styles/features/runs.css';
 
-function formatDuration(milliseconds) {
-  return milliseconds == null ? 'In progress' : `${(milliseconds / 1000).toFixed(2)} s`;
+const COLUMN_COUNT = 9;
+
+function RunRow({ run, state, rel }) {
+  const provider = providerFor(state, run.connectorId);
+  return (
+    <tr data-record-id={run.id}>
+      <td><Link className="run-link" to={`/app/runs/${run.id}`}>{run.id}</Link></td>
+      <td><SystemCell name={state.connectors[run.connectorId]?.name ?? run.connectorId} providerName={provider?.name} /></td>
+      <td>{operationLabel(run.operation)}</td>
+      <td className="muted">{directionLabel(run.direction)}</td>
+      <td className="num">{run.entitiesProcessed}</td>
+      <td className="num muted">{latencyLabel(run.p95Ms)}</td>
+      <td className="num muted">{formatDuration(run.durationMs)}</td>
+      <td><StatusBadge status={run.status} /></td>
+      <td className="muted">{rel(run.startedAt)}</td>
+    </tr>
+  );
 }
 
 export default function RunsPage() {
   const { state } = useDemo();
-  const runs = selectVisibleRuns(state);
-  const [status, setStatus] = useState('all');
-  const [direction, setDirection] = useState('all');
-  const [entityType, setEntityType] = useState('all');
-  const [provider, setProvider] = useState('all');
-  const [window, setWindow] = useState('all');
-  const providerNames = [...new Set(runs.map((run) => state.providerDefinitions[state.connectors[run.connectorId].providerDefinitionId].name))].sort();
-  const entityTypes = [...new Set(runs.map((run) => run.entityType))].sort();
-  const rows = runs.filter((run) => {
-    const providerName = state.providerDefinitions[state.connectors[run.connectorId].providerDefinitionId].name;
-    const ageHours = (Date.parse(state.anchorTime) - Date.parse(run.startedAt)) / 3_600_000;
-    return (status === 'all' || run.status === status)
-      && (direction === 'all' || run.direction === direction)
-      && (entityType === 'all' || run.entityType === entityType)
-      && (provider === 'all' || providerName === provider)
-      && (window === 'all' || ageHours <= Number.parseInt(window, 10));
-  });
-  const columns = [
-    { key: 'run', label: 'Run', render: (run) => <Link className="record-link" to={`/app/runs/${run.id}`}>{run.id}</Link> },
-    { key: 'provider', label: 'Provider', render: (run) => state.providerDefinitions[state.connectors[run.connectorId].providerDefinitionId].name },
-    { key: 'entity', label: 'Entity type', render: (run) => <code>{run.entityType}</code> },
-    { key: 'direction', label: 'Direction' },
-    { key: 'status', label: 'Status', render: (run) => <StatusBadge status={run.status} /> },
-    { key: 'duration', label: 'Duration', render: (run) => formatDuration(run.durationMs) },
-    { key: 'p95', label: 'p95 latency', render: (run) => run.p95Ms == null ? '—' : `${run.p95Ms} ms` },
-  ];
+  const rel = useRelativeTime();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [filters, setFilters] = useState(DEFAULT_FILTERS);
+  const [page, setPage] = useState(0);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const runSyncRef = useRef(null);
+
+  const status = searchParams.get('status') ?? 'all';
+  const recordIds = (searchParams.get('records') ?? '').split(',').filter(Boolean);
+  const scoped = selectVisibleRuns(state);
+  const windowed = recordIds.length ? scoped.filter((run) => recordIds.includes(run.id)) : runsInWindow(state, filters.window);
+  const rows = filterRuns(state, windowed, { ...filters, status });
+  const counts = statusCounts(windowed);
+  const { page: safePage, start, end, pageRows } = paginate(rows, page);
+  const providers = distinct(scoped.map((run) => providerFor(state, run.connectorId)?.name));
+  const entityTypes = distinct(scoped.map((run) => run.entityType));
+  const operations = distinct(scoped.map((run) => run.operation));
+  const mayRun = can(state.activePersonaId, 'sync:run');
+  const lede = recordIds.length ? `${plural(windowed.length, 'run')} from a linked record set` : `${plural(windowed.length, 'run')} in the ${windowLabel(filters.window)}`;
+
+  function update(patch) {
+    setFilters((current) => ({ ...current, ...patch }));
+    setPage(0);
+  }
+
+  function setParam(key, value) {
+    const next = new URLSearchParams(searchParams);
+    if (value) next.set(key, value); else next.delete(key);
+    setSearchParams(next, { replace: true });
+    setPage(0);
+  }
 
   return (
     <div className="page-stack">
-      <section className="page-heading page-heading--split"><div><p className="eyebrow">Operate</p><h1>Sync runs</h1><p>Tenant-scoped execution history with canonical identities, provider outcomes, and derived latency.</p></div><div className="page-heading__status"><strong>{rows.length}</strong><span>runs in view</span></div></section>
-      <section className="panel table-panel">
-        <div className="run-filters">
-          <label>Run status<select aria-label="Run status" value={status} onChange={(event) => setStatus(event.target.value)}><option value="all">All</option><option value="success">Success</option><option value="failed">Failed</option><option value="running">Running</option></select></label>
-          <label>Direction<select aria-label="Run direction" value={direction} onChange={(event) => setDirection(event.target.value)}><option value="all">All</option><option value="inbound">Inbound</option><option value="outbound">Outbound</option><option value="bidirectional">Bidirectional</option></select></label>
-          <label>Entity type<select aria-label="Entity type" value={entityType} onChange={(event) => setEntityType(event.target.value)}><option value="all">All</option>{entityTypes.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
-          <label>Provider<select aria-label="Provider" value={provider} onChange={(event) => setProvider(event.target.value)}><option value="all">All</option>{providerNames.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
-          <label>Time window<select aria-label="Time window" value={window} onChange={(event) => setWindow(event.target.value)}><option value="all">All</option><option value="6h">Last 6 hours</option><option value="24h">Last 24 hours</option></select></label>
+      <section className="page-heading">
+        <div><p className="eyebrow">Operate</p><h1>Sync runs</h1><p>{lede}</p></div>
+        <div className="page-heading__actions">
+          <div className="page-heading__status run-counts" aria-label="Status counts">
+            <span><strong>{counts.success}</strong> success</span>
+            <span><strong>{counts.running}</strong> running</span>
+            <span className="run-counts__failed"><strong>{counts.failed}</strong> failed</span>
+          </div>
+          {mayRun
+            ? <button ref={runSyncRef} className="button button--primary" type="button" onClick={() => setDialogOpen(true)}>Run sync</button>
+            : <p className="permission-note">Requires sync:run permission.</p>}
         </div>
-        <DataTable ariaLabel="Sync runs" columns={columns} rows={rows} />
       </section>
+
+      <section className="panel panel--flush">
+        <div className="run-toolbar">
+          <div className="chip-row" role="group" aria-label="Run status">
+            {STATUS_CHIPS.map(({ value, label }) => <button key={value} type="button" className="chip" aria-pressed={status === value} onClick={() => setParam('status', value === 'all' ? '' : value)}>{label}</button>)}
+          </div>
+          <select aria-label="Direction" value={filters.direction} onChange={(event) => update({ direction: event.target.value })}>
+            <option value="all">All directions</option>
+            {DIRECTIONS.map((value) => <option key={value} value={value}>{directionLabel(value)}</option>)}
+          </select>
+          <select aria-label="Entity type" value={filters.entityType} onChange={(event) => update({ entityType: event.target.value })}>
+            <option value="all">All entity types</option>
+            {entityTypes.map((value) => <option key={value} value={value}>{value}</option>)}
+          </select>
+          <select aria-label="Provider" value={filters.provider} onChange={(event) => update({ provider: event.target.value })}>
+            <option value="all">All providers</option>
+            {providers.map((value) => <option key={value} value={value}>{value}</option>)}
+          </select>
+          <select aria-label="Operation" value={filters.operation} onChange={(event) => update({ operation: event.target.value })}>
+            <option value="all">All operations</option>
+            {operations.map((value) => <option key={value} value={value}>{operationLabel(value)}</option>)}
+          </select>
+          <select aria-label="Time window" value={filters.window} onChange={(event) => update({ window: event.target.value })} disabled={recordIds.length > 0}>
+            {WINDOW_OPTIONS.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
+          </select>
+          <input type="search" aria-label="Search runs" placeholder="Run or request id" value={filters.search} onChange={(event) => update({ search: event.target.value })} />
+        </div>
+        {recordIds.length > 0 && (
+          <p className="filter-context">
+            <span>Showing {plural(windowed.length, 'run')} linked from another record.</span>
+            <button type="button" onClick={() => setParam('records', '')}>Show all runs</button>
+          </p>
+        )}
+        <div className="data-table-wrap">
+          <table className="data-table run-table" aria-label="Sync runs">
+            <thead>
+              <tr>
+                <th scope="col">Run ID</th><th scope="col">System</th><th scope="col">Operation</th><th scope="col">Direction</th>
+                <th scope="col" className="num">Entities</th><th scope="col" className="num">p95</th><th scope="col" className="num">Duration</th>
+                <th scope="col">Status</th><th scope="col">Started</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pageRows.map((run) => <RunRow key={run.id} run={run} state={state} rel={rel} />)}
+              {!pageRows.length && <tr><td colSpan={COLUMN_COUNT} className="data-table__empty">No runs match this filter. Switch the status chip, widen the time window, or start a new sync.</td></tr>}
+            </tbody>
+          </table>
+        </div>
+        <footer className="table-footer">
+          <span>{rows.length ? `Showing ${start + 1}–${end} of ${rows.length}` : 'No runs in view'}</span>
+          <div className="run-pager">
+            <button className="button button--ghost button--sm" type="button" disabled={safePage === 0} onClick={() => setPage(safePage - 1)}>Previous</button>
+            <button className="button button--ghost button--sm" type="button" disabled={end >= rows.length} onClick={() => setPage(safePage + 1)}>Next</button>
+          </div>
+        </footer>
+      </section>
+
+      <RunSyncDialog open={dialogOpen} onClose={() => setDialogOpen(false)} returnFocusRef={runSyncRef} />
     </div>
   );
 }

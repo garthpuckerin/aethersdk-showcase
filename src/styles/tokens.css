@@ -14,57 +14,102 @@
   font-display: swap;
 }
 
+/* Design language: the AetherSDK Console canvas — clinical off-white canvas,
+   white hairline cards, near-black operational panels, one electric-lime
+   accent used only where the user should act, semantic states independent of
+   brand, Hanken Grotesk for interface text and JetBrains Mono for identifiers. */
 :root {
   color-scheme: light;
-  --color-canvas: #f4f4ef;
+  --color-canvas: #f8f8f6;
   --color-surface: #ffffff;
-  --color-surface-muted: #eceee7;
-  --color-panel: #151713;
-  --color-ink: #131512;
-  --color-ink-muted: #687064;
-  --color-ink-inverse: #f7f8f2;
-  --color-accent: #c7f43d;
-  --color-accent-strong: #a8d91f;
-  --color-positive: #16794f;
-  --color-positive-soft: #e1f5eb;
-  --color-warning: #9a6700;
-  --color-warning-soft: #fff1c2;
-  --color-danger: #b42318;
-  --color-danger-soft: #fee4e2;
-  --color-info: #2563a9;
-  --color-info-soft: #e4effd;
-  --color-border: #dfe2da;
-  --color-panel-muted: #aeb5a8;
-  --color-panel-border: #34382f;
-  --color-overlay: rgba(10, 12, 9, 0.48);
+  --color-surface-muted: #f1f1ee;
+  --color-surface-hover: #f4f4f1;
+  --color-panel: #15171c;
+  --color-panel-muted: #9a9ea6;
+  --color-panel-border: #2b2e35;
+  --color-ink: #15171c;
+  --color-ink-muted: #7c8088;
+  --color-ink-faint: #b3b6bd;
+  --color-ink-inverse: #f8f8f6;
+  --color-accent: #c9f24d;
+  --color-accent-strong: #b5df35;
+  --color-accent-soft: #eefbc9;
+  --color-accent-ink: #15171c;
+  --color-positive: #1f9d57;
+  --color-positive-soft: #e7f6ec;
+  --color-warning: #b26a00;
+  --color-warning-soft: #fff3d6;
+  --color-danger: #d6453b;
+  --color-danger-soft: #fceae8;
+  --color-info: #2f6ae0;
+  --color-info-soft: #e8effc;
+  --color-neutral: #7c8088;
+  --color-neutral-soft: #f1f1ee;
+  --color-border: #e6e7e3;
+  --color-border-strong: #d4d6d0;
+  --color-overlay: rgba(21, 23, 28, 0.42);
   --font-sans: "Hanken Grotesk", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --text-xs: 0.6875rem;
+  --text-sm: 0.75rem;
+  --text-base: 0.8125rem;
+  --text-md: 0.875rem;
+  --text-lg: 1rem;
+  --text-xl: 1.3125rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2rem;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
   --space-5: 1.5rem;
   --space-6: 2rem;
-  --radius-sm: 0.45rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1.1rem;
-  --shadow-float: 0 1.5rem 4rem rgba(17, 20, 15, 0.18);
+  --radius-xs: 0.3125rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --shadow-sm: 0 1px 2px rgba(21, 23, 28, 0.04);
+  --shadow-md: 0 4px 14px rgba(21, 23, 28, 0.06);
+  --shadow-float: 0 1.25rem 3rem rgba(21, 23, 28, 0.16);
   --duration-fast: 140ms;
-  --shell-sidebar: 15rem;
+  --shell-sidebar: 14.75rem;
+  --control-height: 2.25rem;
+  --row-height: 2.75rem;
+  --page-gutter: 1.5rem;
+}
+
+[data-density="dense"] {
+  --row-height: 2.25rem;
+  --control-height: 2rem;
+  --page-gutter: 1rem;
+  --space-5: 1rem;
+  --space-6: 1.25rem;
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --color-canvas: #0e100d;
-  --color-surface: #171a15;
-  --color-surface-muted: #20251d;
-  --color-panel: #080a07;
-  --color-ink: #f3f5ed;
-  --color-ink-muted: #aab1a5;
-  --color-border: #343a31;
-  --color-panel-muted: #aeb5a8;
-  --color-panel-border: #34382f;
-  --color-overlay: rgba(0, 0, 0, 0.72);
+  --color-canvas: #0f1013;
+  --color-surface: #16181d;
+  --color-surface-muted: #1d2026;
+  --color-surface-hover: #21242b;
+  --color-panel: #090a0c;
+  --color-panel-muted: #8b8f97;
+  --color-panel-border: #24272e;
+  --color-ink: #f2f3ef;
+  --color-ink-muted: #9a9ea6;
+  --color-ink-faint: #6b6f77;
+  --color-ink-inverse: #15171c;
+  --color-accent-soft: #2a3313;
+  --color-positive-soft: #10301d;
+  --color-warning-soft: #33250a;
+  --color-danger-soft: #3a1512;
+  --color-info-soft: #14213a;
+  --color-neutral-soft: #22252b;
+  --color-border: #24272e;
+  --color-border-strong: #33363e;
+  --color-overlay: rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {

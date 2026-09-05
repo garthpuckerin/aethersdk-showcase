@@ -1,9 +1,14 @@
+import { shiftTimestamps } from './clock.js';
+import { SEED_VERSION } from './seed.js';
+
 export const STORAGE_KEYS = {
   entered: 'aether-demo-entered',
   onboarding: 'aether-onboarding-complete',
   persona: 'aether-persona',
   theme: 'aether-theme',
   density: 'aether-density',
+  desktopView: 'aether-view-desktop',
+  workflow: 'aether-workflow-state',
 };
 
 const ALLOWED = {
@@ -12,41 +17,44 @@ const ALLOWED = {
   density: ['roomy', 'dense'],
 };
 
-function safeStorage(storage) {
+function safeStorage(getter) {
   try {
-    return storage;
+    return getter();
   } catch {
     return null;
   }
 }
 
+const local = () => safeStorage(() => globalThis.localStorage);
+const session = () => safeStorage(() => globalThis.sessionStorage);
+
 export function hasEnteredDemo() {
-  return safeStorage(globalThis.sessionStorage)?.getItem(STORAGE_KEYS.entered) === 'true';
+  return session()?.getItem(STORAGE_KEYS.entered) === 'true';
 }
 
 export function launchDemo() {
-  safeStorage(globalThis.sessionStorage)?.setItem(STORAGE_KEYS.entered, 'true');
+  session()?.setItem(STORAGE_KEYS.entered, 'true');
 }
 
 export function hasFinishedOnboarding() {
-  return safeStorage(globalThis.localStorage)?.getItem(STORAGE_KEYS.onboarding) === 'true';
+  return local()?.getItem(STORAGE_KEYS.onboarding) === 'true';
 }
 
 export function completeOnboarding() {
-  safeStorage(globalThis.localStorage)?.setItem(STORAGE_KEYS.onboarding, 'true');
+  local()?.setItem(STORAGE_KEYS.onboarding, 'true');
 }
 
 export function replayOnboarding() {
-  safeStorage(globalThis.localStorage)?.removeItem(STORAGE_KEYS.onboarding);
+  local()?.removeItem(STORAGE_KEYS.onboarding);
 }
 
 export function savePreference(name, value) {
   if (!ALLOWED[name]?.includes(value)) return;
-  safeStorage(globalThis.localStorage)?.setItem(STORAGE_KEYS[name], value);
+  local()?.setItem(STORAGE_KEYS[name], value);
 }
 
 export function loadPreferences() {
-  const storage = safeStorage(globalThis.localStorage);
+  const storage = local();
   const read = (name, fallback) => {
     const value = storage?.getItem(STORAGE_KEYS[name]);
     return ALLOWED[name].includes(value) ? value : fallback;
@@ -58,9 +66,42 @@ export function loadPreferences() {
   };
 }
 
+/* Workflow state survives a refresh so a rehearsal never loses its run. On
+   load every timestamp is shifted forward by the time the tab was away, so
+   "18m ago" is still "18m ago" instead of quietly ageing. */
+export function saveWorkflowState(state) {
+  const storage = local();
+  if (!storage) return;
+  try {
+    storage.setItem(STORAGE_KEYS.workflow, JSON.stringify({ version: SEED_VERSION, savedAt: new Date().toISOString(), state }));
+  } catch {
+    /* quota or private mode: the demo simply reseeds on the next load */
+  }
+}
+
+export function loadWorkflowState(now = Date.now()) {
+  const storage = local();
+  if (!storage) return null;
+  try {
+    const raw = storage.getItem(STORAGE_KEYS.workflow);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed?.version !== SEED_VERSION || !parsed.state?.anchorTime) return null;
+    const delta = now - Date.parse(parsed.savedAt ?? parsed.state.anchorTime);
+    if (!Number.isFinite(delta) || delta < 0) return parsed.state;
+    return shiftTimestamps(parsed.state, delta);
+  } catch {
+    return null;
+  }
+}
+
+export function clearWorkflowState() {
+  local()?.removeItem(STORAGE_KEYS.workflow);
+}
+
 export function resetDemoPersistence() {
-  const session = safeStorage(globalThis.sessionStorage);
-  const local = safeStorage(globalThis.localStorage);
-  session?.removeItem(STORAGE_KEYS.entered);
-  Object.values(STORAGE_KEYS).filter((key) => key !== STORAGE_KEYS.entered).forEach((key) => local?.removeItem(key));
+  session()?.removeItem(STORAGE_KEYS.entered);
+  session()?.removeItem(STORAGE_KEYS.desktopView);
+  const storage = local();
+  Object.values(STORAGE_KEYS).filter((key) => key !== STORAGE_KEYS.entered && key !== STORAGE_KEYS.desktopView).forEach((key) => storage?.removeItem(key));
 }

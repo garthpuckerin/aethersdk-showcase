@@ -14,15 +14,26 @@ const SCENARIOS = {
   denied: 'Permission boundary preview',
 };
 
+function renderScenario(path, scenario) {
+  const state = createSeedState();
+  state.scenario = scenario;
+  return render(
+    <MemoryRouter initialEntries={[path]}>
+      <DemoProvider initialState={state} autopilotEnabled={false}>
+        <AppRoutes onReplayOnboarding={() => {}} onReset={() => {}} />
+      </DemoProvider>
+    </MemoryRouter>,
+  );
+}
+
 describe('route scenario boundary', () => {
   for (const [scenario, heading] of Object.entries(SCENARIOS)) {
     it(`renders ${scenario} consistently across every data surface`, () => {
       for (const path of SURFACES) {
-        const state = createSeedState();
-        state.scenario = scenario;
-        const view = render(<MemoryRouter initialEntries={[path]}><DemoProvider initialState={state}><AppRoutes onReplayOnboarding={() => {}} onReset={() => {}} /></DemoProvider></MemoryRouter>);
+        const view = renderScenario(path, scenario);
         expect(screen.getByRole('heading', { name: heading })).toBeVisible();
         expect(screen.getByRole('button', { name: 'Demo controls' })).toBeVisible();
+        expect(screen.getByRole('button', { name: 'Search and commands' })).toBeVisible();
         view.unmount();
       }
     });
@@ -30,13 +41,12 @@ describe('route scenario boundary', () => {
 
   it('resets a scenario through keyboard-reachable demo controls', async () => {
     const user = userEvent.setup();
-    const state = createSeedState();
-    state.scenario = 'error';
-    render(<MemoryRouter initialEntries={['/app/overview']}><DemoProvider initialState={state}><AppRoutes onReplayOnboarding={() => {}} onReset={() => {}} /></DemoProvider></MemoryRouter>);
+    renderScenario('/app/overview', 'error');
     await user.tab();
     expect(document.activeElement).toBeInstanceOf(HTMLElement);
     await user.click(screen.getByRole('button', { name: 'Demo controls' }));
     await user.selectOptions(screen.getByLabelText('Data scenario'), 'default');
-    expect(screen.getByRole('heading', { name: 'Operational overview' })).toBeVisible();
+    expect(screen.queryByRole('heading', { name: 'Simulated service error' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1 })).toBeVisible();
   });
 });

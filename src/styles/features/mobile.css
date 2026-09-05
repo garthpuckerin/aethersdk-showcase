@@ -1,0 +1,89 @@
+/* Companion surface — additions to the shared mobile shell classes in
+   layout.css. Tokens only; every colour comes from tokens.css. */
+
+/* Bottom tabs: the Queue badge sits on the tab without moving its label. */
+.mobile-nav a { position: relative; }
+.mobile-nav .nav-count {
+  position: absolute;
+  top: 0.45rem;
+  left: calc(50% + 0.35rem);
+  min-width: 1.05rem;
+  padding: 0.05rem 0.3rem;
+  border-radius: 999px;
+  color: var(--color-ink-inverse);
+  background: var(--color-danger);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* Title block extras. */
+.mobile-title__status { display: flex; align-items: center; gap: var(--space-2); margin: var(--space-2) 0; color: var(--color-ink-muted); font-size: var(--text-sm); }
+.mobile-run-line { display: flex; align-items: center; gap: var(--space-2); margin: 0; color: var(--color-ink-muted); font-size: var(--text-sm); overflow-wrap: anywhere; }
+.mobile-title h1.mono { font-size: var(--text-xl); }
+
+/* Rows with a provider mark: mark · text · status. */
+.mobile-record--row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; }
+.mobile-record--row > div { min-width: 0; }
+.mobile-record--row strong.mono { font-size: var(--text-sm); }
+.mobile-record__cta { color: var(--color-ink); font-size: var(--text-sm); font-weight: 600; }
+.mobile-record__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
+.mobile-record__time { color: var(--color-ink-muted); font-size: var(--text-xs); white-space: nowrap; }
+.mobile-record--stack { gap: var(--space-2); }
+.mobile-record--stack .button { width: 100%; }
+.mobile-record--stack .permission-note { margin: 0; }
+.mobile-empty { margin: 0; padding: var(--space-4); border: 1px dashed var(--color-border-strong); border-radius: var(--radius-md); color: var(--color-ink-muted); font-size: var(--text-sm); }
+.mobile-callout { margin: 0 0 var(--space-2); }
+.mobile-chips .chip { min-height: 2rem; }
+
+/* Run detail: stage progress list. */
+.mobile-stages { display: grid; margin: 0; padding: 0; list-style: none; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+.mobile-stages__item { display: grid; grid-template-columns: 1.25rem 1fr auto; align-items: center; gap: var(--space-2); min-height: 2.1rem; padding: 0 var(--space-4); border-bottom: 1px solid var(--color-border); font-size: var(--text-sm); }
+.mobile-stages__item:last-child { border-bottom: 0; }
+.mobile-stages__item small { color: var(--color-ink-muted); font-size: var(--text-xs); text-transform: capitalize; }
+.mobile-stages__dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--color-border-strong); }
+.mobile-stages__item--complete .mobile-stages__dot { background: var(--color-positive); }
+.mobile-stages__item--current .mobile-stages__dot { background: var(--color-info); box-shadow: 0 0 0 3px var(--color-info-soft); }
+.mobile-stages__item--current { font-weight: 600; }
+.mobile-stages__item--failed .mobile-stages__dot { background: var(--color-danger); box-shadow: 0 0 0 3px var(--color-danger-soft); }
+.mobile-stages__item--failed { color: var(--color-danger); font-weight: 600; }
+.mobile-stages__item--pending { color: var(--color-ink-muted); }
+.mobile-action { margin-top: var(--space-3); }
+
+/* Evidence blocks (audit event, successful delivery) — informational, not rows. */
+.mobile-evidence { display: grid; gap: 0.15rem; padding: var(--space-3) var(--space-4); border-left: 3px solid var(--color-accent-strong); border-radius: var(--radius-xs); background: var(--color-surface); }
+.mobile-evidence strong { font-size: var(--text-sm); overflow-wrap: anywhere; }
+.mobile-evidence small { color: var(--color-ink-muted); font-size: var(--text-xs); }
+
+/* Integration detail. */
+.mobile-panel { display: grid; gap: var(--space-3); }
+.mobile-detail-inline { display: inline-flex; align-items: center; gap: var(--space-2); }
+.mobile-desktop-note { display: grid; gap: var(--space-2); padding: var(--space-4); border: 1px dashed var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-surface-muted); }
+.mobile-desktop-note p { margin: 0; color: var(--color-ink-muted); font-size: var(--text-sm); }
+.mobile-desktop-note .button { justify-self: start; }
+
+/* More: persona, controls, health. */
+.mobile-persona { display: flex; align-items: center; gap: var(--space-3); }
+.mobile-persona > div { display: grid; gap: 0.1rem; }
+.mobile-persona small { color: var(--color-ink-muted); font-size: var(--text-xs); }
+.mobile-field select { width: 100%; }
+.mobile-help { margin: 0; color: var(--color-ink-muted); font-size: var(--text-sm); }
+.mobile-control { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.mobile-control > div { display: grid; gap: 0.1rem; min-width: 0; }
+.mobile-control small { color: var(--color-ink-muted); font-size: var(--text-xs); }
+.mobile-switch { position: relative; flex: none; width: 2.6rem; height: 1.5rem; padding: 0; border: 1px solid var(--color-border-strong); border-radius: 999px; background: var(--color-surface-muted); cursor: pointer; transition: background var(--duration-fast), border-color var(--duration-fast); }
+.mobile-switch > span { position: absolute; top: 0.15rem; left: 0.15rem; width: 1.1rem; height: 1.1rem; border-radius: 50%; background: var(--color-surface); box-shadow: var(--shadow-sm); transition: transform var(--duration-fast); }
+.mobile-switch[aria-checked="true"] { border-color: var(--color-accent-strong); background: var(--color-accent); }
+.mobile-switch[aria-checked="true"] > span { transform: translateX(1.1rem); }
+.mobile-health-word { text-transform: capitalize; }
+.mobile-dep-list { display: grid; margin: 0; padding: 0 var(--space-4); list-style: none; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+.mobile-dep-list li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-3); min-height: 2.75rem; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border); }
+.mobile-dep-list li:last-child { border-bottom: 0; }
+.mobile-dep-list li > div { display: grid; gap: 0.1rem; min-width: 0; }
+.mobile-dep-list strong { font-size: var(--text-sm); font-weight: 600; }
+.mobile-dep-list small { color: var(--color-ink-muted); font-size: var(--text-xs); }
+.mobile-dep-list .mono { color: var(--color-ink-muted); font-size: var(--text-xs); }
+.mobile-link-stack .mobile-help { padding: 0 var(--space-1); }

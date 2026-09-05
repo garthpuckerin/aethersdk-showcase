@@ -7,8 +7,11 @@ import AppShell from './AppShell';
 import MobileShell from './MobileShell';
 import { ROUTES } from './routeRegistry';
 import MobileHomePage from '../features/mobile/MobileHomePage';
+import MobileIntegrationPage from '../features/mobile/MobileIntegrationPage';
 import MobileMorePage from '../features/mobile/MobileMorePage';
+import MobileQueuePage from '../features/mobile/MobileQueuePage';
 import MobileRunPage from '../features/mobile/MobileRunPage';
+import MobileRunsPage from '../features/mobile/MobileRunsPage';
 
 const SCENARIOS = {
   loading: { state: 'loading', title: 'Loading simulated data', detail: 'The shared scenario boundary is holding this projection in a deterministic loading state.' },
@@ -70,7 +73,10 @@ export function AppRoutes({ onReplayOnboarding, onReset }) {
         <Route path="/mobile" element={<MobileShell onReset={onReset} />}>
           <Route index element={<Navigate to="/mobile/home" replace />} />
           <Route path="home" element={<MobileSurface><MobileHomePage /></MobileSurface>} />
+          <Route path="runs" element={<MobileSurface><MobileRunsPage /></MobileSurface>} />
           <Route path="runs/:runId" element={<MobileSurface><MobileRunPage /></MobileSurface>} />
+          <Route path="integrations/:connectorId" element={<MobileSurface><MobileIntegrationPage /></MobileSurface>} />
+          <Route path="queue" element={<MobileSurface><MobileQueuePage /></MobileSurface>} />
           <Route path="more" element={<MobileSurface><MobileMorePage /></MobileSurface>} />
         </Route>
         <Route path="*" element={<Navigate to="/app/overview" replace />} />

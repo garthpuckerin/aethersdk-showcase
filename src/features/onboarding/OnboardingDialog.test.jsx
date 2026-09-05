@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+import { PERSONAS } from '../../access/policy';
 import OnboardingDialog from './OnboardingDialog';
 
 describe('OnboardingDialog', () => {
@@ -13,8 +14,21 @@ describe('OnboardingDialog', () => {
     await user.click(screen.getByRole('button', { name: /integration operator/i }));
     await user.click(screen.getByRole('button', { name: /continue/i }));
     expect(screen.getByRole('heading', { name: /trace one seam/i })).toBeVisible();
+    expect(screen.getByText(/Validate UKG, run the new-hire provisioning sync to Docebo, LinkedIn Learning and Axonify/)).toBeVisible();
     await user.click(screen.getByRole('button', { name: /continue/i }));
     expect(screen.getByRole('heading', { name: /cockpit is ready/i })).toBeVisible();
+  });
+
+  it('describes each persona from the access policy and marks the chosen one', async () => {
+    const user = userEvent.setup();
+    render(<OnboardingDialog open onComplete={() => {}} onSkip={() => {}} onPersonaChange={() => {}} />);
+    await user.click(screen.getByRole('button', { name: /continue/i }));
+    for (const persona of Object.values(PERSONAS)) expect(screen.getByText(persona.description)).toBeVisible();
+    const auditor = screen.getByRole('button', { name: /auditor/i });
+    expect(auditor).toHaveAttribute('aria-pressed', 'false');
+    await user.click(auditor);
+    expect(auditor).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: /platform admin/i })).toHaveAttribute('aria-pressed', 'false');
   });
 
   it('persists the selected persona and completes', async () => {
