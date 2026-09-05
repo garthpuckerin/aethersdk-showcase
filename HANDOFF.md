@@ -72,6 +72,21 @@ history-level public-safety review before the T-0 flip. Site side is already
 prepared on garthpuckerin.dev `develop` (reveal-meta, case study, chat KB,
 wall card; ritual dry-run green except the not-yet-captured assets).
 
+## Owner-caught defects to fix first (2026-09-04, after reset)
+
+1. **Replay onboarding does not restart** — it reopens on the last step
+   ("Your cockpit is ready"). `OnboardingDialog` keeps `step` in local state
+   that survives close/reopen; reset it to 0 when `open` flips true (or key the
+   dialog on an open counter). Cover with a unit test: replay → step 1 of 4.
+2. **No back navigation in onboarding** — add a "Back" ghost button on steps
+   2–4 (`.onboarding__actions`), keyboard-reachable, and keep Continue / Enter
+   cockpit / Skip labels unchanged (e2e greps them).
+3. **Persona card is poorly formatted** — the persona buttons in step 2
+   (`.onboarding__personas .button`) misalign label/description; rebuild as a
+   2-column card grid with the persona label bold, description muted below,
+   an avatar/initials mark, and a clear selected state (`aria-pressed`).
+   Check both themes and the 390px phone width.
+
 ## Provider icons (owner request 2026-09-04, deferred)
 
 The cards/rows use two-letter monograms (`.provider-mark`). Simple Icons (CC0)
@@ -84,8 +99,9 @@ self-host under `public/icons/providers/<slug>.svg`, add `iconSlug` to
 `PROVIDER_DEFINITIONS` in `src/demo/seed.js`, render `<img>` with the monogram
 as fallback in the three mark helpers (`features/integrations/providerMark.js`,
 `features/runs/ProviderMark.jsx`, `features/overview/format.js`/`panels.jsx`).
-Do it for all-or-none of the connected providers — mixed logos and monograms
-read as unfinished.
+DONE 2026-09-04 (`4ac618f`): eight self-hosted marks via the shared
+`src/components/ProviderMark.jsx`; consider transparent PNGs for Docebo/Jira
+(currently JPG on a white tile in dark theme).
 
 ## Gates
 
