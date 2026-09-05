@@ -1,0 +1,33 @@
+# Capability ledger (Constitution §25). A capability is `live` only with a
+# named proof that exercises it end-to-end on the built artifact.
+capabilities:
+  - id: people-out-provisioning
+    status: live
+    owner: garthpuckerin
+    summary: Validate the UKG credential reference, run the governed new-hire sync to Docebo, LinkedIn Learning and Axonify; one target fails; retry only it with the same idempotency key.
+    surfaces: [app/integrations, app/runs, mobile/runs]
+    proof: [e2e/connector-sync.spec.js, e2e/mobile-workflows.spec.js]
+  - id: learning-in-recovery
+    status: live
+    owner: garthpuckerin
+    summary: Follow a completion's audit event into webhook delivery, dead-letter and replay with identical event, subscription and payload identities.
+    surfaces: [app/audit, app/webhooks, mobile/queue]
+    proof: [e2e/webhook-recovery.spec.js, e2e/mobile-workflows.spec.js]
+  - id: persona-scoped-access
+    status: live
+    owner: garthpuckerin
+    summary: Four personas with permission and connector scoping; denied actions surface as denials, never as silent no-ops.
+    surfaces: [app/access, app/*]
+    proof: [e2e/access-responsive.spec.js, src/access/policy.test.js]
+  - id: onboarding
+    status: live
+    owner: garthpuckerin
+    summary: Four-step boundary, persona, guided-task and ready wizard with replay, back navigation and skip.
+    surfaces: [app/*]
+    proof: [e2e/landing-onboarding.spec.js, src/features/onboarding/OnboardingDialog.test.jsx]
+  - id: public-safety
+    status: live
+    owner: garthpuckerin
+    summary: Same-origin runtime, no external requests, no console errors, no private paths or secrets in the repository.
+    surfaces: [repository, deployed demo]
+    proof: [e2e/public-safety.spec.js, scripts/public-safety-scan.mjs]

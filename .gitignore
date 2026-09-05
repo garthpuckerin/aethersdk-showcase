@@ -10,3 +10,19 @@ coverage/
 *.log
 artifacts/reveal/**/raw/
 artifacts/reveal/**/*.tmp
+
+# Repo Hygiene Standard - required entries
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.next/
+.nuxt/
+.turbo/
+.parcel-cache/
+.cache/
+.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db

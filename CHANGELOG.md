@@ -1,0 +1,50 @@
+# Changelog — aethersdk-showcase
+
+All notable changes to the showcase. Conventional Commits on `main`; tags are
+not adopted, the Vercel production deploy of `main` is the release.
+
+## Unreleased
+
+### Added
+- Standards compliance files: `BCSTANDARDS.md`, `capabilities.yaml`,
+  `docs/ISSUES.md`, `docs/FEATURES-BACKLOG.md`, `docs/ROADMAP.md`,
+  `docs/DECISIONS.md`, this changelog; the Repo Hygiene `.gitignore` block.
+- Fleet-manifest onboarding with the incremental re-ingest hook (2026-09-05).
+
+### Changed
+- `vercel.json` header profile extended to `production-public`: Content
+  Security Policy scoped to self-hosted assets and frame denial, alongside the
+  existing `noindex`, `nosniff` and referrer policy.
+
+## 0.1.0 — 2026-09-05 (T-5 release candidate)
+
+### Fixed
+- Onboarding: replay restarts at step 1, Back on steps 2 to 4, persona step is
+  a card grid with an initials mark and a clear selected state (`50df878`).
+- e2e: the public-safety spec derives its same-origin check from `baseURL`
+  (`be7d0ea`).
+
+### Verified
+- `verify:release` green from a fresh clone; white-glove, mobile and viewport
+  sweeps clean; production smoke green on `garthpuckerin-aethersdk.vercel.app`.
+
+## 2026-09-04 — T-5 depth pass
+
+### Added
+- Harborline FCU fixture graph (UKG and Xperience feeding Docebo, LinkedIn
+  Learning, Axonify; Tableau, Slack, Jira) with 30 days of boot-anchored history.
+- Autopilot engine advancing run stages and delivery attempts; persisted
+  workflow state; command palette; Demo controls with an autopilot toggle.
+- Full breadth on every desktop screen; phone companion with bottom tabs;
+  canvas design language in light and dark; roomy and dense density.
+- Self-hosted provider marks for the eight connected providers.
+- House sweeps ported (`sweep:whiteglove`, `sweep:mobile`, `sweep:viewport`).
+
+### Fixed
+- Connector scoping in `scopeRecords`; the throughput series dropped
+  operator-started runs; replay restores delivery health; the dense matrix let
+  long provider names escape their card.
+
+## 2026-09-03 — initial showcase
+- Standalone cockpit scaffold (Vite and React); reveal docs aligned to the
+  house showcase SOP.
