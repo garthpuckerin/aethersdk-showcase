@@ -59,12 +59,11 @@ persisted workflow state, canvas design language (light + dark), full breadth on
 every desktop screen, phone companion with bottom tabs, house sweeps ported.
 Verified: `npm run verify` green (29 files / 241 tests, coherence gate, build,
 safety scan); full Playwright 13 passed / 9 skipped-by-project; white-glove
-sweep clean (52 screens); viewport sweep clean (20 sizes). Last fixes landed
-without a re-run: integrations grid single-column ≤900px (tablet-portrait
-overflow), mobile-sweep allowlist now covers nested grids — **re-run
-`BASE_URL=http://localhost:3400 npm run sweeps` first thing next session.**
+sweep clean (52 screens); viewport sweep clean (20 sizes); mobile sweep clean
+(6 viewports / 32 screens) after the integrations-grid and allowlist fixes —
+all three sweeps verified clean on 2026-09-04 against the dev server.
 
-REMAINING (T-3 → T-2, Sep 6–8): re-run sweeps + `npm run verify:release`;
+REMAINING (T-3 → T-2, Sep 6–8): `npm run verify:release` from a clean checkout;
 Vercel: rename project to `garthpuckerin-aethersdk`, re-enable Git production
 on `main`, confirm noindex; capture imagery from the live URL with
 `garthpuckerin.dev/scripts/capture-aether-preview.mjs` (LIGHT) then
