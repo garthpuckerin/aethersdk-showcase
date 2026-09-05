@@ -19,10 +19,15 @@ owner voided that the same day. What applies:
   --accept-visibility-change-consequences` on the owner's go. This repo is the
   canonical dev home from then on.
 - **Deploy:** git-integrated Vercel production on `main` behind a **permanent**
-  `noindex` at `garthpuckerin-aethersdk.vercel.app`. The Vercel project
-  (`<vercel-project-id>`, currently named `aethersdk-showcase`,
-  Git deployments disabled by Codex) is renamed and re-enabled at **T-2
-  (Sep 8)**. T-1/T-0 sweeps run against that production URL.
+  `noindex` at `garthpuckerin-aethersdk.vercel.app`. **DONE 2026-09-05:** the
+  Vercel project (`<vercel-project-id>`) is renamed
+  `garthpuckerin-aethersdk`, the domain is attached and verified, the Git link
+  (`garthpuckerin/aethersdk-showcase`, production branch `main`) is intact and
+  `gitProviderOptions.createDeployments` is `enabled` — every push to `main`
+  is a production deploy. The old `aethersdk-showcase.vercel.app` alias still
+  resolves. Deployment Protection (`all_except_custom_domains`) does not gate
+  the vercel.app production domain: it serves 200 + `X-Robots-Tag: noindex`
+  without a bypass secret. Production smoke 2026-09-05 (`E2E_BASE_URL=https://garthpuckerin-aethersdk.vercel.app`): landing-onboarding, public-safety, connector-sync — 6 passed / 2 skipped-by-project. T-1/T-0 sweeps run against that production URL.
 - **Canonical checkout:** `<showcase-checkout>` (this one). The two
   checkouts inside `<engine-repo>\` (`_aethersdk_showcase` on
   `evidence/aether-2026-09-10`, `_worktrees\aethersdk-showcase-build` on
@@ -64,9 +69,8 @@ sweep clean (52 screens); viewport sweep clean (20 sizes); mobile sweep clean
 all three sweeps verified clean on 2026-09-04 against the dev server.
 
 DONE 2026-09-05: `verify:release` green from a fresh clone at `be7d0ea` (see
-Gates). REMAINING (T-3 → T-2, Sep 6–8):
-Vercel: rename project to `garthpuckerin-aethersdk`, re-enable Git production
-on `main`, confirm noindex; capture imagery from the live URL with
+Gates). Vercel rename + Git production + noindex confirmed 2026-09-05 (see
+Owner decisions → Deploy). REMAINING (T-3 → T-2, Sep 6–8): capture imagery from the live URL with
 `garthpuckerin.dev/scripts/capture-aether-preview.mjs` (LIGHT) then
 `build-previews.mjs`; onboard this repo into the the code-graph graph manifest;
 history-level public-safety review before the T-0 flip. Site side is already
