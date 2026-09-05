@@ -19,7 +19,7 @@ import LandingPage from './features/landing/LandingPage';
 import OnboardingDialog from './features/onboarding/OnboardingDialog';
 
 function Experience() {
-  const { dispatch } = useDemo();
+  const { state, dispatch } = useDemo();
   const [entered, setEntered] = useState(() => hasEnteredDemo());
   const [onboardingOpen, setOnboardingOpen] = useState(false);
 
@@ -59,6 +59,7 @@ function Experience() {
       <AppRoutes onReplayOnboarding={replay} onReset={reset} />
       <OnboardingDialog
         open={onboardingOpen}
+        activePersonaId={state.activePersonaId}
         onComplete={finishOnboarding}
         onSkip={finishOnboarding}
         onPersonaChange={choosePersona}

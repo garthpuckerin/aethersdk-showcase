@@ -72,7 +72,16 @@ history-level public-safety review before the T-0 flip. Site side is already
 prepared on garthpuckerin.dev `develop` (reveal-meta, case study, chat KB,
 wall card; ritual dry-run green except the not-yet-captured assets).
 
-## Owner-caught defects to fix first (2026-09-04, after reset)
+## Owner-caught defects (2026-09-04) — FIXED 2026-09-05
+
+All three below are fixed in `OnboardingDialog.jsx` (+ unit tests, `layout.css`)
+and verified in the browser: replay lands on step 1 of 4, Back appears on steps
+2–4 only, persona step is a 2-column card grid (1 column ≤560px) with an
+initials avatar, bold label, muted description, and an ink-bordered selected
+state — checked light + dark and at 390px. The active persona is now
+pre-selected on replay (`activePersonaId` passed from `App.jsx`). Kept for the
+T+0 retro (owner-caught → detector class: "modal step state survives
+close/reopen" — consider a white-glove check that replays every wizard).
 
 1. **Replay onboarding does not restart** — it reopens on the last step
    ("Your cockpit is ready"). `OnboardingDialog` keeps `step` in local state

@@ -52,4 +52,41 @@ describe('OnboardingDialog', () => {
     await user.click(screen.getByRole('button', { name: /skip onboarding/i }));
     expect(onSkip).toHaveBeenCalledOnce();
   });
+
+  it('offers Back on every step after the first and never on the first', async () => {
+    const user = userEvent.setup();
+    render(<OnboardingDialog open onComplete={() => {}} onSkip={() => {}} onPersonaChange={() => {}} />);
+    expect(screen.queryByRole('button', { name: /^back$/i })).toBeNull();
+    await user.click(screen.getByRole('button', { name: /continue/i }));
+    await user.click(screen.getByRole('button', { name: /continue/i }));
+    expect(screen.getByRole('heading', { name: /trace one seam/i })).toBeVisible();
+    await user.click(screen.getByRole('button', { name: /^back$/i }));
+    expect(screen.getByRole('heading', { name: /choose your perspective/i })).toBeVisible();
+    await user.click(screen.getByRole('button', { name: /^back$/i }));
+    expect(screen.getByRole('heading', { name: /what this demo is/i })).toBeVisible();
+    expect(screen.queryByRole('button', { name: /^back$/i })).toBeNull();
+  });
+
+  it('restarts at step 1 when replayed after reaching the last step', async () => {
+    const user = userEvent.setup();
+    const props = { onComplete: () => {}, onSkip: () => {}, onPersonaChange: () => {} };
+    const { rerender } = render(<OnboardingDialog open {...props} />);
+    await user.click(screen.getByRole('button', { name: /continue/i }));
+    await user.click(screen.getByRole('button', { name: /continue/i }));
+    await user.click(screen.getByRole('button', { name: /continue/i }));
+    expect(screen.getByRole('heading', { name: /cockpit is ready/i })).toBeVisible();
+    rerender(<OnboardingDialog open={false} {...props} />);
+    expect(screen.queryByRole('dialog')).toBeNull();
+    rerender(<OnboardingDialog open {...props} />);
+    expect(screen.getByRole('heading', { name: /what this demo is/i })).toBeVisible();
+    expect(screen.getByText(/1 \/ 4/)).toBeVisible();
+  });
+
+  it('pre-selects the active persona and shows an initials mark on each card', async () => {
+    const user = userEvent.setup();
+    render(<OnboardingDialog open activePersonaId="developer" onComplete={() => {}} onSkip={() => {}} onPersonaChange={() => {}} />);
+    await user.click(screen.getByRole('button', { name: /continue/i }));
+    expect(screen.getByRole('button', { name: /developer/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: /integration operator/i }).querySelector('.avatar')).toHaveTextContent('IO');
+  });
 });

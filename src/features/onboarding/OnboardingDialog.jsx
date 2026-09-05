@@ -22,10 +22,43 @@ const STEPS = [
   },
 ];
 
+const FIRST_STEP = 0;
+const LAST_STEP = STEPS.length - 1;
+
+function personaInitials(label) {
+  return label.split(/\s+/).map((word) => word[0]).join('').slice(0, 2).toUpperCase();
+}
+
+function PersonaCard({ persona, selected, onSelect }) {
+  return (
+    <Button variant="ghost" className="persona-card" aria-pressed={selected} onClick={() => onSelect(persona.id)}>
+      <span className="avatar avatar--lg" aria-hidden="true">{personaInitials(persona.label)}</span>
+      <span className="persona-card__text">
+        <strong>{persona.label}</strong>
+        <span>{persona.description}</span>
+      </span>
+    </Button>
+  );
+}
+
+/* Step and selection live in local state, so a replay (open flipping false →
+   true) resets them synchronously during render — no last-step flash. */
 export default function OnboardingDialog({ open, onComplete, onSkip, onPersonaChange, activePersonaId = null }) {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(FIRST_STEP);
   const [selectedPersonaId, setSelectedPersonaId] = useState(activePersonaId);
+  const [wasOpen, setWasOpen] = useState(open);
+
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) {
+      setStep(FIRST_STEP);
+      setSelectedPersonaId(activePersonaId);
+    }
+  }
+
   const current = STEPS[step];
+  const isFirst = step === FIRST_STEP;
+  const isLast = step === LAST_STEP;
 
   function choosePersona(personaId) {
     setSelectedPersonaId(personaId);
@@ -39,19 +72,19 @@ export default function OnboardingDialog({ open, onComplete, onSkip, onPersonaCh
       {step === 1 && (
         <div className="onboarding__personas" role="group" aria-label="Personas">
           {Object.values(PERSONAS).map((persona) => (
-            <Button key={persona.id} variant="ghost" aria-pressed={selectedPersonaId === persona.id} onClick={() => choosePersona(persona.id)}>
-              <strong>{persona.label}</strong>
-              <span>{persona.description}</span>
-            </Button>
+            <PersonaCard key={persona.id} persona={persona} selected={selectedPersonaId === persona.id} onSelect={choosePersona} />
           ))}
         </div>
       )}
       <footer className="onboarding__actions">
-        {step < STEPS.length - 1 ? (
-          <Button onClick={() => setStep((value) => value + 1)}>Continue</Button>
-        ) : (
-          <Button onClick={onComplete}>Enter cockpit</Button>
-        )}
+        <div className="onboarding__actions-group">
+          {!isFirst && <Button variant="ghost" onClick={() => setStep((value) => value - 1)}>Back</Button>}
+          {isLast ? (
+            <Button onClick={onComplete}>Enter cockpit</Button>
+          ) : (
+            <Button onClick={() => setStep((value) => value + 1)}>Continue</Button>
+          )}
+        </div>
         <Button variant="ghost" onClick={onSkip}>Skip onboarding</Button>
       </footer>
     </Dialog>

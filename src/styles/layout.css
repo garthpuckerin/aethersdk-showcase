@@ -45,11 +45,18 @@
 .landing__providers span { padding: 0.3rem 0.6rem; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-ink-muted); font-size: var(--text-sm); font-weight: 600; }
 
 .onboarding__body { color: var(--color-ink-muted); font-size: var(--text-md); line-height: 1.6; }
-.onboarding__personas { display: grid; gap: var(--space-2); }
-.onboarding__personas .button { display: grid; gap: 0.15rem; justify-items: start; min-height: 3.4rem; text-align: left; }
-.onboarding__personas span { color: var(--color-ink-muted); font-size: var(--text-sm); font-weight: 500; }
-.onboarding__personas .button[aria-pressed="true"] { border-color: var(--color-ink); }
-.onboarding__actions { display: flex; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-5); }
+.onboarding__personas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+.onboarding__personas .persona-card { display: flex; align-items: flex-start; justify-content: flex-start; gap: var(--space-3); min-height: 4.5rem; padding: var(--space-3); text-align: left; white-space: normal; }
+.onboarding__personas .persona-card .avatar { flex: none; }
+.persona-card__text { display: grid; gap: 0.2rem; min-width: 0; }
+.persona-card__text strong { color: var(--color-ink); font-weight: 600; line-height: 1.3; }
+.persona-card__text span { color: var(--color-ink-muted); font-size: var(--text-sm); font-weight: 500; line-height: 1.4; }
+.onboarding__personas .persona-card[aria-pressed="true"] { border-color: var(--color-ink); background: var(--color-surface-muted); box-shadow: inset 0 0 0 1px var(--color-ink); }
+.onboarding__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-5); }
+.onboarding__actions-group { display: flex; gap: var(--space-2); }
+@media (max-width: 560px) {
+  .onboarding__personas { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ── App shell ────────────────────────────────────────────────────────── */
 .app-shell { display: grid; grid-template-columns: var(--shell-sidebar) minmax(0, 1fr); min-height: 100vh; }
