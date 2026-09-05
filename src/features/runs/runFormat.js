@@ -51,10 +51,14 @@ export function plural(count, noun) {
   return `${count} ${count === 1 ? noun : `${noun}s`}`;
 }
 
-/* Who asked for the run: the scheduler, an inbound webhook, or a member. */
+/* Who asked for the run: the scheduler, an inbound webhook, an agent, or a member. */
 export function actorLabel(state, run) {
   if (run.triggeredBy === 'schedule') return 'Scheduler';
   if (run.triggeredBy === 'webhook') return 'Webhook trigger';
+  if (run.triggeredBy === 'agent') {
+    const agentEvent = Object.values(state.auditEvents).find((event) => event.runId === run.id && state.members[event.actorId]?.kind === 'agent');
+    return state.members[agentEvent?.actorId ?? 'actor_agent']?.name ?? 'Agent';
+  }
   const humanEvent = Object.values(state.auditEvents).find((event) => event.runId === run.id && state.members[event.actorId]?.kind === 'member');
   const actorId = humanEvent?.actorId ?? actorIdFor(state.activePersonaId);
   return state.members[actorId]?.name ?? 'Operator';

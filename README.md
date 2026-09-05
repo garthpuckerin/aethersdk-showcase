@@ -118,6 +118,8 @@ Reviewed 2026-09-05 against the engine's code graph and its OpenAPI contract
 | Webhook subscriptions, delivery retries, dead letter, replay with the same identities | Real: subscriptions, retry policy, dead-letter queue and replay endpoint |
 | Connector validation, tenant-scoped providers, readiness with named dependencies, incidents | Real: `/v1/connectors/{id}/validate`, `/v1/ready`, `/v1/operations` incidents |
 | Audit trail with typed actions | Real audit log; the demo's action names are a simplified vocabulary, not the engine's |
+| An agent as a governed actor: the provisioning agent's run appears in runs, audit and activity with its own run id on every event | Real: `agent` actor type, run id on every audit event, MCP tools that name the run (engine ADR 013, shipped 2026-09-05) |
+| Preview before commit: the agent's `sync.previewed` event ahead of its write | Real: `aether_preview` / `POST /v1/sync/preview` resolve and diff every target without writing (engine ADR 014, shipped 2026-09-05) |
 | Eleven-stage run rail (queued → … → complete) | Illustrative: the engine journals six durable target states plus run status; a stage timeline would be projected from audit events |
 | Usage tier bar ("entity events this period" against a plan limit) | Illustrative: metering events are emitted; there is no usage summary or quota read model yet |
 | p95 latency, peak-per-hour, throughput history | Illustrative: the operations snapshot carries counts, not latency series |

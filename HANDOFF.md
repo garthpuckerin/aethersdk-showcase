@@ -77,7 +77,12 @@ morning if anything visible ships; recaptured on the 30-day graph at site
 `develop` f60e744). Graph onboarding DONE 2026-09-05: fleet-manifest entry in
 the code-graph repo (local commit on its `develop`, unpushed — that branch was
 already 44 ahead of origin, owner's call), re-ingest hook installed, first
-ingest fired at e087731. Standards compliance DONE 2026-09-05 (`BCSTANDARDS.md`,
+ingest fired at e087731. Agentic slice DONE 2026-09-05: the engine shipped `agent` actors with run ids
+(ADR 013, PR #172) and preview-before-commit (ADR 014, PR #173); the demo seeds
+the provisioning agent's run (`triggeredBy: agent`, `agentRunId`), its
+`sync.previewed` + `sync.completed` audit events, the Agent actor kind, and the
+run-detail row — README table rows added as engine-backed; seed version 4.
+Standards compliance DONE 2026-09-05 (`BCSTANDARDS.md`,
 routing homes under `docs/`, `capabilities.yaml`, `CHANGELOG.md`, hygiene
 block, CSP proven live). REMAINING (T-3 → T-2, Sep 6–8): history-level
 public-safety review: DONE for current files 2026-09-05 (docs scrubbed, scan

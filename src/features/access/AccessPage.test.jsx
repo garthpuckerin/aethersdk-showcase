@@ -50,6 +50,8 @@ describe('AccessPage', () => {
     expect(memberRows()).toHaveLength(selectMembers(state).length);
     expect(screen.getByText('Amalia Frost')).toBeVisible();
     expect(screen.getAllByText('Service actor').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Agent actor')).toHaveLength(1);
+    expect(screen.getByText('Provisioning agent')).toBeVisible();
     expect(screen.getByLabelText('Status: Invited')).toBeVisible();
     await user.click(screen.getByRole('button', { name: 'Edit Priya Nair' }));
     const drawer = screen.getByRole('dialog', { name: 'Priya Nair' });

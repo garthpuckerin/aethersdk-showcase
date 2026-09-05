@@ -31,3 +31,9 @@ capabilities:
     summary: Same-origin runtime, no external requests, no console errors, no private paths or secrets in the repository.
     surfaces: [repository, deployed demo]
     proof: [e2e/public-safety.spec.js, scripts/public-safety-scan.mjs]
+  - id: agent-governed-run
+    status: live
+    owner: garthpuckerin
+    summary: An agent-initiated provisioning run, previewed before commit, audited under the agent actor with its run id — the demo's engine-backed agentic row (engine ADR 013 + 014).
+    surfaces: [app/runs, app/audit, app/access, app/overview]
+    proof: [src/demo/agentRun.test.js, src/features/audit/AuditPage.test.jsx, src/features/access/AccessPage.test.jsx]

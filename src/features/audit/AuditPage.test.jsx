@@ -20,6 +20,21 @@ function rows() {
 }
 
 describe('AuditPage', () => {
+  it('shows the agent actor kind and its run id on agent events', async () => {
+    const user = userEvent.setup();
+    const state = buildState();
+    const preview = selectAuditEvents(state).find(({ action }) => action === 'sync.previewed');
+    expect(preview).toBeTruthy();
+    renderAudit(state);
+    await user.type(screen.getByRole('searchbox', { name: 'Search' }), preview.requestId);
+    const agentRows = rows().filter((row) => within(row).queryByText('Provisioning agent'));
+    expect(agentRows.length).toBeGreaterThanOrEqual(2);
+    for (const row of agentRows) {
+      expect(within(row).getByText(/agent/, { selector: 'small' })).toBeVisible();
+      expect(within(row).getByText(preview.actorRunId)).toBeVisible();
+    }
+  });
+
   it('filters the stream by resource-type chip', async () => {
     const user = userEvent.setup();
     const state = buildState();

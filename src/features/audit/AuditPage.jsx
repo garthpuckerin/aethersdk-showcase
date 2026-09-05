@@ -22,6 +22,13 @@ const EXPORT_FORMATS = ['JSONL', 'CSV'];
 const INITIAL_FILTERS = { search: '', resourceType: 'all', actor: 'all', family: 'all', window: 'all' };
 
 /* The action family is the first dotted segment (sync, connector, webhook…). */
+/* Actor kinds mirror the engine's ActorType: user · service · agent (ADR 013). */
+function actorKindLabel(member) {
+  if (member?.kind === 'service') return 'service';
+  if (member?.kind === 'agent') return 'agent';
+  return 'user';
+}
+
 function actionFamily(action) {
   return action.split('.')[0];
 }
@@ -136,7 +143,7 @@ export default function AuditPage() {
   const columns = [
     { key: 'id', label: 'Event', render: (event) => <code>{event.id}</code> },
     { key: 'action', label: 'Action', render: (event) => <span className="audit-action"><span className={`status-dot status-dot--${actionTone(event.action)}`} aria-hidden="true" />{event.action}</span> },
-    { key: 'actor', label: 'Actor', render: (event) => { const member = state.members[event.actorId]; return <span className="audit-actor"><strong>{member?.name ?? event.actorId}</strong><small>{member?.kind === 'service' ? 'service' : 'user'}</small></span>; } },
+    { key: 'actor', label: 'Actor', render: (event) => { const member = state.members[event.actorId]; return <span className="audit-actor"><strong>{member?.name ?? event.actorId}</strong><small>{actorKindLabel(member)}{event.actorRunId ? <> · <code>{event.actorRunId}</code></> : null}</small></span>;} },
     { key: 'resource', label: 'Resource', render: (event) => { const href = resourceHref(event); return href ? <Link to={href}>{event.resourceId}</Link> : <code>{event.resourceId}</code>; } },
     { key: 'detail', label: 'Detail', render: (event) => <span className="audit-detail">{event.detail ?? '—'}</span> },
     { key: 'request', label: 'Request', render: (event) => <code>{event.requestId}</code> },

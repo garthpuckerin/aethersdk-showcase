@@ -9,7 +9,7 @@ import { daysBefore, hoursBefore, minutesBefore, nowIso } from './clock.js';
 
 export const TENANT_ID = 'tenant_harborline';
 export const OTHER_TENANT_ID = 'tenant_other';
-export const SEED_VERSION = 3;
+export const SEED_VERSION = 4;
 
 const EMPLOYEE_TYPE = 'corporate.employee.v1';
 const COURSE_TYPE = 'learning.course.v1';
@@ -101,7 +101,14 @@ const MEMBER_SPECS = [
   { id: 'actor_invited', name: 'Jo Tran', email: 'jo.tran@harborline.example', roleId: 'operator', kind: 'member', status: 'invited', lastActiveMinutesAgo: null },
   { id: 'actor_service', name: 'Sync worker', email: 'svc-sync@harborline.example', roleId: 'operator', kind: 'service', status: 'active', lastActiveMinutesAgo: 1 },
   { id: 'actor_scim', name: 'Okta SCIM', email: 'svc-scim@harborline.example', roleId: 'developer', kind: 'service', status: 'active', lastActiveMinutesAgo: 4 },
+  /* An agent is a first-class actor (engine ADR 013): it holds a role like
+     any principal, and every audit event it produces names its run. */
+  { id: 'actor_agent', name: 'Provisioning agent', email: 'agent-provisioning@harborline.example', roleId: 'operator', kind: 'agent', status: 'active', lastActiveMinutesAgo: 41 },
 ];
+
+/* The one agent-initiated run in the history: the provisioning agent previewed
+   the write first (engine ADR 014), then ran it under its own run id. */
+const AGENT_RUN = { minutesAgo: 41, durationMs: 6_400, agentRunId: 'agent-run-7f3a', source: 'con_ukg', targets: ['con_docebo', 'con_linkedin', 'con_axonify'] };
 
 const SUBSCRIPTION_SPECS = [
   { id: 'sub_ops', name: 'Operations event stream', eventTypes: ['sync.completed', 'sync.target_failed', 'sync.retried'], status: 'active', destination: 'https://hooks.harborline.example/aether/operations', createdDaysAgo: 140 },
@@ -209,6 +216,22 @@ function buildHistory(anchor, random) {
     startedAt: minutesBefore(anchor, 3), completedAt: null, requestId: `req_${String(sequence).padStart(4, '0')}`, idempotencyKey: `idem_jira_tickets_${String(sequence).padStart(4, '0')}`, stage: 'provider_write', triggeredBy: 'schedule',
   });
 
+  /* The agent-initiated provisioning run (previewed, then written by the agent). */
+  sequence += 1;
+  const agentRunId = `run_${String(sequence).padStart(4, '0')}`;
+  const agentEntities = 1;
+  const agentOutcomeIds = AGENT_RUN.targets.map((targetId) => {
+    const outcomeId = `out_${agentRunId}_${targetId}`;
+    targetOutcomes.push({ id: outcomeId, tenantId: TENANT_ID, runId: agentRunId, connectorId: targetId, status: 'success', remoteId: `${targetId.replace('con_', '')}_${between(random, [10_000, 99_999])}`, errorCode: null, retryable: false, retryCount: 0 });
+    return outcomeId;
+  });
+  runs.push({
+    id: agentRunId, tenantId: TENANT_ID, connectorId: AGENT_RUN.source, sourceConnectorId: AGENT_RUN.source, targetConnectorIds: [...AGENT_RUN.targets], targetOutcomeIds: agentOutcomeIds,
+    canonicalEntityId: pick(random, RECIPE_ENTITIES.EMPLOYEES), entityType: EMPLOYEE_TYPE, operation: 'provision', direction: 'outbound', status: 'success', entitiesProcessed: agentEntities,
+    durationMs: AGENT_RUN.durationMs, p95Ms: 142, startedAt: minutesBefore(anchor, AGENT_RUN.minutesAgo), completedAt: minutesBefore(anchor, AGENT_RUN.minutesAgo - 1),
+    requestId: `req_${String(sequence).padStart(4, '0')}`, idempotencyKey: `idem_agent_provision_${String(sequence).padStart(4, '0')}`, stage: 'complete', triggeredBy: 'agent', agentRunId: AGENT_RUN.agentRunId,
+  });
+
   runs.sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt));
   return { runs, targetOutcomes };
 }
@@ -227,18 +250,36 @@ const GOVERNANCE_EVENTS = [
 
 function buildAudit(anchor, runs) {
   const events = [];
+  const actorForRun = (run) => (run.triggeredBy === 'operator' ? 'actor_operator' : run.triggeredBy === 'agent' ? 'actor_agent' : 'actor_service');
   for (const run of runs.filter((run) => run.status !== 'running')) {
+    if (run.triggeredBy === 'agent') {
+      // Preview before commit (engine ADR 014): resolved, diffed, nothing written.
+      events.push({
+        id: `evt_${run.id}_preview`,
+        tenantId: TENANT_ID,
+        actorId: 'actor_agent',
+        actorRunId: run.agentRunId,
+        action: 'sync.previewed',
+        resourceType: 'run',
+        resourceId: run.id,
+        requestId: run.requestId,
+        runId: run.id,
+        createdAt: minutesBefore(run.startedAt, 2),
+        detail: `Preview · ${run.targetConnectorIds.length} targets: 2 update, 1 create · no writes performed`,
+      });
+    }
     events.push({
       id: `evt_${run.id}`,
       tenantId: TENANT_ID,
-      actorId: run.triggeredBy === 'operator' ? 'actor_operator' : 'actor_service',
+      actorId: actorForRun(run),
+      actorRunId: run.agentRunId ?? null,
       action: run.status === 'failed' ? 'sync.target_failed' : 'sync.completed',
       resourceType: 'run',
       resourceId: run.id,
       requestId: run.requestId,
       runId: run.id,
       createdAt: run.completedAt ?? run.startedAt,
-      detail: run.status === 'failed' ? `${run.targetOutcomeIds.length} targets · 1 failed` : `${run.entitiesProcessed} ${run.entityType.split('.')[1]} records`,
+      detail: run.status === 'failed' ? `${run.targetOutcomeIds.length} targets · 1 failed` : `${run.entitiesProcessed} ${run.entityType.split('.')[1]} records${run.agentRunId ? ` · agent run ${run.agentRunId}` : ''}`,
     });
   }
   GOVERNANCE_EVENTS.forEach((event, index) => {

@@ -19,6 +19,14 @@ const TABS = [
 const PERSONA_LIST = Object.values(PERSONAS);
 const ALL_PERMISSIONS = Object.keys(PERMISSION_LABELS);
 
+/* Member kinds mirror the engine's actor types: a member is a user; service
+   and agent actors hold roles like any principal (engine ADR 013). */
+function kindLabel(member) {
+  if (member.kind === 'service') return 'Service actor';
+  if (member.kind === 'agent') return 'Agent actor';
+  return 'Member';
+}
+
 function initials(name) {
   return name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
 }
@@ -46,7 +54,7 @@ function RolePill({ roleId }) {
 function MembersTab({ members, connectors, rel, onInspect }) {
   const columns = [
     { key: 'member', label: 'Member', render: (member) => <div className="member-cell"><span className="avatar" aria-hidden="true">{initials(member.name)}</span><div><strong>{member.name}</strong><small>{member.email}</small></div></div> },
-    { key: 'kind', label: 'Kind', render: (member) => member.kind === 'service' ? 'Service actor' : 'Member' },
+    { key: 'kind', label: 'Kind', render: (member) => kindLabel(member) },
     { key: 'role', label: 'Role', render: (member) => <RolePill roleId={member.roleId} /> },
     { key: 'status', label: 'Status', render: (member) => <StatusBadge status={member.status} /> },
     { key: 'lastActive', label: 'Last active', render: (member) => lastActiveLabel(member, rel) },
@@ -76,7 +84,7 @@ function MemberDrawer({ member, connectors, rel, onClose, returnFocusRef }) {
         </div>
         <dl className="detail-list">
           <div><dt>Email</dt><dd><code>{member.email}</code></dd></div>
-          <div><dt>Kind</dt><dd>{member.kind === 'service' ? 'Service actor' : 'Member'}</dd></div>
+          <div><dt>Kind</dt><dd>{kindLabel(member)}</dd></div>
           <div><dt>Role</dt><dd><RolePill roleId={member.roleId} /></dd></div>
           <div><dt>Status</dt><dd><StatusBadge status={member.status} /></dd></div>
           <div><dt>Last active</dt><dd>{lastActiveLabel(member, rel)}</dd></div>

@@ -119,3 +119,14 @@ ADR-011), the engine's `docs/openapi-v1.json` (30 paths) and its
   `webhook.delivery.failed`, `webhook.dead_letter.created`,
   `connector.validated`, `authz.deny`). Aligning is a fixture rename.
 - The stale "operations summary missing" bullet in §2 is corrected above.
+
+### 2026-09-05 (later): engine shipped A1 + A3; demo now shows them
+- Engine: `agent` actor type with run id on every audit event (ADR 013, PR
+  #172) and preview-before-commit via `aether_preview` / `POST /v1/sync/preview`
+  (ADR 014, PR #173). Both `live` in the engine's `capabilities.yaml`.
+- Demo: seeded agent-initiated provisioning run (`triggeredBy: agent`,
+  `agentRunId`), `sync.previewed` + `sync.completed` audited under
+  `actor_agent` with `actorRunId`; Access shows "Agent actor"; Audit shows the
+  kind and run id; run detail shows the agent run. README table rows added as
+  engine-backed. Still illustrative: an approval step between preview and
+  write (engine A2 is backlog).

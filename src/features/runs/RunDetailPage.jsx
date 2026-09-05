@@ -96,6 +96,7 @@ export default function RunDetailPage() {
           <dl className="detail-grid detail-grid--single">
             <div><dt>Tenant</dt><dd>{tenant?.name ?? run.tenantId}</dd></div>
             <div><dt>Actor</dt><dd>{actorLabel(state, run)}</dd></div>
+            {run.agentRunId && <div><dt>Agent run</dt><dd><code>{run.agentRunId}</code><small className="muted"> · previewed before commit</small></dd></div>}
             <div><dt>Canonical entity</dt><dd>{entity?.displayName ?? '—'}<code className="run-context__id">{run.canonicalEntityId}</code></dd></div>
             <div><dt>Entity type</dt><dd><code>{run.entityType}</code></dd></div>
             <div><dt>Entities in batch</dt><dd>{run.entitiesProcessed}</dd></div>

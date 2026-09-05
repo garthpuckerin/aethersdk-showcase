@@ -5,6 +5,13 @@ not adopted, the Vercel production deploy of `main` is the release.
 
 ## Unreleased
 
+### Added
+- Agent as a governed actor: a seeded provisioning run initiated by the
+  provisioning agent, previewed before commit (`sync.previewed`) and completed
+  under the agent's run id; agent kind on Access and Audit; run detail shows the
+  agent run. Engine-backed (ADR 013 + 014 shipped 2026-09-05); README table
+  updated. Seed version 4.
+
 ### Security
 - Public-safety scan now covers every tracked file (was six public-surface
   roots), adds platform resource ids, and matches sealed sibling-project names
