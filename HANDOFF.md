@@ -50,6 +50,29 @@ owner voided that the same day. What applies:
   run stages; anchor the clock to `Date.now()`; persist reducer state; give the
   mobile companion bottom tabs and stop its rows escaping to desktop.
 
+## State after the T-5 depth pass (2026-09-04, session ended at usage limit)
+
+DONE and committed on `main`: fixture rewrite (Harborline FCU; UKG/Xperience →
+Docebo/LinkedIn Learning/Axonify; Tableau/Slack/Jira; 30 days of history
+anchored to the boot clock), autopilot engine (no engine verbs in product UI),
+persisted workflow state, canvas design language (light + dark), full breadth on
+every desktop screen, phone companion with bottom tabs, house sweeps ported.
+Verified: `npm run verify` green (29 files / 241 tests, coherence gate, build,
+safety scan); full Playwright 13 passed / 9 skipped-by-project; white-glove
+sweep clean (52 screens); viewport sweep clean (20 sizes). Last fixes landed
+without a re-run: integrations grid single-column ≤900px (tablet-portrait
+overflow), mobile-sweep allowlist now covers nested grids — **re-run
+`BASE_URL=http://localhost:3400 npm run sweeps` first thing next session.**
+
+REMAINING (T-3 → T-2, Sep 6–8): re-run sweeps + `npm run verify:release`;
+Vercel: rename project to `garthpuckerin-aethersdk`, re-enable Git production
+on `main`, confirm noindex; capture imagery from the live URL with
+`garthpuckerin.dev/scripts/capture-aether-preview.mjs` (LIGHT) then
+`build-previews.mjs`; onboard this repo into the the code-graph graph manifest;
+history-level public-safety review before the T-0 flip. Site side is already
+prepared on garthpuckerin.dev `develop` (reveal-meta, case study, chat KB,
+wall card; ritual dry-run green except the not-yet-captured assets).
+
 ## Gates
 
 `npm run verify` (lint · vitest · fixture verify · build · public-safety scan)

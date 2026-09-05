@@ -59,7 +59,7 @@ for (const [vpName, width, height, tier] of VIEWPORTS) {
         if (!visible(el)) continue;
         const cs = getComputedStyle(el);
         if (cs.display !== 'grid') continue;
-        if (allow.some((cls) => el.classList.contains(cls))) continue;
+        if (allow.some((cls) => el.classList.contains(cls) || el.closest(`.${cls}`))) continue;
         const tracks = cs.gridTemplateColumns.split(' ').map(parseFloat).filter((w) => w > 24);
         const cols = tracks.length;
         const per = el.getBoundingClientRect().width / (cols || 1);

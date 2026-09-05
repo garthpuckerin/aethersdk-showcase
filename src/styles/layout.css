@@ -157,7 +157,7 @@ kbd { padding: 0.1rem 0.35rem; border: 1px solid var(--color-border-strong); bor
 /* ── Breakpoints ──────────────────────────────────────────────────────── */
 @media (max-width: 1100px) {
   .grid-main-rail { grid-template-columns: 1fr; }
-  .kpi-strip { --kpi-columns: 3; }
+  .kpi-strip { --kpi-columns: 2; }
 }
 
 @media (max-width: 767px) {
@@ -187,3 +187,23 @@ kbd { padding: 0.1rem 0.35rem; border: 1px solid var(--color-border-strong); bor
   .dialog { max-height: calc(100dvh - 2rem); }
   .drawer { width: 100%; }
 }
+
+/* ── Narrow desktop (1024–1240): the top bar must stay one row and never
+   push the page wider than the viewport. Labels give way before controls. */
+@media (max-width: 1240px) and (min-width: 768px) {
+  .topbar { gap: var(--space-2); }
+  .command-trigger { width: min(12rem, 26vw); }
+  .environment-label { display: none; }
+  .persona-trigger > span:last-child { display: none; }
+  .tenant-switcher small { display: none; }
+}
+@media (max-width: 1024px) and (min-width: 768px) {
+  .topbar__context .status-badge { display: none; }
+  .command-trigger { width: 2.25rem; padding: 0; justify-content: center; }
+  .command-trigger > span:first-child, .command-trigger kbd { display: none; }
+  .command-trigger::before { content: '⌕'; }
+}
+
+/* ── Phone tap targets: every control on the companion is at least 40px. */
+.mobile-shell .chip, .mobile-shell .button--sm, .mobile-shell .mobile-switch, .mobile-shell select { min-height: 2.5rem; }
+.mobile-shell .mobile-switch { min-width: 3.25rem; }

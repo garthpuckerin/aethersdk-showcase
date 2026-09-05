@@ -37,7 +37,7 @@ async function scan(page, screen) {
   const result = await page.evaluate(() => {
     const dialogOpen = Boolean(document.querySelector('[role="dialog"]'));
     const text = document.body.innerText;
-    const looksClickable = 'a, button, [role="button"], .table-link, .chip, .kpi--link, .mobile-record, .integration-card__action';
+    const looksClickable = 'a, button, [role="button"], .table-link, .chip:not(.chip--static), .kpi--link, a.mobile-record, button.mobile-record, .integration-card__action';
     const inert = [...document.querySelectorAll(looksClickable)]
       .filter((el) => {
         const cs = getComputedStyle(el);

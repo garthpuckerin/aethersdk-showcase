@@ -15,7 +15,9 @@ export function describeRun(state, run) {
   const errorCode = outcomes.find(({ status }) => status === 'failed')?.errorCode ?? null;
   const event = state.auditEvents[`evt_${run.id}`] ?? (run.id === live.runId ? state.auditEvents[live.eventId] ?? null : null);
   const deliveries = Object.values(state.deliveries).filter((delivery) => delivery.runId === run.id);
-  const delivery = deliveries.find(({ status }) => status !== 'success') ?? deliveries[0] ?? null;
+  // Prefer the delivery that tells the recovery story: the reserved live one,
+  // then any delivery still in trouble, then the first delivered.
+  const delivery = deliveries.find(({ id }) => id === state.liveIds.deliveryId) ?? deliveries.find(({ status }) => status !== 'success') ?? deliveries[0] ?? null;
   const deadLetter = delivery ? Object.values(state.deadLetters).find((item) => item.deliveryId === delivery.id) ?? null : null;
   const targetIds = new Set(run.targetConnectorIds);
   const linkedConnectorIds = new Set(Object.values(state.entityLinks)

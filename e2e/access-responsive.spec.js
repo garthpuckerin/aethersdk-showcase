@@ -22,8 +22,9 @@ test('role changes govern navigation, deep links, records, commands, and saved a
   await page.getByRole('button', { name: 'Dense display' }).click();
   await page.getByRole('button', { name: 'Close Demo controls' }).click();
   await page.getByRole('button', { name: 'Search and commands' }).click();
-  await page.getByRole('searchbox').fill('webhooks');
-  await page.getByRole('option', { name: /webhooks/i }).first().click();
+  const palette = page.getByRole('dialog', { name: 'Search and commands' });
+  await palette.getByRole('searchbox').fill('webhooks');
+  await palette.getByRole('option', { name: /^webhooks/i }).first().click();
   await expect(page.getByRole('heading', { name: 'Webhooks & recovery' })).toBeVisible();
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');

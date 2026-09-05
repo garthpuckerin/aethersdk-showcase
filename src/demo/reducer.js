@@ -345,7 +345,9 @@ function replayDeadLetter(state, action) {
   const replayEvent = audit(next, { id: isLive ? 'evt_live_replay' : `evt_replay_${deadLetter.id}`, actorId: actorIdFor(personaId), action: 'webhook.replayed', resourceType: 'delivery', resourceId: delivery.id, requestId: delivery.requestId, runId: delivery.runId, detail: 'Same event, subscription, and payload identity · delivered on replay', at });
   const meterId = isLive ? 'meter_live_replay' : `meter_replay_${deadLetter.id}`;
   next.meteringEvents[meterId] = { id: meterId, tenantId: delivery.tenantId, sourceEventId: replayEvent.id, connectorId: next.runs[delivery.runId]?.connectorId ?? null, metric: 'webhook.replayed', quantity: 1, createdAt: at };
-  if (!Object.values(next.deadLetters).some(({ tenantId }) => tenantId === delivery.tenantId)) next.dependencies.dep_event_delivery.status = 'healthy';
+  // A successful replay proves the delivery path is back; the dependency
+  // reflects the listener's state, not the size of the recovery queue.
+  next.dependencies.dep_event_delivery.status = 'healthy';
   return allow(next);
 }
 

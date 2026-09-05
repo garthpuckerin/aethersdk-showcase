@@ -78,6 +78,10 @@
   .integration-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+@media (max-width: 900px) {
+  .integration-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 767px) {
   .integration-grid, .catalog-grid { grid-template-columns: 1fr; }
   .integrations-toolbar__search { flex-basis: 100%; }

@@ -10,7 +10,12 @@ test('one uninterrupted chain reaches DLQ replay and updates audit, overview, an
 
   await page.getByRole('link', { name: /open related audit event/i }).click();
   await expect(page.getByText(LIVE.eventId).first()).toBeVisible();
+  // The audit row links to the event's first delivery (operations stream); the
+  // HR receipts delivery is the one that exhausted, so open it from the table.
   await page.getByRole('link', { name: 'View delivery' }).first().click();
+  await expect(page.getByRole('heading', { name: 'Webhooks & recovery' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: `View ${LIVE.deliveryId}` }).click();
   const drawer = page.getByRole('dialog', { name: LIVE.deliveryId });
   await expect(drawer).toBeVisible();
   for (const id of [LIVE.requestId, LIVE.runId, LIVE.eventId, LIVE.payloadId, LIVE.subscriptionId]) await expect(drawer.getByText(id).first()).toBeVisible();

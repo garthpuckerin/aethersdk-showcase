@@ -90,7 +90,7 @@
   font-weight: 600;
 }
 .chip:hover { color: var(--color-ink); border-color: var(--color-border-strong); }
-.chip[aria-pressed="true"], .chip--active { color: var(--color-ink-inverse); background: var(--color-panel); border-color: var(--color-panel); }
+.chip[aria-pressed="true"], .chip--active { color: var(--color-ink-inverse); background: var(--color-ink); border-color: var(--color-ink); }
 .chip--static { cursor: default; }
 .chip--static:hover { color: var(--color-ink-muted); border-color: var(--color-border); }
 .chip--accent[aria-pressed="true"] { color: var(--color-accent-ink); background: var(--color-accent); border-color: var(--color-accent); }
@@ -98,13 +98,13 @@
 /* ── Segmented control (Roomy / Dense, 24h / 7d / 30d) ───────────────── */
 .segmented { display: inline-flex; padding: 0.15rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); }
 .segmented button { min-height: 1.7rem; padding: 0 0.6rem; border: 0; border-radius: var(--radius-xs); color: var(--color-ink-muted); background: transparent; cursor: pointer; font-size: var(--text-sm); font-weight: 600; }
-.segmented button[aria-pressed="true"] { color: var(--color-ink-inverse); background: var(--color-panel); }
+.segmented button[aria-pressed="true"] { color: var(--color-ink-inverse); background: var(--color-ink); }
 .segmented--dark { border-color: var(--color-panel-border); background: color-mix(in srgb, var(--color-ink-inverse) 8%, transparent); }
 .segmented--dark button { color: var(--color-panel-muted); }
 .segmented--dark button[aria-pressed="true"] { color: var(--color-accent-ink); background: var(--color-accent); }
 
 /* ── Avatars & marks ──────────────────────────────────────────────────── */
-.avatar { display: inline-grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 50%; color: var(--color-ink-inverse); background: var(--color-panel); font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.02em; }
+.avatar { display: inline-grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 50%; color: var(--color-ink-inverse); background: var(--color-ink); font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.02em; }
 .avatar--lg { width: 2.25rem; height: 2.25rem; font-size: 0.7rem; }
 .provider-mark { display: inline-grid; place-items: center; flex: none; width: 1.9rem; height: 1.9rem; border: 1px solid var(--color-border); border-radius: var(--radius-xs); background: var(--color-surface-muted); color: var(--color-ink-muted); font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700; }
 .provider-mark--sm { width: 1.5rem; height: 1.5rem; font-size: 0.55rem; }
