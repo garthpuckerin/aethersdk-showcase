@@ -92,6 +92,17 @@ ISSUE-005. Site side is prepared on garthpuckerin.dev
 `develop` (reveal-meta, case study, chat KB, wall card, imagery; ritual dry-run
 green except the T-1 teaser staging).
 
+Route A (owner's call 2026-09-05, "a"): the reveal carries a recorded session
+of a real agent driving the real engine over MCP — preview before commit, then
+sync, then an idempotent replay, with the engine's admin UI showing the agent
+actor and its run id in the audit trail. Engine side DONE 2026-09-05 (local
+providers admitted into the production profile, ADR 015; rehearsal kit and
+session script checked into the engine repo under `scripts/rehearsal/`; dry
+run proven end to end). Onboarding step 3 now points at the seeded agent run
+(`main` dc0a0f6, live). REMAINING: the recording itself is the owner's
+(review every frame for secrets, absolute paths and sealed names before it is
+embedded), then the case-study embed on the site.
+
 ## Owner-caught defects (2026-09-04) — FIXED 2026-09-05
 
 All three below are fixed in `OnboardingDialog.jsx` (+ unit tests, `layout.css`)
