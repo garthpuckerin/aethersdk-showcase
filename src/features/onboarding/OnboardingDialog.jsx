@@ -13,7 +13,7 @@ const STEPS = [
   {
     title: 'Trace one seam',
     eyebrow: 'Guided task',
-    body: 'Validate UKG, run the new-hire provisioning sync to Docebo, LinkedIn Learning and Axonify, retry the one failed target, then follow its audit event into webhook delivery and dead-letter replay.',
+    body: 'Validate UKG, run the new-hire provisioning sync to Docebo, LinkedIn Learning and Axonify, retry the one failed target, then follow its audit event into webhook delivery and dead-letter replay. Then find the provisioning agent in the audit trail: it previewed its write before committing, and every event carries its run id — the same governed path, a different kind of actor.',
   },
   {
     title: 'Your cockpit is ready',

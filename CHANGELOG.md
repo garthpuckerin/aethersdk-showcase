@@ -12,6 +12,10 @@ not adopted, the Vercel production deploy of `main` is the release.
   agent run. Engine-backed (ADR 013 + 014 shipped 2026-09-05); README table
   updated. Seed version 4.
 
+### Changed
+- Onboarding step 3 now points the visitor at the provisioning agent in the
+  audit trail (preview before commit, run id on every event).
+
 ### Security
 - Public-safety scan now covers every tracked file (was six public-surface
   roots), adds platform resource ids, and matches sealed sibling-project names
