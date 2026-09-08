@@ -94,8 +94,10 @@ green except the T-1 teaser staging).
 
 Route A (owner's call 2026-09-05, "a"): the reveal carries a recorded session
 of a real agent driving the real engine over MCP — preview before commit, then
-sync, then an idempotent replay, with the engine's admin UI showing the agent
-actor and its run id in the audit trail. Engine side DONE 2026-09-05 (local
+sync, then an idempotent replay, with the engine CLI's audit receipt naming
+the agent actor and its run id (the engine admin UI is superseded by this
+cockpit and stays off camera; the cockpit's Audit page is the cutaway,
+captioned as fixture data). Engine side DONE 2026-09-05 (local
 providers admitted into the production profile, ADR 015; rehearsal kit and
 session script checked into the engine repo under `scripts/rehearsal/`; dry
 run proven end to end). Onboarding step 3 now points at the seeded agent run
