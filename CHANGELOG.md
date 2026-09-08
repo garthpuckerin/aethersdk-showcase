@@ -17,6 +17,9 @@ not adopted, the Vercel production deploy of `main` is the release.
   audit trail (preview before commit, run id on every event).
 
 ### Security
+- History rewritten before the public flip (ISSUE-005 closed): private
+  checkout paths, platform ids, sealed sibling names and stray presentation
+  media removed from every commit; current files unchanged.
 - Public-safety scan now covers every tracked file (was six public-surface
   roots), adds platform resource ids, and matches sealed sibling-project names
   by SHA-256 so the denylist itself cannot spoil a reveal. Docs scrubbed of
