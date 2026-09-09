@@ -33,7 +33,7 @@ owner voided that the same day. What applies:
   `evidence/aether-2026-09-10`, `_worktrees\aethersdk-showcase-build` on
   `codex/showcase-build`) are retired at T+0 — do not develop in them. Codex's
   untracked `HANDOFF.md` in the worktree is superseded by this file.
-- **Captures:** LIGHT theme (owner prefers the Claude Design canvas language);
+- **Captures:** DARK theme — owner decision 2026-09-09, reversing the 2026-09-03 LIGHT call (all reveals now capture dark; `AETHER_THEME=light` restores the earlier look);
   full-width 1968px source → preview/OG/teaser via a clone of
   `garthpuckerin.dev/scripts/capture-ops-preview.mjs`, from the live deploy.
 - **Featured integrations (owner, 2026-09-03):** rewrite the fixture graph to
