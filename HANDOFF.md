@@ -101,9 +101,12 @@ captioned as fixture data). Engine side DONE 2026-09-05 (local
 providers admitted into the production profile, ADR 015; rehearsal kit and
 session script checked into the engine repo under `scripts/rehearsal/`; dry
 run proven end to end). Onboarding step 3 now points at the seeded agent run
-(`main` dc0a0f6, live). REMAINING: the recording itself is the owner's
-(review every frame for secrets, absolute paths and sealed names before it is
-embedded), then the case-study embed on the site.
+(`main` dc0a0f6, live). Recording DONE 2026-09-10 by Claude (owner asked): a 72 s
+session replay rendered from a real MCP transcript (fresh state, run
+`run-2026-09-10-01`), cockpit Audit cutaway in dark from the live demo, every
+frame reviewed; embedded in the case study on garthpuckerin.dev (v2.16.0) and
+captioned as rendered from the transcript rather than screen-captured. The
+engine admin UI is not on camera. Tooling: engine kit `scripts/rehearsal/video/`.
 
 ## Owner-caught defects (2026-09-04) — FIXED 2026-09-05
 
