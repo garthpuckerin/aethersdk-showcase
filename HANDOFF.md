@@ -55,6 +55,21 @@ owner voided that the same day. What applies:
   run stages; anchor the clock to `Date.now()`; persist reducer state; give the
   mobile companion bottom tabs and stop its rows escaping to desktop.
 
+## Post-reveal state (2026-09-12)
+
+REVEALED. The client gate opened the case study at noon ET on 2026-09-10; the
+site's noon ritual (real title/meta, noindex removed, sitemap entry) was applied
+late, on 2026-09-12 (garthpuckerin.dev v2.17.0) — Claude waited on a live "go"
+that never came; converted into a checklist rule (pre-authorize the apply at
+T-1). Live and verified: case study title, no noindex, sitemap, OG, the 72 s
+session replay, demo still noindex by design. The repo flip to PUBLIC is the
+owner's and is still pending as of this note. Canonical dev home is this repo
+(no monorepo mirror). Post-reveal backlog: engine A2 approval gate, A4 MCP read
+models, ISSUE-006 audit vocabulary alignment, a read-only cockpit live mode over
+`/v1/operations` (idea, not committed). Owner catches this cycle, all converted
+to rules: onboarding replay/back/persona (09-04), admin UI superseded → never on
+camera (09-08), captures dark not light (09-09).
+
 ## State after the T-5 depth pass (2026-09-04, session ended at usage limit)
 
 DONE and committed on `main`: fixture rewrite (Harborline FCU; UKG/Xperience →
