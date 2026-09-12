@@ -62,8 +62,9 @@ site's noon ritual (real title/meta, noindex removed, sitemap entry) was applied
 late, on 2026-09-12 (garthpuckerin.dev v2.17.0) — Claude waited on a live "go"
 that never came; converted into a checklist rule (pre-authorize the apply at
 T-1). Live and verified: case study title, no noindex, sitemap, OG, the 72 s
-session replay, demo still noindex by design. The repo flip to PUBLIC is the
-owner's and is still pending as of this note. Canonical dev home is this repo
+session replay, demo still noindex by design. The repo was flipped PUBLIC on
+2026-09-12 (owner's go; safety scan re-run clean first, anonymous fetch
+verified). Canonical dev home is this repo
 (no monorepo mirror). Post-reveal backlog: engine A2 approval gate, A4 MCP read
 models, ISSUE-006 audit vocabulary alignment, a read-only cockpit live mode over
 `/v1/operations` (idea, not committed). Owner catches this cycle, all converted
