@@ -57,6 +57,26 @@
 - **Evidence:** stage rail, usage tier bar, latency/throughput KPIs, invite member, rotate credential reference, export audit trail have no engine endpoint (`docs/DEMO_DRIVEN_DELTAS.md` §5 G1–G8).
 - **Next action:** none in the demo; the engine backlog carries the production shapes. Revisit the table whenever an engine capability lands.
 
+### ISSUE-008 · No tablet tier; tablets get the full console
+- **Severity:** medium · **Status:** open · **Visible:** yes, 768+ px touch screens
+- **Evidence:** benchmark (2026-09-21): phone shell only ≤767px, so tablets get the desktop console with 39-63 undersized targets and sideways table overflow; the sweeps assert the sidebar MUST be present there. Not re-measured live.
+- **Next action:** a designed tablet companion tier; update the sweeps that assert the opposite.
+
+### ISSUE-009 · "Open full desktop console" has no way back and renders desktop parts at 390px
+- **Severity:** medium · **Status:** open · **Visible:** yes
+- **Evidence:** benchmark: 54 of 58 targets small, a table and sideways scroll at 390px, and no path back. `ResponsiveBoot` (`src/app/routes.jsx:40`) honours `?view=desktop` and a session flag but nothing offers the return.
+- **Next action:** real desktop at desktop width via the viewport meta (Janus `viewportContentFor`), with a visible way back.
+
+### ISSUE-010 · A desktop URL on a phone always lands on `/mobile/home`
+- **Severity:** low · **Status:** open · **Visible:** yes
+- **Evidence:** benchmark; `ResponsiveBoot` redirects regardless of the opened route.
+- **Next action:** map each desktop route to its `/mobile/*` equivalent.
+
+### ISSUE-011 · Touch targets are 36-40px by design; phone landscape keeps the bottom bar; `/mobile/runs` is unpaged
+- **Severity:** low-medium · **Status:** open · **Visible:** yes
+- **Evidence:** `src/styles/layout.css:214` says "at least 40px"; benchmark: 66% of height left in landscape, `/mobile/runs` 3.6-7 viewports.
+- **Next action:** 44×44 floor, side-rail tabs on short landscape, paging on runs.
+
 ## Closed
 
 - 2026-09-05 · Replay onboarding reopened on the last step; no Back button;
